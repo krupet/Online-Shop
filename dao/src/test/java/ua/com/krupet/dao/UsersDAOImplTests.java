@@ -27,6 +27,7 @@ public class UsersDAOImplTests extends BaseDaoTest{
         User dbCustomer = usersDAO.createUser(newCustomer);
         assertNotNull(dbCustomer);
         assertNotNull(dbCustomer.getId());
+        System.out.println("*Tests!");
     }
 
     private User getTestUser() {
