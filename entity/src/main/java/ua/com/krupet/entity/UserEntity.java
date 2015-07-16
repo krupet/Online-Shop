@@ -1,5 +1,7 @@
 package ua.com.krupet.entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -43,8 +45,8 @@ public class UserEntity implements Serializable{
     @Column(name = "user_password", nullable = false)
     private String password; // TODO: md5 hashing!
 
-    @OneToOne
-    @PrimaryKeyJoinColumn
+    @OneToOne(mappedBy="user")
+    @Cascade(value=org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private RoleEntity role;
 
     @OneToMany(mappedBy = "customer")

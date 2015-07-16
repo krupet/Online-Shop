@@ -5,6 +5,8 @@ import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ua.com.krupet.BaseDaoTest;
+import ua.com.krupet.RoleTypes;
+import ua.com.krupet.entity.RoleEntity;
 import ua.com.krupet.entity.UserEntity;
 
 import java.util.Date;
@@ -21,6 +23,10 @@ public class EntityDaoImplTest extends BaseDaoTest{
     public void entityTest() {
         UserEntity user = new UserEntity("firstName", "lastName", "email", "1L", "postCode", "address",
                 new Date().getTime(),"login", "password", null, null);
+
+        RoleEntity role = new RoleEntity(user.getLogin(), RoleTypes.ROLE_USER);
+        user.setRole(role);
+        role.setUser(user);
 
         Session session = sessionFactory.openSession();
         Long customerID = (Long) session.save(user);

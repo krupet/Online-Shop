@@ -1,10 +1,12 @@
 package ua.com.krupet.entity;
 
-import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.*;
 import org.hibernate.annotations.CascadeType;
 import ua.com.krupet.RoleTypes;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Created by krupet on 11.07.2015.
@@ -15,6 +17,8 @@ public class RoleEntity {
 
     @Id
     @Column(name = "role_id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(name="gen", strategy="foreign", parameters={@org.hibernate.annotations.Parameter(name="property", value="user")})
     private Long id;
 
     @Column(name = "user_name")
@@ -24,8 +28,8 @@ public class RoleEntity {
     @Enumerated(EnumType.STRING)
     private RoleTypes role;
 
-    @OneToOne(mappedBy = "role")
-    @Cascade(value = CascadeType.SAVE_UPDATE)
+    @OneToOne
+    @PrimaryKeyJoinColumn
     private UserEntity user;
 
     public RoleEntity() {

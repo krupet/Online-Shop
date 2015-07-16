@@ -15,8 +15,6 @@ import static junit.framework.Assert.assertNotNull;
  */
 public class UsersDAOImplTests extends BaseDaoTest{
 
-    private static long count = 0;
-
     @Autowired
     private UsersDAO usersDAO;
 
@@ -27,19 +25,16 @@ public class UsersDAOImplTests extends BaseDaoTest{
         User dbCustomer = usersDAO.createUser(newCustomer);
         assertNotNull(dbCustomer);
         assertNotNull(dbCustomer.getId());
-        System.out.println("*Tests!");
     }
 
     private User getTestUser() {
-
-        count++;
         /*
             using String.format to avoid collisions in some values
             where in db properties is unique = true
          */
-        return new User(String.format("test_firstName_%d", count),
+        return new User("test_firstName",
                         "test_lastName",
-                        "test_email@gmail.com",
+                        String.format("test_email%d@gmail.com", new Date().getTime()),
                         "test_age",
                         "test_postCode",
                         "test_address",

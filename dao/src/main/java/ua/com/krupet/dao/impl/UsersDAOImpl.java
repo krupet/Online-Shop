@@ -29,6 +29,8 @@ public class UsersDAOImpl implements UsersDAO {
         RoleEntity role = new RoleEntity(user.getLogin(), RoleTypes.ROLE_USER);
         customerEntity.setRole(role);
 
+        role.setUser(customerEntity);
+
         Long customerID = (Long) session.save(customerEntity);
         UserEntity dbCustomer = (UserEntity) session.get(UserEntity.class, customerID);
 
