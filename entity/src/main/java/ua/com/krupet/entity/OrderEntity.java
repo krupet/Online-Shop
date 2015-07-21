@@ -1,9 +1,11 @@
 package ua.com.krupet.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import ua.com.krupet.OrderStatus;
-import ua.com.krupet.Product;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,17 +33,30 @@ public class OrderEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity customer;
 
-    @OneToMany(mappedBy = "order")
-    private List<ProductEntity> productList;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "order_products", joinColumns = @JoinColumn(name = "order_id"))
+    @Column(name = "product_id")
+    private List<Long> productIDList = new ArrayList<>();
 
     public OrderEntity() {
     }
 
-    public OrderEntity(Long creationDate, OrderStatus status, UserEntity customer, List<ProductEntity> productList) {
+    public OrderEntity(Long creationDate, OrderStatus status) {
+        this.creationDate = creationDate;
+        this.status = status;
+    }
+
+    public OrderEntity(Long creationDate, OrderStatus status, UserEntity customer) {
         this.creationDate = creationDate;
         this.status = status;
         this.customer = customer;
-        this.productList = productList;
+    }
+
+    public OrderEntity(Long creationDate, OrderStatus status, UserEntity customer, List<Long> productIDList) {
+        this.creationDate = creationDate;
+        this.status = status;
+        this.customer = customer;
+        this.productIDList = productIDList;
     }
 
     public Long getId() {
@@ -76,11 +91,11 @@ public class OrderEntity {
         this.customer = customer;
     }
 
-    public List<ProductEntity> getProductList() {
-        return productList;
+    public List<Long> getProductIDList() {
+        return productIDList;
     }
 
-    public void setProductList(List<ProductEntity> productList) {
-        this.productList = productList;
+    public void setProductIDList(List<Long> productIDList) {
+        this.productIDList = productIDList;
     }
 }

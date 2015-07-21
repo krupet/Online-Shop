@@ -34,22 +34,16 @@ public class ProductEntity {
     @Column(name = "product)creation_time", nullable = false)
     private Long creationDate;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
-    private OrderEntity order;
-
     public ProductEntity() {
     }
 
-    public ProductEntity(String name, String brand, String description, BigDecimal price, String pictureLink,
-                         Long creationDate, OrderEntity order) {
+    public ProductEntity(String name, String brand, String description, BigDecimal price, String pictureLink, Long creationDate) {
         this.name = name;
         this.brand = brand;
         this.description = description;
         this.price = price;
         this.pictureLink = pictureLink;
         this.creationDate = creationDate;
-        this.order = order;
     }
 
     public Long getId() {
@@ -106,13 +100,5 @@ public class ProductEntity {
 
     public void setCreationDate(Long creationDate) {
         this.creationDate = creationDate;
-    }
-
-    public OrderEntity getOrder() {
-        return order;
-    }
-
-    public void setOrder(OrderEntity order) {
-        this.order = order;
     }
 }
