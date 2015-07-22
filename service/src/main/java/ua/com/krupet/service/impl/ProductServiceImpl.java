@@ -1,6 +1,8 @@
 package ua.com.krupet.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import ua.com.krupet.Product;
 import ua.com.krupet.dao.ProductDAO;
 import ua.com.krupet.service.ProductService;
 
@@ -15,7 +17,14 @@ public class ProductServiceImpl implements ProductService{
     private ProductDAO productDAO;
 
     @Override
-    public List<String> getProductsList() {
+    @Transactional
+    public Product postProduct(Product product) {
+        return productDAO.postProduct(product);
+    }
+
+    @Override
+    @Transactional
+    public List<Product> getProductsList() {
         return productDAO.getProductsList();
     }
 }

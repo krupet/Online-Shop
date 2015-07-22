@@ -1,5 +1,7 @@
 package ua.com.krupet.service;
 
+import ua.com.krupet.Product;
+
 import java.util.List;
 
 /**
@@ -7,5 +9,6 @@ import java.util.List;
  */
 public interface ProductService {
 
-    List<String> getProductsList();
+    Product postProduct(Product product);
+    List<Product> getProductsList();
 }

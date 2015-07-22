@@ -8,19 +8,90 @@
 
     <h:head>
         <title>Welcome!</title>
+        <style type="text/css">
+            .tg {
+                border-collapse: collapse;
+                border-spacing: 0;
+                border-color: #ccc;
+            }
+
+            .tg td {
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                padding: 10px 5px;
+                border-style: solid;
+                border-width: 1px;
+                overflow: hidden;
+                word-break: normal;
+                border-color: #ccc;
+                color: #333;
+                background-color: #fff;
+            }
+
+            .tg th {
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                font-weight: normal;
+                padding: 10px 5px;
+                border-style: solid;
+                border-width: 1px;
+                overflow: hidden;
+                word-break: normal;
+                border-color: #ccc;
+                color: #333;
+                background-color: #f0f0f0;
+            }
+
+            .tg .tg-4eph {
+                background-color: #f9f9f9
+            }
+        </style>
     </h:head>
 
     <h:body>
         <h1>Welcome!</h1><br></br>
 
-        <h2>Car Names List</h2>
+        <h1>Add a Product</h1>
+        <h:form>
+            <table>
+                <tr>
+                    <td><label>Name</label></td>
+                    <td><h:inputText id="name" value="#{product.name}"></h:inputText>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Brand</label></td>
+                    <td><h:inputText id="brand" value="#{product.brand}"></h:inputText>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Description</label></td>
+                    <td><h:inputText id="description" value="#{product.description}"></h:inputText>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Price</label></td>
+                    <td><h:inputText id="price" value="#{product.price}"></h:inputText>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>PicLink</label></td>
+                    <td><h:inputText id="piclink" value="#{product.pictureLink}"></h:inputText>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Creation Date</label></td>
+                    <td><h:inputText id="cr_date" value="#{product.creationDate}"></h:inputText>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><h:commandButton
+                            action="#{productBean.postProduct(product)}" value="Add Product"></h:commandButton>
+                    </td>
+                </tr>
 
-        <ul>
+            </table>
 
-            <ui:repeat var="products" value="#{productBean.getProductsList()}">
-                <li><h3>#{products}</h3></li>
-            </ui:repeat>
-
-        </ul>
+        </h:form>
     </h:body>
 </html>

@@ -10,6 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import ua.com.krupet.dao.ProductDAO;
 import ua.com.krupet.dao.impl.ProductDAOImpl;
 
@@ -20,6 +21,7 @@ import java.util.Properties;
  * Created by krupet on 04.07.2015.
  */
 @Configuration
+@EnableTransactionManagement
 @ComponentScan("ua.com.krupet")
 @PropertySource({"classpath:persistence.properties"})
 public class HibernateOrmConfig {
