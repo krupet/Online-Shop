@@ -20,8 +20,7 @@ public class ProductBean {
     private ProductService productService;
 
     public void postProduct(Product product) {
-        System.out.println("creating product");
-        System.out.println(productService.postProduct(product));
+        productService.postProduct(product);
     }
 
     public List<Product> getProductsList() {

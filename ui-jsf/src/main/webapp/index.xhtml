@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <h:head>
         <title>Welcome!</title>
@@ -93,5 +94,30 @@
             </table>
 
         </h:form>
+
+        <c:if test="${!empty productBean.productsList}">
+            <table class="tg">
+                <tr>
+                    <th width="80">Product ID</th>
+                    <th width="120">Product Name</th>
+                    <th width="120">Product Brand</th>
+                    <th width="120">Product Description</th>
+                    <th width="120">Product Price</th>
+                    <th width="120">Product Picture</th>
+                    <th width="120">Product Creation Date</th>
+                </tr>
+                <ui:repeat value="${productBean.productsList}" var="product">
+                    <tr>
+                        <td>${product.id}</td>
+                        <td>${product.name}</td>
+                        <td>${product.brand}</td>
+                        <td>${product.description}</td>
+                        <td>${product.price}</td>
+                        <td>${product.pictureLink}</td>
+                        <td>${product.creationDate}</td>
+                    </tr>
+                </ui:repeat>
+            </table>
+        </c:if>
     </h:body>
 </html>
