@@ -3,18 +3,18 @@ package ua.com.krupet.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import ua.com.krupet.service.ProductService;
-import ua.com.krupet.service.impl.ProductServiceImpl;
+import ua.com.krupet.jsfbeans.ProductBean;
 
 /**
- * Created by krupet on 7/21/15.
+ * Created by krupet on 7/22/15.
  */
+
 @Configuration
 @ComponentScan({"ua.com.krupet"})
-public class ServiceConfig {
+public class JSFBeansConfig {
 
     @Bean
-    public ProductService productService() {
-        return new ProductServiceImpl();
+    public ProductBean productBean() {
+        return new ProductBean();
     }
 }

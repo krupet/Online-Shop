@@ -10,6 +10,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import ua.com.krupet.dao.ProductDAO;
+import ua.com.krupet.dao.impl.ProductDAOImpl;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -66,5 +68,10 @@ public class HibernateOrmConfig {
         hibernateTransactionManager.setSessionFactory(sessionFactory);
 
         return hibernateTransactionManager;
+    }
+
+    @Bean
+    public ProductDAO productDAO() {
+        return new ProductDAOImpl();
     }
 }

@@ -11,6 +11,16 @@
     </h:head>
 
     <h:body>
-        <h1>Welcome!</h1>
+        <h1>Welcome!</h1><br></br>
+
+        <h2>Car Names List</h2>
+
+        <ul>
+
+            <ui:repeat var="products" value="#{productBean.getProductsList()}">
+                <li><h3>#{products}</h3></li>
+            </ui:repeat>
+
+        </ul>
     </h:body>
 </html>
