@@ -40,6 +40,57 @@ public class ProductDAOImpl implements ProductDAO{
         } else return null;
     }
 
+    @Override
+    public Product editProduct(Product product) {
+
+        Long productID = Long.parseLong(product.getId());
+
+        ProductEntity productEntity = new ProductEntity(
+                product.getName(),
+                product.getBrand(),
+                product.getDescription(),
+                new BigDecimal(product.getPrice()),
+                product.getPictureLink(),
+                Long.parseLong(product.getCreationDate()));
+
+        productEntity.setId(productID);
+
+        Session session = sessionFactory.getCurrentSession();
+
+        session.saveOrUpdate(productEntity);
+        session.flush();
+
+        /*
+            check is it updated
+         */
+        ProductEntity dbProduct = (ProductEntity) session.get(ProductEntity.class, productID);
+        if (dbProduct == null) throw new RuntimeException("internal server error while updating product with id: " + productID);
+
+        return new Product(dbProduct.getId().toString(),
+                           dbProduct.getName(),
+                           dbProduct.getBrand(),
+                           dbProduct.getDescription(),
+                           dbProduct.getPrice().toPlainString(),
+                           dbProduct.getPictureLink(),
+                           dbProduct.getCreationDate().toString());
+    }
+
+    @Override
+    public Product getProductByID(Long id) {
+
+        Session session = sessionFactory.getCurrentSession();
+        ProductEntity dbProduct = (ProductEntity) session.get(ProductEntity.class, id);
+        if (dbProduct == null) throw new RuntimeException("error - there is no product with such id: " + id);
+
+        return new Product(dbProduct.getId().toString(),
+                           dbProduct.getName(),
+                           dbProduct.getBrand(),
+                           dbProduct.getDescription(),
+                           dbProduct.getPrice().toPlainString(),
+                           dbProduct.getPictureLink(),
+                           dbProduct.getCreationDate().toString());
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public List<Product> getProductsList() {
@@ -50,16 +101,36 @@ public class ProductDAOImpl implements ProductDAO{
         List<ProductEntity> productEntities = criteria.list();
 
 
-        List<Product> products = productEntities.stream().map(
+        return productEntities.stream().map(
                 prodEnt -> new Product(prodEnt.getId().toString(),
                                        prodEnt.getName(),
                                        prodEnt.getBrand(),
                                        prodEnt.getDescription(),
                                        prodEnt.getPrice().toPlainString(),
                                        prodEnt.getPictureLink(),
-                                       prodEnt.getCreationDate().toString()))
-                .collect(Collectors.toList());
+                                       prodEnt.getCreationDate().toString())).collect(Collectors.toList());
+    }
 
-        return products;
+    @Override
+    public Product removeProduct(Product product) {
+
+        Long productID = Long.parseLong(product.getId());
+
+        Session session = sessionFactory.getCurrentSession();
+
+        /*
+            trying to check whether this entity exists in DB
+         */
+        ProductEntity dbProduct = (ProductEntity) session.get(ProductEntity.class, productID);
+        if (dbProduct == null) throw new RuntimeException("error: there is no such product in db!");
+        session.delete(dbProduct);
+        session.flush();
+
+        /*
+            check: does product actually removed
+         */
+        ProductEntity deletedProduct = (ProductEntity) session.get(ProductEntity.class, productID);
+        if (deletedProduct != null) throw new RuntimeException("internal server error: delete product with id: " + productID);
+        return new Product();
     }
 }

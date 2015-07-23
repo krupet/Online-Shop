@@ -24,7 +24,25 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     @Transactional
+    public Product editProduct(Product product) {
+        return productDAO.editProduct(product);
+    }
+
+    @Override
+    @Transactional
+    public Product getProductByID(Long id) {
+        return productDAO.getProductByID(id);
+    }
+
+    @Override
+    @Transactional
     public List<Product> getProductsList() {
         return productDAO.getProductsList();
+    }
+
+    @Override
+    @Transactional
+    public Product removeProduct(Product product) {
+        return productDAO.removeProduct(product);
     }
 }

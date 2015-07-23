@@ -10,5 +10,8 @@ import java.util.List;
 public interface ProductDAO {
 
     Product postProduct(Product product);
+    Product editProduct(Product product);
+    Product getProductByID(Long id);
     List<Product> getProductsList();
+    Product removeProduct(Product product);
 }

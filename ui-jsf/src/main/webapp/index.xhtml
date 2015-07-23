@@ -102,29 +102,44 @@
 
         </h:form>
 
-        <c:if test="${!empty productBean.productsList}">
-            <table class="tg">
-                <tr>
-                    <th width="80">Product ID</th>
-                    <th width="120">Product Name</th>
-                    <th width="120">Product Brand</th>
-                    <th width="120">Product Description</th>
-                    <th width="120">Product Price</th>
-                    <th width="120">Product Picture</th>
-                    <th width="120">Product Creation Date</th>
-                </tr>
-                <ui:repeat value="${productBean.productsList}" var="product">
-                    <tr>
-                        <td>${product.id}</td>
-                        <td>${product.name}</td>
-                        <td>${product.brand}</td>
-                        <td>${product.description}</td>
-                        <td>${product.price}</td>
-                        <td>${product.pictureLink}</td>
-                        <td>${product.creationDate}</td>
-                    </tr>
-                </ui:repeat>
-            </table>
-        </c:if>
+
+
+        <h:form>
+            <h:panelGroup id="products">
+                <c:if test="${!empty productBean.productsList}">
+                    <table class="tg">
+                        <tr>
+                            <th width="80">Product ID</th>
+                            <th width="120">Product Name</th>
+                            <th width="120">Product Brand</th>
+                            <th width="120">Product Description</th>
+                            <th width="120">Product Price</th>
+                            <th width="120">Product Picture</th>
+                            <th width="120">Product Creation Date</th>
+                            <th width="60" style="border: none; background: none"></th>
+                            <th width="60" style="border: none; background: none"></th>
+                        </tr>
+                        <ui:repeat value="${productBean.productsList}" var="product">
+                            <tr>
+                                <td>${product.id}</td>
+                                <td>${product.name}</td>
+                                <td>${product.brand}</td>
+                                <td>${product.description}</td>
+                                <td>${product.price}</td>
+                                <td>${product.pictureLink}</td>
+                                <td>${product.creationDate}</td>
+                                <td style="border: none; text-align: center">
+                                    <h:commandButton value="Edit"></h:commandButton>
+                                </td>
+                                <td style="border: none; text-align: center">
+                                    <h:commandButton value="Remove"></h:commandButton>
+                                </td>
+                            </tr>
+                        </ui:repeat>
+                    </table>
+                </c:if>
+            </h:panelGroup>
+        </h:form>
+
     </h:body>
 </html>
