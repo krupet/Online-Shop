@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ua.com.krupet.Product;
 import ua.com.krupet.service.ProductService;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import java.util.List;
 
 /**
@@ -20,7 +22,11 @@ public class ProductBean {
     private ProductService productService;
 
     public void postProduct(Product product) {
-        productService.postProduct(product);
+        String statusMessage = null;
+        Product postedProduct = productService.postProduct(product);
+        statusMessage = (postedProduct != null) ? "product posted successfully!"
+                                                : "sorry something went wrong =(";
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(statusMessage));
     }
 
     public List<Product> getProductsList() {

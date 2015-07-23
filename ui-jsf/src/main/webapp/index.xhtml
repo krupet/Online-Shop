@@ -86,8 +86,15 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2"><h:commandButton
-                            action="#{productBean.postProduct(product)}" value="Add Product"></h:commandButton>
+                    <td colspan="2">
+                        <h:commandButton action="#{productBean.postProduct(product)}" value="Add Product">
+                            <f:ajax execute="name brand description price piclink cr_date" render="messages"/>
+                        </h:commandButton>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <h:messages id="messages"/>
                     </td>
                 </tr>
 
