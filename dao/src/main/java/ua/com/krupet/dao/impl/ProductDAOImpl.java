@@ -45,6 +45,7 @@ public class ProductDAOImpl implements ProductDAO{
 
         Long productID = Long.parseLong(product.getId());
 
+        Session session = sessionFactory.getCurrentSession();
         ProductEntity productEntity = new ProductEntity(
                 product.getName(),
                 product.getBrand(),
@@ -55,9 +56,8 @@ public class ProductDAOImpl implements ProductDAO{
 
         productEntity.setId(productID);
 
-        Session session = sessionFactory.getCurrentSession();
 
-        session.saveOrUpdate(productEntity);
+        session.update(productEntity);
         session.flush();
 
         /*

@@ -31,7 +31,7 @@ public class ProductEntity {
     @Column(name = "product_pic", nullable = true)
     private String pictureLink;
 
-    @Column(name = "product)creation_time", nullable = false)
+    @Column(name = "product_creation_time", nullable = false)
     private Long creationDate;
 
     public ProductEntity() {

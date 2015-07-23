@@ -53,93 +53,55 @@
         <h1>Welcome!</h1><br></br>
 
         <h1>Add a Product</h1>
-        <h:form>
-            <table>
-                <tr>
-                    <td><label>Name</label></td>
-                    <td><h:inputText id="name" value="#{product.name}"></h:inputText>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label>Brand</label></td>
-                    <td><h:inputText id="brand" value="#{product.brand}"></h:inputText>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label>Description</label></td>
-                    <td><h:inputText id="description" value="#{product.description}"></h:inputText>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label>Price</label></td>
-                    <td><h:inputText id="price" value="#{product.price}"></h:inputText>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label>PicLink</label></td>
-                    <td><h:inputText id="piclink" value="#{product.pictureLink}"></h:inputText>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label>Creation Date</label></td>
-                    <td><h:inputText id="cr_date" value="#{product.creationDate}"></h:inputText>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <h:commandButton action="#{productBean.postProduct(product)}" value="Add Product">
-                            <f:ajax execute="name brand description price piclink cr_date" render="messages"/>
-                        </h:commandButton>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <h:messages id="messages"/>
-                    </td>
-                </tr>
 
-            </table>
 
+        <h3>List items</h3>
+        <h:form rendered="#{not empty productBean.productsList}">
+            <h:dataTable value="#{productBean.productsList}" var="product">
+                <h:column><f:facet name="header">ID</f:facet>#{product.id}</h:column>
+                <h:column><f:facet name="header">Name</f:facet>#{product.name}</h:column>
+                <h:column><f:facet name="header">Brand</f:facet>#{product.brand}</h:column>
+                <h:column><f:facet name="header">description</f:facet>#{product.description}</h:column>
+                <h:column><f:facet name="header">Price</f:facet>#{product.price}</h:column>
+                <h:column><f:facet name="header">PicLink</f:facet>#{product.pictureLink}</h:column>
+                <h:column><f:facet name="header">Creation Date</f:facet>#{product.creationDate}</h:column>
+                <h:column><h:commandButton value="edit" action="#{productBean.edit(product)}" /></h:column>
+                <h:column><h:commandButton value="delete" action="#{productBean.removeProduct(product)}" /></h:column>
+            </h:dataTable>
         </h:form>
-
-
-
-        <h:form>
-            <h:panelGroup id="products">
-                <c:if test="${!empty productBean.productsList}">
-                    <table class="tg">
-                        <tr>
-                            <th width="80">Product ID</th>
-                            <th width="120">Product Name</th>
-                            <th width="120">Product Brand</th>
-                            <th width="120">Product Description</th>
-                            <th width="120">Product Price</th>
-                            <th width="120">Product Picture</th>
-                            <th width="120">Product Creation Date</th>
-                            <th width="60" style="border: none; background: none"></th>
-                            <th width="60" style="border: none; background: none"></th>
-                        </tr>
-                        <ui:repeat value="${productBean.productsList}" var="product">
-                            <tr>
-                                <td>${product.id}</td>
-                                <td>${product.name}</td>
-                                <td>${product.brand}</td>
-                                <td>${product.description}</td>
-                                <td>${product.price}</td>
-                                <td>${product.pictureLink}</td>
-                                <td>${product.creationDate}</td>
-                                <td style="border: none; text-align: center">
-                                    <h:commandButton value="Edit"></h:commandButton>
-                                </td>
-                                <td style="border: none; text-align: center">
-                                    <h:commandButton value="Remove"></h:commandButton>
-                                </td>
-                            </tr>
-                        </ui:repeat>
-                    </table>
-                </c:if>
-            </h:panelGroup>
-        </h:form>
+        <h:panelGroup rendered="#{empty productBean.productsList}">
+            <p>Table is empty! Please add new items.</p>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{!productBean.edit}">
+            <h3>Add item</h3>
+            <h:form>
+                <p>Name: <h:inputText id="name1" value="#{product.name}"/></p>
+                <p>Brand: <h:inputText id="brand1" value="#{product.brand}"/></p>
+                <p>Description: <h:inputText id="description1" value="#{product.description}"/></p>
+                <p>Price: <h:inputText id="price1" value="#{product.price}"/></p>
+                <p>PickLink: <h:inputText id="piclink1" value="#{product.pictureLink}"/></p>
+                <p>Cretion Date: <h:inputText id="cr_date1" value="#{product.creationDate}"/></p>
+                <p><h:commandButton value="add" action="#{productBean.postProduct(product)}">
+                    <f:ajax execute="name1 brand1 description1 price1 piclink1 cr_date1" render="messages1"/>
+                </h:commandButton></p>
+                <p><h:messages id="messages1"/></p>
+            </h:form>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{productBean.edit}">
+            <h3>Edit item #{productBean.product.id}</h3>
+            <h:form>
+                <p>Name: <h:inputText id="name2" value="#{product.name}"/></p>
+                <p>Brand: <h:inputText id="brand2" value="#{product.brand}"/></p>
+                <p>Description: <h:inputText id="description2" value="#{product.description}"/></p>
+                <p>Price: <h:inputText id="price2" value="#{product.price}"/></p>
+                <p>PickLink: <h:inputText id="piclink2" value="#{product.pictureLink}"/></p>
+                <p>Cretion Date: <h:inputText id="cr_date2" value="#{product.creationDate}"/></p>
+                <p><h:commandButton value="update" action="#{productBean.editProduct(product)}">
+                    <f:ajax execute="name2 brand2 description2 price2 piclink2 cr_date2" render="messages2"/>
+                </h:commandButton></p>
+                <p><h:messages id="messages2"/></p>
+            </h:form>
+        </h:panelGroup>
 
     </h:body>
 </html>

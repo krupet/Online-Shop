@@ -6,7 +6,7 @@ import ua.com.krupet.service.ProductService;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.util.List;
 
@@ -15,35 +15,60 @@ import java.util.List;
  */
 
 @ManagedBean
-@SessionScoped
+//@SessionScoped
+@ViewScoped
 public class ProductBean {
 
     @Autowired
     private ProductService productService;
 
+    public Product product;
+    public boolean edit;
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public boolean isEdit() {
+        return edit;
+    }
+
+    public void setEdit(boolean edit) {
+        this.edit = edit;
+    }
+
     public void postProduct(Product product) {
         String statusMessage = null;
         Product postedProduct = productService.postProduct(product);
-        statusMessage = (postedProduct != null) ? "product posted successfully!"
+        statusMessage = (postedProduct != null) ? "prod posted successfully!"
                                                 : "sorry something went wrong =(";
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(statusMessage));
     }
 
-    public Product editProduct(Product product) {
+    public void edit(Product product) {
+        this.product = product;
+        edit = true;
+    }
+
+    public void editProduct(Product prod) {
 
         String statusMessage = null;
-        Product editedProduct = productService.editProduct(product);
-        statusMessage = (editedProduct != null) ? "product posted successfully!"
+        prod.setId(product.getId());
+        Product editedProduct = productService.editProduct(prod);
+        statusMessage = (editedProduct != null) ? "prod updated successfully!"
                                                 : "sorry something went wrong =(";
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(statusMessage));
-        return editedProduct;
     }
 
     public Product getProductByID(Long productID) {
 
         String statusMessage = null;
         Product retrievedProduct = productService.getProductByID(productID);
-        statusMessage = (retrievedProduct != null) ? "product posted successfully!"
+        statusMessage = (retrievedProduct != null) ? "prod posted successfully!"
                                                    : "sorry something went wrong =(";
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(statusMessage));
         return retrievedProduct;
@@ -57,7 +82,7 @@ public class ProductBean {
 
         String statusMessage = null;
         Product removedProduct = productService.removeProduct(product);
-        statusMessage = (removedProduct.getId() == null) ? "product removed successfully"
+        statusMessage = (removedProduct.getId() == null) ? "prod removed successfully"
                                                          : "sorry something went wrong =(";
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(statusMessage));
     }
