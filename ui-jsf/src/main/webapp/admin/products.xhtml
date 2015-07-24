@@ -14,7 +14,10 @@
     <h:body>
         <h1>Products</h1>
 
-        <p:dataTable id="products_list" var="product" value="#{productBean.productList}">
+        <p:dataTable id="products_list" var="product" value="#{productBean.productList}" paginator="true"
+                     paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="10,25,50">
+            <f:facet name="header">Products</f:facet>
             <p:column headerText="ID">
                 <h:outputText value="#{product.id}"/>
             </p:column>
