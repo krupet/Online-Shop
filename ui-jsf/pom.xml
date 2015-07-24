@@ -59,6 +59,12 @@
             <artifactId>jsp-api</artifactId>
             <version>2.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>5.2</version>
+        </dependency>
     </dependencies>
 
     <build>
