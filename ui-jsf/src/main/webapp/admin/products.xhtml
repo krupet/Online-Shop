@@ -14,31 +14,33 @@
     <h:body>
         <h1>Products</h1>
 
-        <p:dataTable id="products_list" var="product" value="#{productBean.productList}" paginator="true"
-                     paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}"
-                     rowsPerPageTemplate="10,25,50">
-            <f:facet name="header">Products</f:facet>
-            <p:column headerText="ID">
-                <h:outputText value="#{product.id}"/>
-            </p:column>
-            <p:column headerText="Name">
-                <h:outputText value="#{product.name}"/>
-            </p:column>
-            <p:column headerText="Brand">
-                <h:outputText value="#{product.brand}"/>
-            </p:column>
-            <p:column headerText="Description">
-                <h:outputText value="#{product.description}"/>
-            </p:column>
-            <p:column headerText="Price">
-                <h:outputText value="#{product.price}"/>
-            </p:column>
-            <p:column headerText="Pic">
-                <h:outputText value="#{product.pictureLink}"/>
-            </p:column>
-            <p:column headerText="Date">
-                <h:outputText value="#{product.creationDate}"/>
-            </p:column>
-        </p:dataTable>
+        <h:form>
+            <p:dataTable id="products_list" var="product" value="#{productBean.productList}" paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="10,25,50">
+                <f:facet name="header">Products</f:facet>
+                <p:column headerText="ID" sortBy="#{product.id}">
+                    <h:outputText value="#{product.id}"/>
+                </p:column>
+                <p:column headerText="Name" sortBy="#{product.name}">
+                    <h:outputText value="#{product.name}"/>
+                </p:column>
+                <p:column headerText="Brand" sortBy="#{product.brand}">
+                    <h:outputText value="#{product.brand}"/>
+                </p:column>
+                <p:column headerText="Description" sortBy="#{product.description}">
+                    <h:outputText value="#{product.description}"/>
+                </p:column>
+                <p:column headerText="Price" sortBy="#{product.price}">
+                    <h:outputText value="#{product.price}"/>
+                </p:column>
+                <p:column headerText="Pic">
+                    <h:outputText value="#{product.pictureLink}"/>
+                </p:column>
+                <p:column headerText="Date" sortBy="#{product.creationDate}">
+                    <h:outputText value="#{product.creationDate}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
     </h:body>
 </html>

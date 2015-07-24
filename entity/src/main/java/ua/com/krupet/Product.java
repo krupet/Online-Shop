@@ -1,13 +1,14 @@
 package ua.com.krupet;
 
 import javax.faces.bean.ManagedBean;
+import java.io.Serializable;
 
 /**
  * Created by krupet on 11.07.2015.
  */
 
 @ManagedBean
-public class Product {
+public class Product implements Serializable{
 
     private String id;
     private String name;
