@@ -56,6 +56,7 @@
 
 
         <h3>List items</h3>
+        <h:panelGroup id="all">
         <h:form rendered="#{not empty productBean.productsList}">
             <h:dataTable value="#{productBean.productsList}" var="product">
                 <h:column><f:facet name="header">ID</f:facet>#{product.id}</h:column>
@@ -82,7 +83,7 @@
                 <p>PickLink: <h:inputText id="piclink1" value="#{product.pictureLink}"/></p>
                 <p>Cretion Date: <h:inputText id="cr_date1" value="#{product.creationDate}"/></p>
                 <p><h:commandButton value="add" action="#{productBean.postProduct(product)}">
-                    <f:ajax execute="name1 brand1 description1 price1 piclink1 cr_date1" render="messages1"/>
+                    <f:ajax execute="name1 brand1 description1 price1 piclink1 cr_date1" render="messages1 all"/>
                 </h:commandButton></p>
                 <p><h:messages id="messages1"/></p>
             </h:form>
@@ -97,11 +98,11 @@
                 <p>PickLink: <h:inputText id="piclink2" value="#{product.pictureLink}"/></p>
                 <p>Cretion Date: <h:inputText id="cr_date2" value="#{product.creationDate}"/></p>
                 <p><h:commandButton value="update" action="#{productBean.editProduct(product)}">
-                    <f:ajax execute="name2 brand2 description2 price2 piclink2 cr_date2" render="messages2"/>
+                    <f:ajax execute="name2 brand2 description2 price2 piclink2 cr_date2" render="messages2 all"/>
                 </h:commandButton></p>
                 <p><h:messages id="messages2"/></p>
             </h:form>
         </h:panelGroup>
-
+        </h:panelGroup>
     </h:body>
 </html>
