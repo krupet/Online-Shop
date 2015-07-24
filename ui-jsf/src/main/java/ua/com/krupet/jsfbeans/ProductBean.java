@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ua.com.krupet.Product;
 import ua.com.krupet.service.ProductService;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -24,6 +25,7 @@ public class ProductBean {
 
     public Product product;
     public boolean edit;
+    public List<Product> productList;
 
     public Product getProduct() {
         return product;
@@ -39,6 +41,19 @@ public class ProductBean {
 
     public void setEdit(boolean edit) {
         this.edit = edit;
+    }
+
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+    }
+
+    @PostConstruct
+    private void init() {
+        productList = productService.getProductsList();
     }
 
     public void postProduct(Product product) {
@@ -75,7 +90,7 @@ public class ProductBean {
     }
 
     public List<Product> getProductsList() {
-        return productService.getProductsList();
+        return productList;
     }
 
     public void removeProduct(Product product) {

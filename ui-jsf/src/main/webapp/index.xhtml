@@ -9,51 +9,10 @@
 
     <h:head>
         <title>Welcome!</title>
-        <style type="text/css">
-            .tg {
-                border-collapse: collapse;
-                border-spacing: 0;
-                border-color: #ccc;
-            }
-
-            .tg td {
-                font-family: Arial, sans-serif;
-                font-size: 14px;
-                padding: 10px 5px;
-                border-style: solid;
-                border-width: 1px;
-                overflow: hidden;
-                word-break: normal;
-                border-color: #ccc;
-                color: #333;
-                background-color: #fff;
-            }
-
-            .tg th {
-                font-family: Arial, sans-serif;
-                font-size: 14px;
-                font-weight: normal;
-                padding: 10px 5px;
-                border-style: solid;
-                border-width: 1px;
-                overflow: hidden;
-                word-break: normal;
-                border-color: #ccc;
-                color: #333;
-                background-color: #f0f0f0;
-            }
-
-            .tg .tg-4eph {
-                background-color: #f9f9f9
-            }
-        </style>
     </h:head>
 
     <h:body>
         <h1>Welcome!</h1><br></br>
-
-        <h1>Add a Product</h1>
-
 
         <h3>List items</h3>
         <h:panelGroup id="all">
@@ -66,42 +25,10 @@
                 <h:column><f:facet name="header">Price</f:facet>#{product.price}</h:column>
                 <h:column><f:facet name="header">PicLink</f:facet>#{product.pictureLink}</h:column>
                 <h:column><f:facet name="header">Creation Date</f:facet>#{product.creationDate}</h:column>
-                <h:column><h:commandButton value="edit" action="#{productBean.edit(product)}" /></h:column>
-                <h:column><h:commandButton value="delete" action="#{productBean.removeProduct(product)}" /></h:column>
             </h:dataTable>
         </h:form>
         <h:panelGroup rendered="#{empty productBean.productsList}">
             <p>Table is empty! Please add new items.</p>
-        </h:panelGroup>
-        <h:panelGroup rendered="#{!productBean.edit}">
-            <h3>Add item</h3>
-            <h:form>
-                <p>Name: <h:inputText id="name1" value="#{product.name}"/></p>
-                <p>Brand: <h:inputText id="brand1" value="#{product.brand}"/></p>
-                <p>Description: <h:inputText id="description1" value="#{product.description}"/></p>
-                <p>Price: <h:inputText id="price1" value="#{product.price}"/></p>
-                <p>PickLink: <h:inputText id="piclink1" value="#{product.pictureLink}"/></p>
-                <p>Cretion Date: <h:inputText id="cr_date1" value="#{product.creationDate}"/></p>
-                <p><h:commandButton value="add" action="#{productBean.postProduct(product)}">
-                    <f:ajax execute="name1 brand1 description1 price1 piclink1 cr_date1" render="messages1 all"/>
-                </h:commandButton></p>
-                <p><h:messages id="messages1"/></p>
-            </h:form>
-        </h:panelGroup>
-        <h:panelGroup rendered="#{productBean.edit}">
-            <h3>Edit item #{productBean.product.id}</h3>
-            <h:form>
-                <p>Name: <h:inputText id="name2" value="#{product.name}"/></p>
-                <p>Brand: <h:inputText id="brand2" value="#{product.brand}"/></p>
-                <p>Description: <h:inputText id="description2" value="#{product.description}"/></p>
-                <p>Price: <h:inputText id="price2" value="#{product.price}"/></p>
-                <p>PickLink: <h:inputText id="piclink2" value="#{product.pictureLink}"/></p>
-                <p>Cretion Date: <h:inputText id="cr_date2" value="#{product.creationDate}"/></p>
-                <p><h:commandButton value="update" action="#{productBean.editProduct(product)}">
-                    <f:ajax execute="name2 brand2 description2 price2 piclink2 cr_date2" render="messages2 all"/>
-                </h:commandButton></p>
-                <p><h:messages id="messages2"/></p>
-            </h:form>
         </h:panelGroup>
         </h:panelGroup>
     </h:body>
