@@ -41,7 +41,7 @@
                     <h:outputText value="#{product.creationDate}"/>
                 </p:column>
                 <p:column style="text-align: center">
-                    <p:commandButton update=":form:productDetail" oncomplete="PF('productDialog').show()" icon="ui-icon-search" title="Edit" value="Edit">
+                    <p:commandButton update=":productDetail" oncomplete="PF('productDialog').show()" icon="ui-icon-search" title="Edit" value="Edit">
                         <f:setPropertyActionListener value="#{product}" target="#{productBean.product}" />
                     </p:commandButton>
                     <p:commandButton value="Delete">
@@ -52,6 +52,7 @@
                     <p:commandButton value="New Product" oncomplete="PF('newProduct').show()" icon="ui-icon-star" title="Creates new product"/>
                 </f:facet>
             </p:dataTable>
+        </h:form>
 
             <p:dialog header="Product Info" widgetVar="productDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                 <p:outputPanel id="productDetail" style="text-align:center;">
@@ -84,7 +85,8 @@
                             </p:inplace>
 
                             <f:facet name="footer">
-                                <p:commandButton value="Update"></p:commandButton>
+                                <p:commandButton value="Update" update="form, growl" actionListener="#{productBean.editProduct}"
+                                                 oncomplete="handleLoginRequest(xhr, status, args)" />
                             </f:facet>
                         </p:panelGrid>
                     </h:form>
@@ -107,11 +109,27 @@
                         <p:inputText value="#{productBean.newProduct.price}" required="true" requiredMessage="Please Enter Price!"/>
 
                         <f:facet name="footer">
-                            <p:commandButton value="Add"></p:commandButton>
+                            <p:commandButton value="Add">
+
+                            </p:commandButton>
                         </f:facet>
                     </p:panelGrid>
                 </h:form>
             </p:dialog>
-        </h:form>
+
+
+        <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+
+        <script type="text/javascript">
+            function handleLoginRequest(xhr, status, args) {
+                if(args.validationFailed || !args.edited) {
+                    PF('productDialog').jq.effect("shake", {times:5}, 100);
+                }
+                else {
+                    PF('productDialog').hide();
+//                    $('#loginLink').fadeOut();
+                }
+            }
+        </script>
     </h:body>
 </html>

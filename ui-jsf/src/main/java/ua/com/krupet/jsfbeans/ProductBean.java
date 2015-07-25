@@ -1,5 +1,6 @@
 package ua.com.krupet.jsfbeans;
 
+import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import ua.com.krupet.Product;
 import ua.com.krupet.service.ProductService;
@@ -9,6 +10,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import java.io.Serializable;
 import java.util.List;
 
@@ -34,14 +36,20 @@ public class ProductBean implements Serializable{
         productList = productService.getProductsList();
     }
 
-    public void editProduct(Product prod) {
+    public void editProduct(ActionEvent event) {
 
-        String statusMessage = null;
-        prod.setId(product.getId());
-        Product editedProduct = productService.editProduct(prod);
-        statusMessage = (editedProduct != null) ? "prod updated successfully!"
-                                                : "sorry something went wrong =(";
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(statusMessage));
+        RequestContext context = RequestContext.getCurrentInstance();
+        FacesMessage message = null;
+        boolean edited = false;
+
+        if (productService.editProduct(product) != null) {
+            edited = true;
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Updated!", "product with ID (" + product.getId() + ")updated successfully!");
+        } else message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", "error during updating product with ID (" + product.getId() + ")");
+
+        FacesContext.getCurrentInstance().addMessage(null, message);
+        context.addCallbackParam("edited", edited);
     }
 
     public Product getProduct() {
