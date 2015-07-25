@@ -14,7 +14,7 @@
     <h:body>
         <h1>Products</h1>
 
-        <h:form>
+        <h:form id="form">
             <p:dataTable id="products_list" var="product" value="#{productBean.productList}" paginator="true"
                          paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="10,25,50">
@@ -40,7 +40,37 @@
                 <p:column headerText="Date" sortBy="#{product.creationDate}">
                     <h:outputText value="#{product.creationDate}"/>
                 </p:column>
+                <p:column style="text-align: center">
+                    <p:commandButton update=":form:productDetail" oncomplete="PF('productDialog').show()" icon="ui-icon-search" title="Edit" value="Edit">
+                        <f:setPropertyActionListener value="#{product}" target="#{productBean.product}" />
+                    </p:commandButton>
+                </p:column>
             </p:dataTable>
+
+            <p:dialog header="Product Info" widgetVar="productDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="productDetail" style="text-align:center;">
+                    <p:panelGrid  columns="2" rendered="#{not empty productBean.product}" columnClasses="label,value">
+
+                        <h:outputText value="Id:" />
+                        <h:outputText value="#{productBean.product.id}" />
+
+                        <h:outputText value="Name:" />
+                        <h:outputText value="#{productBean.product.name}" />
+
+                        <h:outputText value="Brand:" />
+                        <h:outputText value="#{productBean.product.brand}" />
+
+                        <h:outputText value="Description" />
+                        <h:outputText value="#{productBean.product.description}" />
+
+                        <h:outputText value="Price:" />
+                        <h:outputText value="#{productBean.product.price}" />
+
+                        <h:outputText value="Year:" />
+                        <h:outputText value="#{productBean.product.creationDate}" />
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
         </h:form>
     </h:body>
 </html>
