@@ -15,9 +15,7 @@
         <h1>Products</h1>
 
         <h:form id="form">
-            <p:dataTable id="products_list" var="product" value="#{productBean.productList}" paginator="true"
-                         paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="10,25,50">
+            <p:dataTable id="products_list" var="product" value="#{productBean.lazyDataModel}" lazy="true" rows="10">
                 <f:facet name="header">Products</f:facet>
                 <p:column headerText="ID" sortBy="#{product.id}">
                     <h:outputText value="#{product.id}"/>

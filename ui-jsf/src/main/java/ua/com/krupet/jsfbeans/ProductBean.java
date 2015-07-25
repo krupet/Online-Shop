@@ -1,13 +1,16 @@
 package ua.com.krupet.jsfbeans;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.model.LazyDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import ua.com.krupet.Product;
+import ua.com.krupet.jsfbeans.util.LazyProductDataModel;
 import ua.com.krupet.service.ProductService;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -20,8 +23,8 @@ import java.util.List;
  */
 
 @ManagedBean
-//@SessionScoped
-@ViewScoped
+@SessionScoped
+//@ViewScoped
 public class ProductBean implements Serializable{
 
     @Autowired
@@ -30,11 +33,12 @@ public class ProductBean implements Serializable{
     public Product product;
     public Product newProduct = new Product();
     public List<Product> productList;
-
+    public LazyDataModel<Product> lazyDataModel;
 
     @PostConstruct
     private void init() {
         productList = productService.getProductsList();
+        lazyDataModel = new LazyProductDataModel(productService);
     }
 
     public void editProduct(ActionEvent event) {
@@ -64,7 +68,6 @@ public class ProductBean implements Serializable{
         newProduct.setCreationDate("" + new Date().getTime());
         if (productService.postProduct(newProduct) != null) {
             success = true;
-            productList.add(newProduct); // TODO: just anthill lazy loading!
             message = new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Posted!", "product posted successfully!");
         } else message = new FacesMessage(FacesMessage.SEVERITY_WARN,
@@ -77,11 +80,9 @@ public class ProductBean implements Serializable{
     public void deleteProduct(Product product) {
         FacesMessage message = null;
 
-        int index = productList.indexOf(product);
         String prodID = product.getId();
         Product deletedProduct = productService.removeProduct(product);
         if (deletedProduct.getId() == null) {
-            productList.remove(index); // TODO: just anthill lazy loading!
             message = new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Deleted!", "product with ID (" + prodID + ") deleted successfully!");
         } else message = new FacesMessage(FacesMessage.SEVERITY_WARN,
@@ -110,7 +111,11 @@ public class ProductBean implements Serializable{
         return productList;
     }
 
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
+    public LazyDataModel<Product> getLazyDataModel() {
+        return lazyDataModel;
+    }
+
+    public void setLazyDataModel(LazyDataModel<Product> lazyDataModel) {
+        this.lazyDataModel = lazyDataModel;
     }
 }
