@@ -25,6 +25,7 @@ public class ProductBean implements Serializable{
     private ProductService productService;
 
     public Product product;
+    public Product newProduct;
     public List<Product> productList;
 
 
@@ -49,6 +50,14 @@ public class ProductBean implements Serializable{
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Product getNewProduct() {
+        return newProduct;
+    }
+
+    public void setNewProduct(Product newProduct) {
+        this.newProduct = newProduct;
     }
 
     public List<Product> getProductList() {

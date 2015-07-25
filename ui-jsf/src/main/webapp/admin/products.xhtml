@@ -44,7 +44,13 @@
                     <p:commandButton update=":form:productDetail" oncomplete="PF('productDialog').show()" icon="ui-icon-search" title="Edit" value="Edit">
                         <f:setPropertyActionListener value="#{product}" target="#{productBean.product}" />
                     </p:commandButton>
+                    <p:commandButton value="Delete">
+
+                    </p:commandButton>
                 </p:column>
+                <f:facet name="footer">
+                    <p:commandButton value="New Product" oncomplete="PF('newProduct').show()" icon="ui-icon-star" title="Creates new product"/>
+                </f:facet>
             </p:dataTable>
 
             <p:dialog header="Product Info" widgetVar="productDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
@@ -77,9 +83,34 @@
                                 <p:inputText value="#{productBean.product.price}" required="true" label="text" />
                             </p:inplace>
 
+                            <f:facet name="footer">
+                                <p:commandButton value="Update"></p:commandButton>
+                            </f:facet>
                         </p:panelGrid>
                     </h:form>
                 </p:outputPanel>
+            </p:dialog>
+
+            <p:dialog header="Add New Product" widgetVar="newProduct" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <h:form id="newProductForm">
+                    <p:panelGrid columns="2">
+                        <h:outputText value="Name:"/>
+                        <p:inputText value="#{productBean.newProduct.name}" required="true" requiredMessage="Please Enter Name!"/>
+
+                        <h:outputText value="Brand:"/>
+                        <p:inputText value="#{productBean.newProduct.brand}" required="true" requiredMessage="Please Enter Brand!"/>
+
+                        <h:outputText value="Description:"/>
+                        <p:inputText value="#{productBean.newProduct.description}" required="true" requiredMessage="Please Enter Description!"/>
+
+                        <h:outputText value="Price:"/>
+                        <p:inputText value="#{productBean.newProduct.price}" required="true" requiredMessage="Please Enter Price!"/>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Add"></p:commandButton>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
             </p:dialog>
         </h:form>
     </h:body>
