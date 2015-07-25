@@ -49,26 +49,36 @@
 
             <p:dialog header="Product Info" widgetVar="productDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                 <p:outputPanel id="productDetail" style="text-align:center;">
-                    <p:panelGrid  columns="2" rendered="#{not empty productBean.product}" columnClasses="label,value">
+                    <h:form>
+                        <p:panelGrid  columns="2" rendered="#{not empty productBean.product}" columnClasses="column" cellpadding="5" style="border: none">
 
-                        <h:outputText value="Id:" />
-                        <h:outputText value="#{productBean.product.id}" />
+                            <h:outputLabel for="prod_id" value="ID:" />
+                            <p:inplace id="prod_id" editor="true">
+                                <p:inputText value="#{productBean.product.id}" required="true" label="text" />
+                            </p:inplace>
 
-                        <h:outputText value="Name:" />
-                        <h:outputText value="#{productBean.product.name}" />
+                            <h:outputLabel for="prod_name" value="Name:" />
+                            <p:inplace id="prod_name" editor="true">
+                                <p:inputText value="#{productBean.product.name}" required="true" label="text" />
+                            </p:inplace>
 
-                        <h:outputText value="Brand:" />
-                        <h:outputText value="#{productBean.product.brand}" />
+                            <h:outputLabel for="prod_brand" value="Brand:" />
+                            <p:inplace id="prod_brand" editor="true">
+                                <p:inputText value="#{productBean.product.brand}" required="true" label="text" />
+                            </p:inplace>
 
-                        <h:outputText value="Description" />
-                        <h:outputText value="#{productBean.product.description}" />
+                            <h:outputLabel for="prod_desc" value="Description:" />
+                            <p:inplace id="prod_desc" editor="true">
+                                <p:inputText value="#{productBean.product.description}" required="true" label="text" />
+                            </p:inplace>
 
-                        <h:outputText value="Price:" />
-                        <h:outputText value="#{productBean.product.price}" />
+                            <h:outputLabel for="prod_price" value="Description:" />
+                            <p:inplace id="prod_price" editor="true">
+                                <p:inputText value="#{productBean.product.price}" required="true" label="text" />
+                            </p:inplace>
 
-                        <h:outputText value="Year:" />
-                        <h:outputText value="#{productBean.product.creationDate}" />
-                    </p:panelGrid>
+                        </p:panelGrid>
+                    </h:form>
                 </p:outputPanel>
             </p:dialog>
         </h:form>

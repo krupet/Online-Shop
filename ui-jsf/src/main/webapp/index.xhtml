@@ -16,8 +16,8 @@
 
         <h3>List items</h3>
         <h:panelGroup id="all">
-        <h:form rendered="#{not empty productBean.productsList}">
-            <h:dataTable value="#{productBean.productsList}" var="product">
+        <h:form rendered="#{not empty productBean.productList}">
+            <h:dataTable value="#{productBean.productList}" var="product">
                 <h:column><f:facet name="header">ID</f:facet>#{product.id}</h:column>
                 <h:column><f:facet name="header">Name</f:facet>#{product.name}</h:column>
                 <h:column><f:facet name="header">Brand</f:facet>#{product.brand}</h:column>
@@ -27,7 +27,7 @@
                 <h:column><f:facet name="header">Creation Date</f:facet>#{product.creationDate}</h:column>
             </h:dataTable>
         </h:form>
-        <h:panelGroup rendered="#{empty productBean.productsList}">
+        <h:panelGroup rendered="#{empty productBean.productList}">
             <p>Table is empty! Please add new items.</p>
         </h:panelGroup>
         </h:panelGroup>

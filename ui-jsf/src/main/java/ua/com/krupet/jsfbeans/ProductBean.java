@@ -25,49 +25,12 @@ public class ProductBean implements Serializable{
     private ProductService productService;
 
     public Product product;
-    public boolean edit;
     public List<Product> productList;
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public boolean isEdit() {
-        return edit;
-    }
-
-    public void setEdit(boolean edit) {
-        this.edit = edit;
-    }
-
-    public List<Product> getProductList() {
-        return productList;
-    }
-
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
-    }
 
     @PostConstruct
     private void init() {
         productList = productService.getProductsList();
-    }
-
-    public void postProduct(Product product) {
-        String statusMessage = null;
-        Product postedProduct = productService.postProduct(product);
-        statusMessage = (postedProduct != null) ? "prod posted successfully!"
-                                                : "sorry something went wrong =(";
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(statusMessage));
-    }
-
-    public void edit(Product product) {
-        this.product = product;
-        edit = true;
     }
 
     public void editProduct(Product prod) {
@@ -80,26 +43,19 @@ public class ProductBean implements Serializable{
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(statusMessage));
     }
 
-    public Product getProductByID(Long productID) {
-
-        String statusMessage = null;
-        Product retrievedProduct = productService.getProductByID(productID);
-        statusMessage = (retrievedProduct != null) ? "prod posted successfully!"
-                                                   : "sorry something went wrong =(";
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(statusMessage));
-        return retrievedProduct;
+    public Product getProduct() {
+        return product;
     }
 
-    public List<Product> getProductsList() {
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public List<Product> getProductList() {
         return productList;
     }
 
-    public void removeProduct(Product product) {
-
-        String statusMessage = null;
-        Product removedProduct = productService.removeProduct(product);
-        statusMessage = (removedProduct.getId() == null) ? "prod removed successfully"
-                                                         : "sorry something went wrong =(";
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(statusMessage));
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
     }
 }
