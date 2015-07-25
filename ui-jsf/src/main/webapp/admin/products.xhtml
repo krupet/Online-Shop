@@ -86,7 +86,7 @@
 
                             <f:facet name="footer">
                                 <p:commandButton value="Update" update="form, growl" actionListener="#{productBean.editProduct}"
-                                                 oncomplete="handleLoginRequest(xhr, status, args)" />
+                                                 oncomplete="handleEditRequest(xhr, status, args)" />
                             </f:facet>
                         </p:panelGrid>
                     </h:form>
@@ -109,8 +109,8 @@
                         <p:inputText value="#{productBean.newProduct.price}" required="true" requiredMessage="Please Enter Price!"/>
 
                         <f:facet name="footer">
-                            <p:commandButton value="Add">
-
+                            <p:commandButton value="Add" update="form, growl" actionListener="#{productBean.addProduct}"
+                                             oncomplete="handlePostRequest(xhr, status, args)">
                             </p:commandButton>
                         </f:facet>
                     </p:panelGrid>
@@ -121,12 +121,22 @@
         <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
 
         <script type="text/javascript">
-            function handleLoginRequest(xhr, status, args) {
-                if(args.validationFailed || !args.edited) {
+            function handleEditRequest(xhr, status, args) {
+                if(args.validationFailed || !args.success) {
                     PF('productDialog').jq.effect("shake", {times:5}, 100);
                 }
                 else {
                     PF('productDialog').hide();
+//                    $('#loginLink').fadeOut();
+                }
+            }
+
+            function handlePostRequest(xhr, status, args) {
+                if(args.validationFailed || !args.success) {
+                    PF('newProduct').jq.effect("shake", {times:5}, 100);
+                }
+                else {
+                    PF('newProduct').hide();
 //                    $('#loginLink').fadeOut();
                 }
             }

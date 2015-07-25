@@ -12,6 +12,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ public class ProductBean implements Serializable{
     private ProductService productService;
 
     public Product product;
-    public Product newProduct;
+    public Product newProduct = new Product();
     public List<Product> productList;
 
 
@@ -40,16 +41,36 @@ public class ProductBean implements Serializable{
 
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage message = null;
-        boolean edited = false;
+        boolean success = false;
 
         if (productService.editProduct(product) != null) {
-            edited = true;
+            success = true;
             message = new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Updated!", "product with ID (" + product.getId() + ")updated successfully!");
-        } else message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", "error during updating product with ID (" + product.getId() + ")");
+        } else message = new FacesMessage(FacesMessage.SEVERITY_WARN,
+                        "Error", "error during updating product with ID (" + product.getId() + ")");
 
         FacesContext.getCurrentInstance().addMessage(null, message);
-        context.addCallbackParam("edited", edited);
+        context.addCallbackParam("success", success);
+    }
+
+    public void addProduct(ActionEvent event) {
+
+        RequestContext context = RequestContext.getCurrentInstance();
+        FacesMessage message = null;
+        boolean success = false;
+
+        newProduct.setPictureLink("pick");
+        newProduct.setCreationDate("" + new Date().getTime());
+        if (productService.postProduct(newProduct) != null) {
+            success = true;
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Posted!", "product posted successfully!");
+        } else message = new FacesMessage(FacesMessage.SEVERITY_WARN,
+                        "Error", "error during posting new product");
+
+        FacesContext.getCurrentInstance().addMessage(null, message);
+        context.addCallbackParam("success", success);
     }
 
     public Product getProduct() {
