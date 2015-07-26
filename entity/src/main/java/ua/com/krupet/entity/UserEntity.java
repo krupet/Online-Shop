@@ -39,7 +39,7 @@ public class UserEntity implements Serializable{
     @Column(name = "user_creation_date", nullable = false)
     private Long creationDate;
 
-    @Column(name = "user_login", nullable = false)
+    @Column(name = "user_login", nullable = false, unique = true)
     private String login;
 
     @Column(name = "user_password", nullable = false)
