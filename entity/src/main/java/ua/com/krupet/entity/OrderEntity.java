@@ -5,6 +5,7 @@ import org.hibernate.annotations.FetchMode;
 import ua.com.krupet.OrderStatus;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders")
-public class OrderEntity {
+public class OrderEntity implements Serializable{
 
     @Id
     @Column(name = "order_id")
@@ -27,7 +28,6 @@ public class OrderEntity {
     @Column(name = "order_status")
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
-//    private String dispatchAddress;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

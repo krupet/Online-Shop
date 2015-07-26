@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Users List</title>
+    </h:head>
+
+    <h:body>
+        <h:form id="form">
+            <p:dataTable id="users_list" var="user" value="#{userBean.lazyDataModel}" lazy="true" rows="10">
+                <f:facet name="header">Users</f:facet>
+
+                <p:column headerText="ID" sortBy="#{user.id}">
+                    <h:outputText value="#{user.id}"/>
+                </p:column>
+                <p:column headerText="Name">
+                    <h:outputText value="#{user.firstname} + #{user.lastname}"/>
+                </p:column>
+                <p:column headerText="Email" sortBy="#{user.email}">
+                    <h:outputText value="#{user.email}"/>
+                </p:column>
+                <p:column headerText="Address">
+                    <h:outputText value="#{user.postCode} + ' ' + #{user.address}"/>
+                </p:column>
+                <p:column headerText="Username" sortBy="#{user.login}">
+                    <h:outputText value="#{user.login}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</html>

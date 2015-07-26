@@ -7,13 +7,14 @@ import ua.com.krupet.RoleTypes;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  * Created by krupet on 11.07.2015.
  */
 @Entity
 @Table(name = "user_roles")
-public class RoleEntity {
+public class RoleEntity implements Serializable{
 
     @Id
     @Column(name = "role_id", unique = true, nullable = false)
@@ -26,7 +27,7 @@ public class RoleEntity {
 
     @Column(name = "user_role")
     @Enumerated(EnumType.STRING)
-    private RoleTypes role;
+    private RoleTypes roleType;
 
     @OneToOne
     @PrimaryKeyJoinColumn
@@ -35,9 +36,9 @@ public class RoleEntity {
     public RoleEntity() {
     }
 
-    public RoleEntity(String username, RoleTypes role) {
+    public RoleEntity(String username, RoleTypes roleType) {
         this.username = username;
-        this.role = role;
+        this.roleType = roleType;
     }
 
     public Long getId() {
@@ -56,12 +57,12 @@ public class RoleEntity {
         this.username = username;
     }
 
-    public RoleTypes getRole() {
-        return role;
+    public RoleTypes getRoleType() {
+        return roleType;
     }
 
-    public void setRole(RoleTypes role) {
-        this.role = role;
+    public void setRoleType(RoleTypes role) {
+        this.roleType = role;
     }
 
     public UserEntity getUser() {

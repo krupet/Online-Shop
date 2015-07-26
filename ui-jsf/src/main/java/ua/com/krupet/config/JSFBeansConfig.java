@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import ua.com.krupet.jsfbeans.ProductBean;
+import ua.com.krupet.jsfbeans.UserBean;
 
 /**
  * Created by krupet on 7/22/15.
@@ -16,5 +17,10 @@ public class JSFBeansConfig {
     @Bean
     public ProductBean productBean() {
         return new ProductBean();
+    }
+
+    @Bean
+    public UserBean userBean() {
+        return new UserBean();
     }
 }
