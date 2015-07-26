@@ -65,18 +65,6 @@ id="WebApp_ID" version="2.5">
         </listener-class>
     </listener>
 
-    <!--<listener>-->
-        <!--<listener-class>-->
-            <!--org.springframework.security.web.session.HttpSessionEventPublisher-->
-        <!--</listener-class>-->
-    <!--</listener>-->
-
-    <!--<listener>-->
-        <!--<listener-class>-->
-            <!--org.springframework.web.context.request.RequestContextListener-->
-        <!--</listener-class>-->
-    <!--</listener>-->
-
     <session-config>
         <session-timeout>
             30
@@ -86,13 +74,18 @@ id="WebApp_ID" version="2.5">
     <!--
     ******************** Spring Security Filter *********************
     -->
-    <!--<filter>-->
-        <!--<filter-name>springSecurityFilterChain</filter-name>-->
-        <!--<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>-->
-    <!--</filter>-->
 
-    <!--<filter-mapping>-->
-        <!--<filter-name>springSecurityFilterChain</filter-name>-->
-        <!--<url-pattern>/*</url-pattern>-->
-    <!--</filter-mapping>-->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>
+            org.springframework.web.filter.DelegatingFilterProxy
+        </filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>ERROR</dispatcher>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
 </web-app>

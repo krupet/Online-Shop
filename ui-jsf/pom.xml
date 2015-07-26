@@ -13,6 +13,7 @@
 
     <properties>
         <jsf.version>2.2.11</jsf.version>
+        <spring.securoty.versoin>4.0.2.RELEASE</spring.securoty.versoin>
     </properties>
 
     <dependencies>
@@ -64,6 +65,18 @@
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
             <version>5.2</version>
+        </dependency>
+
+        <!-- Spring Security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.securoty.versoin}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.securoty.versoin}</version>
         </dependency>
     </dependencies>
 
