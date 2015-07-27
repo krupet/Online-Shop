@@ -12,7 +12,9 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import ua.com.krupet.dao.ProductDAO;
+import ua.com.krupet.dao.UsersDAO;
 import ua.com.krupet.dao.impl.ProductDAOImpl;
+import ua.com.krupet.dao.impl.UsersDAOImpl;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -75,5 +77,10 @@ public class HibernateOrmConfig {
     @Bean
     public ProductDAO productDAO() {
         return new ProductDAOImpl();
+    }
+
+    @Bean
+    public UsersDAO usersDAO() {
+        return new UsersDAOImpl();
     }
 }

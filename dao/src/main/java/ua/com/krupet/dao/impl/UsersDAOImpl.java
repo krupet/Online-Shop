@@ -52,6 +52,10 @@ public class UsersDAOImpl implements UsersDAO {
 
         List<UserEntity> userEntities = (List<UserEntity>) session.createCriteria(UserEntity.class).list();
 
+        /*
+            if there is no records in DB returning empty list
+         */
+        if (userEntities == null) return new ArrayList<>();
 
         List<User> users = new ArrayList<>();
         List<OrderEntity> orderEntities = null;
@@ -70,13 +74,15 @@ public class UsersDAOImpl implements UsersDAO {
 
             orderEntities = userEntity.getOrders();
             orders = new ArrayList<>();
-            for (OrderEntity orderEntity : orderEntities) {
-                /*
-                    to avoid recursive call (orderEntity.getUser()) setting user (customer) as null
-                 */
-                order = new Order(orderEntity.getId().toString(), orderEntity.getCreationDate().toString(),
-                                  orderEntity.getStatus().toString(), null, orderEntity.getProductIDList());
-                orders.add(order);
+            if (orderEntities != null) {
+                for (OrderEntity orderEntity : orderEntities) {
+                    /*
+                        to avoid recursive call (orderEntity.getUser()) setting user (customer) as null
+                     */
+                    order = new Order(orderEntity.getId().toString(), orderEntity.getCreationDate().toString(),
+                                      orderEntity.getStatus().toString(), null, orderEntity.getProductIDList());
+                    orders.add(order);
+                }
             }
 
             user.setOrders(orders);

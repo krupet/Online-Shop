@@ -26,6 +26,9 @@ public class User implements Serializable{
 
     private List<Order> orders;
 
+    public User() {
+    }
+
     public User(String id) {
         this.id = id;
     }

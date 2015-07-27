@@ -38,8 +38,8 @@ public class UsersDAOImplTests extends BaseDaoTest{
                         "test_age",
                         "test_postCode",
                         "test_address",
-                        new Date().getTime(),
-                        "test_login",
+                        Long.toString(new Date().getTime()),
+                        String.format("test_login%d", new Date().getTime()),
                         "test_password",
                         null,                         // Role
                         null);                        // Orders

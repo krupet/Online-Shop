@@ -1,6 +1,7 @@
 package ua.com.krupet.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.krupet.User;
 import ua.com.krupet.dao.UsersDAO;
 import ua.com.krupet.service.UserService;
@@ -16,6 +17,7 @@ public class UserServiceImpl implements UserService {
     private UsersDAO usersDAO;
 
     @Override
+    @Transactional
     public List<User> getUsersList() {
         return usersDAO.getUsersList();
     }
