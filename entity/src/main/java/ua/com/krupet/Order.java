@@ -15,14 +15,21 @@ public class Order implements Serializable{
     private String orderStatus;
 
     private User customer;
-    private List<Long> productList;
+    private List<Long> productIDList;
 
-    public Order(String id, String creationDate, String orderStatus, User customer, List<Long> productList) {
+    public Order() {
+    }
+
+    public Order(String id) {
+        this.id = id;
+    }
+
+    public Order(String id, String creationDate, String orderStatus, User customer, List<Long> productIDList) {
         this.id = id;
         this.creationDate = creationDate;
         this.orderStatus = orderStatus;
         this.customer = customer;
-        this.productList = productList;
+        this.productIDList = productIDList;
     }
 
     public String getId() {
@@ -57,11 +64,11 @@ public class Order implements Serializable{
         this.customer = customer;
     }
 
-    public List<Long> getProductList() {
-        return productList;
+    public List<Long> getProductIDList() {
+        return productIDList;
     }
 
-    public void setProductList(List<Long> productList) {
-        this.productList = productList;
+    public void setProductIDList(List<Long> productList) {
+        this.productIDList = productList;
     }
 }

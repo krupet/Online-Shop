@@ -32,7 +32,7 @@ public class UsersDAOImpl implements UsersDAO {
                 user.getPostCode(), user.getAddress(), Long.parseLong(user.getCreationDate()), user.getLogin(), user.getPassword(),
                 null, null);
 
-        RoleEntity role = new RoleEntity(user.getLogin(), RoleTypes.ROLE_USER); // TODO: role hardcode!
+        RoleEntity role = new RoleEntity(user.getLogin(), RoleTypes.valueOf(user.getRole().getRoleType())); // TODO: role hardcode!
         customerEntity.setRole(role);
 
         role.setUser(customerEntity);
