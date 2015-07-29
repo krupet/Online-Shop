@@ -76,11 +76,10 @@ public class UsersDAOImpl implements UsersDAO {
             orders = new ArrayList<>();
             if (orderEntities != null) {
                 for (OrderEntity orderEntity : orderEntities) {
-                    /*
-                        to avoid recursive call (orderEntity.getUser()) setting user (customer) as null
-                     */
+
                     order = new Order(orderEntity.getId().toString(), orderEntity.getCreationDate().toString(),
-                                      orderEntity.getStatus().toString(), null, orderEntity.getProductIDList());
+                                      orderEntity.getStatus().toString(), orderEntity.getCustomer().getId().toString(),
+                                      orderEntity.getProductIDList());
                     orders.add(order);
                 }
             }

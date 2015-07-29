@@ -1,7 +1,9 @@
 package ua.com.krupet.dao.impl;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import ua.com.krupet.Order;
 import ua.com.krupet.OrderStatus;
@@ -9,6 +11,7 @@ import ua.com.krupet.dao.OrdersDAO;
 import ua.com.krupet.entity.OrderEntity;
 import ua.com.krupet.entity.UserEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,11 +58,9 @@ public class OrderDAOImpl implements OrdersDAO {
 
         if (orderEntity == null) throw new RuntimeException("bad request - there is no order with id ("
                                                                 + orderID + ") in database");
-        /*
-            to avoid problems I set user as null
-         */
+
         return new Order(orderEntity.getId().toString(), orderEntity.getCreationDate().toString(),
-                orderEntity.getStatus().toString(), null, orderEntity.getProductIDList());
+                orderEntity.getStatus().toString(), orderEntity.getCustomer().getId().toString(), orderEntity.getProductIDList());
     }
 
     @Override
@@ -89,16 +90,61 @@ public class OrderDAOImpl implements OrdersDAO {
         Session session = sessionFactory.getCurrentSession();
         List<OrderEntity> orderEntities = (List<OrderEntity>) session.createCriteria(OrderEntity.class).list();
 
-        return null;
+        Order order = null;
+        List<Order> orders = new ArrayList<>();
+        for (OrderEntity orderEntity : orderEntities) {
+            order = new Order(orderEntity.getId().toString(), orderEntity.getCreationDate().toString(),
+                              orderEntity.getStatus().toString(), orderEntity.getCustomer().getId().toString(),
+                              orderEntity.getProductIDList());
+            orders.add(order);
+        }
+        return orders;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Order> getOrdersListByUserID(Long userID) {
-        return null;
+
+        Session session = sessionFactory.getCurrentSession();
+
+        UserEntity userEntity = (UserEntity) session.get(UserEntity.class, userID);
+        if (userEntity == null) throw new RuntimeException("bad request - there is no user with id ("
+                                                                + userID + ") in database");
+
+        Criteria criteria = session.createCriteria(OrderEntity.class);
+        criteria.createAlias("customer", "c");
+        criteria.add(Restrictions.eq("c.id", userID));
+        List<OrderEntity> orderEntities = (List<OrderEntity>) criteria.list();
+
+        Order order = null;
+        List<Order> orders = new ArrayList<>();
+        for (OrderEntity orderEntity : orderEntities) {
+            order = new Order(orderEntity.getId().toString(), orderEntity.getCreationDate().toString(),
+                              orderEntity.getStatus().toString(), orderEntity.getCustomer().getId().toString(),
+                              orderEntity.getProductIDList());
+            orders.add(order);
+        }
+
+        return orders;
     }
 
     @Override
     public Order deleteOrder(Order order) {
-        return null;
+
+        Long orderID = Long.parseLong(order.getId());
+
+        Session session = sessionFactory.getCurrentSession();
+        OrderEntity orderEntity = (OrderEntity) session.get(OrderEntity.class, orderID);
+        if (orderEntity == null) throw new RuntimeException("bad request - there is no order with id ("
+                                                                    + orderID + ") in database");
+
+        session.delete(orderEntity);
+        session.flush();
+
+        OrderEntity removedOrderEntity = (OrderEntity) session.get(OrderEntity.class, orderID);
+        if (removedOrderEntity != null) throw new RuntimeException("internal error during deletion order with id ("
+                                                        + orderID + ") in database");
+
+        return new Order();
     }
 }
