@@ -5,21 +5,21 @@ package ua.com.krupet;
  */
 public class Role {
 
-    private Long id;
+    private String id;
     private String username;
     private String roleType;
 
-    public Role(Long id, String username, String roleType) {
+    public Role(String id, String username, String roleType) {
         this.id = id;
         this.username = username;
         this.roleType = roleType;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

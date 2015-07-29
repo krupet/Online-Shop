@@ -18,8 +18,8 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     @Transactional
-    public Order createOrder(Order order) {
-        return ordersDAO.createOrder(order);
+    public Order createOrder(Long userID, Order order) {
+        return ordersDAO.createOrder(userID, order);
     }
 
     @Override

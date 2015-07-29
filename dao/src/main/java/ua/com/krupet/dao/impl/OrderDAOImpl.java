@@ -74,6 +74,9 @@ public class OrderDAOImpl implements OrdersDAO {
         if (orderEntity == null) throw new RuntimeException("bad request - there is no order with id ("
                                                                 + orderID + ") in database");
 
+        /*
+            in order only status and product list is allowed to change
+         */
         orderEntity.setStatus(OrderStatus.valueOf(order.getOrderStatus()));
         orderEntity.setProductIDList(order.getProductIDList());
 
