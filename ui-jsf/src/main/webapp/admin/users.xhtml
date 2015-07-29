@@ -31,7 +31,22 @@
                 <p:column headerText="User Role">
                     <h:outputText value="#{user.role.roleType}"/>
                 </p:column>
+                <f:facet name="footer">
+                    <p:commandButton value="New User" oncomplete="PF('newUser').show()" icon="ui-icon-star" title="Creates new user"/>
+                </f:facet>
             </p:dataTable>
         </h:form>
+
+        <p:dialog header="Add new User" widgetVar="newUser" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+            <h:form id="newUserForm">
+                <p:panelGrid columns="2">
+                    <h:outputText value="User name (login):"/>
+                    <p:inputText value="#{userBean.user.login}" required="true" requiredMessage="Please enter users login!"/>
+
+                    <h:outputText value="User password:"/>
+                    <p:inputText value="#{userBean.user.password}" required="true" requiredMessage="Please enter users password!"/>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
     </h:body>
 </html>

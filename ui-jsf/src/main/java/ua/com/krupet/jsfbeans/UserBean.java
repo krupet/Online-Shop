@@ -22,6 +22,7 @@ public class UserBean {
     private UserService userService;
 
     private LazyDataModel<User> lazyDataModel;
+    private User user;
 
     @PostConstruct
     public void init() {
@@ -30,5 +31,13 @@ public class UserBean {
 
     public LazyDataModel<User> getLazyDataModel() {
         return lazyDataModel;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
