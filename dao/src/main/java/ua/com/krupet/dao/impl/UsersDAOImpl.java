@@ -73,17 +73,18 @@ public class UsersDAOImpl implements UsersDAO {
         session.update(userEntity);
         session.flush();
 
-        /*
-            TODO: some proper checks
-         */
         UserEntity updatedUser = (UserEntity) session.get(UserEntity.class, userID);
 
-        RoleEntity roleEnt = updatedUser.getRole();
-        Role role = new Role(roleEnt.getId().toString(), roleEnt.getUsername(), roleEnt.getRoleType().toString());
+        if (updatedUser != null) {
+            RoleEntity roleEnt = updatedUser.getRole();
+            Role role = new Role(roleEnt.getId().toString(), roleEnt.getUsername(), roleEnt.getRoleType().toString());
 
-        return new User(updatedUser.getId().toString(), updatedUser.getFirstName(), updatedUser.getLastName(),
-                updatedUser.getEmail(), updatedUser.getAge(), updatedUser.getPostCode(), updatedUser.getAddress(),
-                updatedUser.getCreationDate().toString(), updatedUser.getLogin(), updatedUser.getPassword(), role, null);
+            return new User(updatedUser.getId().toString(), updatedUser.getFirstName(), updatedUser.getLastName(),
+                    updatedUser.getEmail(), updatedUser.getAge(), updatedUser.getPostCode(), updatedUser.getAddress(),
+                    updatedUser.getCreationDate().toString(), updatedUser.getLogin(), updatedUser.getPassword(), role,
+                    null);
+
+        } else return null;
     }
 
     @Override

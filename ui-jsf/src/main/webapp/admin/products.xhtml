@@ -57,9 +57,7 @@
                         <p:panelGrid  columns="2" rendered="#{not empty productBean.product}" columnClasses="column" cellpadding="5" style="border: none">
 
                             <h:outputLabel for="prod_id" value="ID:" />
-                            <p:inplace id="prod_id" editor="true">
-                                <p:inputText value="#{productBean.product.id}" required="true" label="text" />
-                            </p:inplace>
+                            <h:outputText id="prod_id" value="#{productBean.product.id}"/>
 
                             <h:outputLabel for="prod_name" value="Name:" />
                             <p:inplace id="prod_name" editor="true">

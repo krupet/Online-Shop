@@ -13,24 +13,31 @@
 
     <h:body>
         <h:form id="usersForm">
-            <p:dataTable id="users_list" var="newUser" value="#{userBean.lazyDataModel}" lazy="true" rows="10">
+            <p:dataTable id="users_list" var="user" value="#{userBean.lazyDataModel}" lazy="true" rows="10">
                 <f:facet name="header">Users</f:facet>
 
-                <p:column headerText="ID" sortBy="#{newUser.id}">
-                    <h:outputText value="#{newUser.id}"/>
+                <p:column headerText="ID" sortBy="#{user.id}">
+                    <h:outputText value="#{user.id}"/>
                 </p:column>
                 <p:column headerText="Name">
-                    <h:outputText value="#{newUser.firstName} #{newUser.lastName}"/>
+                    <h:outputText value="#{user.firstName} #{user.lastName}"/>
                 </p:column>
-                <p:column headerText="Email" sortBy="#{newUser.email}">
-                    <h:outputText value="#{newUser.email}"/>
+                <p:column headerText="Email" sortBy="#{user.email}">
+                    <h:outputText value="#{user.email}"/>
                 </p:column>
-                <p:column headerText="Username" sortBy="#{newUser.login}">
-                    <h:outputText value="#{newUser.login}"/>
+                <p:column headerText="Username" sortBy="#{user.login}">
+                    <h:outputText value="#{user.login}"/>
                 </p:column>
                 <p:column headerText="User Role">
-                    <h:outputText value="#{newUser.role.roleType}"/>
+                    <h:outputText value="#{user.role.roleType}"/>
                 </p:column>
+
+                <p:column style="text-align: center">
+                    <p:commandButton update=":editUserForm" oncomplete="PF('editUser').show()" icon="ui-icon-search" title="Edit" value="Edit">
+                        <f:setPropertyActionListener value="#{user}" target="#{userBean.selectedUser}" />
+                    </p:commandButton>
+                </p:column>
+
                 <f:facet name="footer">
                     <p:commandButton value="New User" oncomplete="PF('newUser').show()" icon="ui-icon-star" title="Creates new newUser"/>
                 </f:facet>
@@ -75,6 +82,65 @@
                         <p:commandButton value="Add" update="usersForm, growl" actionListener="#{userBean.addNewUser}"
                                          oncomplete="handlePostRequest(xhr, status, args)">
                         </p:commandButton>
+                    </f:facet>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+
+        <p:dialog header="Edit user info" widgetVar="editUser" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+            <h:form id="editUserForm">
+                <p:panelGrid columns="2" rendered="#{not empty userBean.selectedUser}">
+                    <h:outputLabel for="user_id" value="ID:" />
+                    <h:outputText id="user_id" value="#{userBean.selectedUser.id}"/>
+
+                    <h:outputLabel for="user_login" value="Username:" />
+                    <h:outputText id="user_login" value="#{userBean.selectedUser.login}"/>
+
+                    <h:outputLabel for="user_pswd" value="Password:" />
+                    <p:inplace id="user_pswd" editor="true">
+                        <p:inputText value="#{userBean.selectedUser.password}" required="true" label="text" />
+                    </p:inplace>
+
+                    <h:outputLabel for="user_role" value="Role:" />
+                    <p:inplace id="user_role" effect="none" label="#{userBean.selectedUser.role}">
+                        <p:selectOneMenu id="role_menu_edit" value="#{userBean.userRole}" style="width: 500px">
+                            <f:selectItem itemLabel="Administrator" itemValue="ROLE_ADMIN"/>
+                            <f:selectItem itemLabel="Manager" itemValue="ROLE_MANAGER"/>
+                            <f:selectItem itemLabel="User" itemValue="ROLE_USER"/>
+                        </p:selectOneMenu>
+                    </p:inplace>
+
+                    <h:outputLabel for="user_email" value="Email:" />
+                    <h:outputText id="user_email" value="#{userBean.selectedUser.email}"/>
+
+                    <h:outputLabel for="user_fname" value="First name:" />
+                    <p:inplace id="user_fname" editor="true">
+                        <p:inputText value="#{userBean.selectedUser.firstName}" required="true" label="text" />
+                    </p:inplace>
+
+                    <h:outputLabel for="user_lname" value="Last name:" />
+                    <p:inplace id="user_lname" editor="true">
+                        <p:inputText value="#{userBean.selectedUser.lastName}" required="true" label="text" />
+                    </p:inplace>
+
+                    <h:outputLabel for="user_pcode" value="Postal code:" />
+                    <p:inplace id="user_pcode" editor="true">
+                        <p:inputText value="#{userBean.selectedUser.postCode}" required="true" label="text" />
+                    </p:inplace>
+
+                    <h:outputLabel for="user_addr" value="Address (street):" />
+                    <p:inplace id="user_addr" editor="true">
+                        <p:inputText value="#{userBean.selectedUser.address}" required="true" label="text" />
+                    </p:inplace>
+
+                    <h:outputLabel for="user_age" value="Age:" />
+                    <p:inplace id="user_age" editor="true">
+                        <p:inputText value="#{userBean.selectedUser.age}" required="true" label="text" />
+                    </p:inplace>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Update" update="usersForm, growl" actionListener="#{userBean.editUser}"
+                                         oncomplete="handleEditRequest(xhr, status, args)" />
                     </f:facet>
                 </p:panelGrid>
             </h:form>

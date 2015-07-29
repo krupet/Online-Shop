@@ -54,7 +54,26 @@ public class UserBean {
             message = new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Created!", "new user created successfully!");
         } else message = new FacesMessage(FacesMessage.SEVERITY_WARN,
-                    "Error", "error during creating new newUser");
+                    "Error", "error during creating new user");
+
+        FacesContext.getCurrentInstance().addMessage(null, message);
+        context.addCallbackParam("success", success);
+    }
+
+    public void editUser(ActionEvent event) {
+        RequestContext context = RequestContext.getCurrentInstance();
+        FacesMessage message = null;
+        boolean success = false;
+
+        Long userID = Long.parseLong(selectedUser.getId());
+
+        selectedUser.getRole().setRoleType(userRole);
+        if (userService.updateUser(selectedUser) != null) {
+            success = true;
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Updated!", "user with ID("+ userID + ") updated successfully!");
+        } else message = new FacesMessage(FacesMessage.SEVERITY_WARN,
+                    "Error", "error during updating user with ID(" + userID + ")!");
 
         FacesContext.getCurrentInstance().addMessage(null, message);
         context.addCallbackParam("success", success);
