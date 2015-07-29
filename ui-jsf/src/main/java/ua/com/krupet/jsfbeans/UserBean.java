@@ -31,6 +31,7 @@ public class UserBean {
     private LazyDataModel<User> lazyDataModel;
     private User selectedUser;
     private User newUser = new User();
+    private String userRole = "";
 
     @PostConstruct
     public void init() {
@@ -47,7 +48,7 @@ public class UserBean {
         boolean success = false;
 
         newUser.setCreationDate("" + new Date().getTime());
-        newUser.setRole(new Role(newUser.getLogin(), RoleTypes.ROLE_USER.toString()));
+        newUser.setRole(new Role(newUser.getLogin(), userRole));
         if (userService.createUser(newUser) != null) {
             success = true;
             message = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -73,5 +74,13 @@ public class UserBean {
 
     public void setSelectedUser(User selectedUser) {
         this.selectedUser = selectedUser;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 }

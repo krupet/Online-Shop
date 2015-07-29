@@ -46,6 +46,13 @@
                     <h:outputText value="Password:"/>
                     <p:inputText value="#{userBean.newUser.password}" required="true" requiredMessage="Please enter users password!"/>
 
+                    <h:outputText value="Role:"/>
+                    <p:selectOneMenu id="role_menu" value="#{userBean.userRole}" style="width: 125px">
+                        <f:selectItem itemLabel="Administrator" itemValue="ROLE_ADMIN"/>
+                        <f:selectItem itemLabel="Manager" itemValue="ROLE_MANAGER"/>
+                        <f:selectItem itemLabel="User" itemValue="ROLE_USER"/>
+                    </p:selectOneMenu>
+
                     <h:outputText value="Email:"/>
                     <p:inputText value="#{userBean.newUser.email}" required="true" requiredMessage="Please enter your email!"/>
 
@@ -78,11 +85,10 @@
         <script type="text/javascript">
             function handleEditRequest(xhr, status, args) {
                 if(args.validationFailed || !args.success) {
-                    PF('productDialog').jq.effect("shake", {times:5}, 100);
+                    PF('editUser').jq.effect("shake", {times:5}, 100);
                 }
                 else {
-                    PF('productDialog').hide();
-//                    $('#loginLink').fadeOut();
+                    PF('editUser').hide();
                 }
             }
 
@@ -92,7 +98,6 @@
                 }
                 else {
                     PF('newUser').hide();
-//                    $('#loginLink').fadeOut();
                 }
             }
         </script>
