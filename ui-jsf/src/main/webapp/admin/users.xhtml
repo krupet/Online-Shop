@@ -28,6 +28,9 @@
                 <p:column headerText="Username" sortBy="#{user.login}">
                     <h:outputText value="#{user.login}"/>
                 </p:column>
+                <p:column headerText="User Role">
+                    <h:outputText value="#{user.role.roleType}"/>
+                </p:column>
             </p:dataTable>
         </h:form>
     </h:body>

@@ -1,13 +1,20 @@
 package ua.com.krupet;
 
+import javax.faces.bean.ManagedBean;
+import java.io.Serializable;
+
 /**
  * Created by krupet on 11.07.2015.
  */
-public class Role {
+@ManagedBean
+public class Role implements Serializable {
 
     private String id;
     private String username;
     private String roleType;
+
+    public Role() {
+    }
 
     public Role(String id, String username, String roleType) {
         this.id = id;
