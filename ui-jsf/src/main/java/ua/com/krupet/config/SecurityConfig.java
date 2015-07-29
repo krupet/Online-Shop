@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         //Permit access only for some roles
 //                .antMatchers("/manager/page3.xhtml")
 //                .hasAnyRole("ADMIN", "MANAGEMENT")
-                        //If user doesn't have permission, forward him to login page
+                        //If newUser doesn't have permission, forward him to login page
                 .and()
                 .formLogin()
                 .loginPage("/login.xhtml")

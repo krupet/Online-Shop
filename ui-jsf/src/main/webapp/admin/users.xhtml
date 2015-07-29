@@ -12,27 +12,27 @@
     </h:head>
 
     <h:body>
-        <h:form id="form">
-            <p:dataTable id="users_list" var="user" value="#{userBean.lazyDataModel}" lazy="true" rows="10">
+        <h:form id="usersForm">
+            <p:dataTable id="users_list" var="newUser" value="#{userBean.lazyDataModel}" lazy="true" rows="10">
                 <f:facet name="header">Users</f:facet>
 
-                <p:column headerText="ID" sortBy="#{user.id}">
-                    <h:outputText value="#{user.id}"/>
+                <p:column headerText="ID" sortBy="#{newUser.id}">
+                    <h:outputText value="#{newUser.id}"/>
                 </p:column>
                 <p:column headerText="Name">
-                    <h:outputText value="#{user.firstName} #{user.lastName}"/>
+                    <h:outputText value="#{newUser.firstName} #{newUser.lastName}"/>
                 </p:column>
-                <p:column headerText="Email" sortBy="#{user.email}">
-                    <h:outputText value="#{user.email}"/>
+                <p:column headerText="Email" sortBy="#{newUser.email}">
+                    <h:outputText value="#{newUser.email}"/>
                 </p:column>
-                <p:column headerText="Username" sortBy="#{user.login}">
-                    <h:outputText value="#{user.login}"/>
+                <p:column headerText="Username" sortBy="#{newUser.login}">
+                    <h:outputText value="#{newUser.login}"/>
                 </p:column>
                 <p:column headerText="User Role">
-                    <h:outputText value="#{user.role.roleType}"/>
+                    <h:outputText value="#{newUser.role.roleType}"/>
                 </p:column>
                 <f:facet name="footer">
-                    <p:commandButton value="New User" oncomplete="PF('newUser').show()" icon="ui-icon-star" title="Creates new user"/>
+                    <p:commandButton value="New User" oncomplete="PF('newUser').show()" icon="ui-icon-star" title="Creates new newUser"/>
                 </f:facet>
             </p:dataTable>
         </h:form>
@@ -41,12 +41,60 @@
             <h:form id="newUserForm">
                 <p:panelGrid columns="2">
                     <h:outputText value="User name (login):"/>
-                    <p:inputText value="#{userBean.user.login}" required="true" requiredMessage="Please enter users login!"/>
+                    <p:inputText value="#{userBean.newUser.login}" required="true" requiredMessage="Please enter users login!"/>
 
-                    <h:outputText value="User password:"/>
-                    <p:inputText value="#{userBean.user.password}" required="true" requiredMessage="Please enter users password!"/>
+                    <h:outputText value="Password:"/>
+                    <p:inputText value="#{userBean.newUser.password}" required="true" requiredMessage="Please enter users password!"/>
+
+                    <h:outputText value="Email:"/>
+                    <p:inputText value="#{userBean.newUser.email}" required="true" requiredMessage="Please enter your email!"/>
+
+                    <h:outputText value="First name:"/>
+                    <p:inputText value="#{userBean.newUser.firstName}" required="true" requiredMessage="Please enter your first name!"/>
+
+                    <h:outputText value="Last name:"/>
+                    <p:inputText value="#{userBean.newUser.lastName}" required="true" requiredMessage="Please enter yur last name!"/>
+
+                    <h:outputText value="Postal code:"/>
+                    <p:inputText value="#{userBean.newUser.postCode}" required="true" requiredMessage="Please enter your postal code!"/>
+
+                    <h:outputText value="Address (street):"/>
+                    <p:inputText value="#{userBean.newUser.address}" required="true" requiredMessage="Please enter your address!"/>
+
+                    <h:outputText value="Age:"/>
+                    <p:inputText value="#{userBean.newUser.age}"/>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Add" update="usersForm, growl" actionListener="#{userBean.addNewUser}"
+                                         oncomplete="handlePostRequest(xhr, status, args)">
+                        </p:commandButton>
+                    </f:facet>
                 </p:panelGrid>
             </h:form>
         </p:dialog>
+
+        <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+
+        <script type="text/javascript">
+            function handleEditRequest(xhr, status, args) {
+                if(args.validationFailed || !args.success) {
+                    PF('productDialog').jq.effect("shake", {times:5}, 100);
+                }
+                else {
+                    PF('productDialog').hide();
+//                    $('#loginLink').fadeOut();
+                }
+            }
+
+            function handlePostRequest(xhr, status, args) {
+                if(args.validationFailed || !args.success) {
+                    PF('newProduct').jq.effect("shake", {times:5}, 100);
+                }
+                else {
+                    PF('newProduct').hide();
+//                    $('#loginLink').fadeOut();
+                }
+            }
+        </script>
     </h:body>
 </html>
