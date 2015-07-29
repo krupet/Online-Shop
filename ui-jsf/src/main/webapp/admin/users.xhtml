@@ -88,10 +88,10 @@
 
             function handlePostRequest(xhr, status, args) {
                 if(args.validationFailed || !args.success) {
-                    PF('newProduct').jq.effect("shake", {times:5}, 100);
+                    PF('newUser').jq.effect("shake", {times:5}, 100);
                 }
                 else {
-                    PF('newProduct').hide();
+                    PF('newUser').hide();
 //                    $('#loginLink').fadeOut();
                 }
             }
