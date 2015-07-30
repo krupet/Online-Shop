@@ -120,9 +120,7 @@ public class UsersDAOImpl implements UsersDAO {
 
         List<User> users = new ArrayList<>();
         User user = null;
-//        List<OrderEntity> orderEntities = null;
-//        List<Order> orders = null;
-//        Order order = null;
+        RoleEntity roleEnt = null;
 
         /*
             to avoid redundant queries I will return users list without their orders list
@@ -132,22 +130,21 @@ public class UsersDAOImpl implements UsersDAO {
                     userEntity.getEmail(), userEntity.getAge(), userEntity.getPostCode(), userEntity.getAddress(),
                     userEntity.getCreationDate().toString(), userEntity.getLogin(), userEntity.getPassword(), null, null);
 
-            user.setRole(new Role(userEntity.getRole().getId().toString(),
-                                  userEntity.getRole().getUsername(),
-                                  userEntity.getRole().getRoleType().toString()));
+            roleEnt = userEntity.getRole();
 
-//            orderEntities = userEntity.getOrders();
-//            orders = new ArrayList<>();
-//            if (orderEntities != null) {
-//                for (OrderEntity orderEntity : orderEntities) {
-//
-//                    order = new Order(orderEntity.getId().toString(), orderEntity.getCreationDate().toString(),
-//                                      orderEntity.getStatus().toString(), orderEntity.getCustomer().getId().toString(),
-//                                      orderEntity.getProductIDList());
-//                    orders.add(order);
-//                }
-//            }
-//            user.setOrders(orders);
+            /*
+                hotfix
+                TODO: find where is a problem
+                some entity's role gains NPE
+             */
+            if (roleEnt != null) {
+                user.setRole(new Role(roleEnt.getId().toString(),
+                        roleEnt.getUsername(),
+                        roleEnt.getRoleType().toString()));
+            } else {
+                user.setRole(new Role("", "", ""));
+            }
+
             user.setOrders(null);
 
             users.add(user);
