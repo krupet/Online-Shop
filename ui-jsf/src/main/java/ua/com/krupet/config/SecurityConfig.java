@@ -42,8 +42,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**")
                 .hasRole("ADMIN")
                         //Permit access only for some roles
-//                .antMatchers("/manager/page3.xhtml")
-//                .hasAnyRole("ADMIN", "MANAGEMENT")
+                .antMatchers("/manag/**")
+                .hasAnyRole("ADMIN", "MANAGER")
+                .antMatchers("/usr/**")
+                .hasAnyRole("ADMIN", "MANAGER", "USER")
                         //If newUser doesn't have permission, forward him to login page
                 .and()
                 .formLogin()
@@ -64,6 +66,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("manager")
                 .password("manager")
-                .roles("MANAGEMENT");
+                .roles("MANAGER");
+        auth.inMemoryAuthentication()
+                .withUser("user")
+                .password("user")
+                .roles("USER");
     }
 }
