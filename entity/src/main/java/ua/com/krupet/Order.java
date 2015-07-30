@@ -8,7 +8,7 @@ import java.util.List;
  * Created by krupet on 11.07.2015.
  */
 @ManagedBean
-public class Order implements Serializable{
+public class Order implements Serializable {
 
     private String id;
     private String creationDate;

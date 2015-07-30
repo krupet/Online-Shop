@@ -98,7 +98,7 @@ public class EntityDaoImplTest extends BaseDaoTest{
             Phase 1
          */
         UserEntity user = new UserEntity("firstName", "lastName", "email" + new Date().getTime(), "1L", "postCode",
-                "address", new Date().getTime(),"login", "password", null, null);
+                "address", new Date().getTime(),"login" + new Date().getTime(), "password", null, null);
 
         RoleEntity role = new RoleEntity(user.getLogin(), RoleTypes.ROLE_USER);
         user.setRole(role);
@@ -136,7 +136,7 @@ public class EntityDaoImplTest extends BaseDaoTest{
         order1.setProductIDList(products);
         System.out.println(order1.getId());
         session1.save(order1);
-        OrderEntity dbOrder = (OrderEntity) session.get(OrderEntity.class, orderID1);
+        OrderEntity dbOrder = (OrderEntity) session1.get(OrderEntity.class, orderID1);
         System.out.println(dbOrder.getProductIDList());
 
         session1.close();
@@ -147,7 +147,7 @@ public class EntityDaoImplTest extends BaseDaoTest{
 
         Session session2 = sessionFactory.openSession();
 
-        OrderEntity dbOrder1 = (OrderEntity) session.get(OrderEntity.class, orderID1);
+        OrderEntity dbOrder1 = (OrderEntity) session2.get(OrderEntity.class, orderID1);
         System.out.println(dbOrder1.getProductIDList());
 
         session2.close();

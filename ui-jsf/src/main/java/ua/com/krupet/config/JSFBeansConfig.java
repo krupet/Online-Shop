@@ -3,6 +3,7 @@ package ua.com.krupet.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import ua.com.krupet.jsfbeans.OrderBean;
 import ua.com.krupet.jsfbeans.ProductBean;
 import ua.com.krupet.jsfbeans.UserBean;
 
@@ -22,5 +23,10 @@ public class JSFBeansConfig {
     @Bean
     public UserBean userBean() {
         return new UserBean();
+    }
+
+    @Bean
+    public OrderBean orderBean() {
+        return new OrderBean();
     }
 }
