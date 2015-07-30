@@ -56,11 +56,11 @@ public class Order implements Serializable {
         this.orderStatus = orderStatus;
     }
 
-    public String getCustomer() {
+    public String getCustomerID() {
         return customerID;
     }
 
-    public void setCustomer(String customerID) {
+    public void setCustomerID(String customerID) {
         this.customerID = customerID;
     }
 
