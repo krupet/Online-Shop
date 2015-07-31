@@ -5,7 +5,6 @@ import ua.com.krupet.Order;
 import ua.com.krupet.User;
 import ua.com.krupet.service.OrdersService;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import java.io.Serializable;

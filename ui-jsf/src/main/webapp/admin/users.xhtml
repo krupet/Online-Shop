@@ -189,6 +189,20 @@
                     <p:column headerText="Customer ID">
                         <h:outputText value="#{order.customerID}"/>
                     </p:column>
+
+                    <p:column headerText="Status">
+                        <h:outputText value="#{order.orderStatus}"/>
+                    </p:column>
+
+                    <p:column headerText="Number of products">
+                        <h:outputText value="#{order.productIDList.size()}">
+                            <f:convertNumber/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Creation date">
+                        <h:outputText value="#{order.creationDate}"/>
+                    </p:column>
                 </p:dataTable>
             </h:form>
         </p:dialog>
