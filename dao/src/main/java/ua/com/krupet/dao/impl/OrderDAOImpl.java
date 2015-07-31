@@ -93,6 +93,7 @@ public class OrderDAOImpl implements OrdersDAO {
         Session session = sessionFactory.getCurrentSession();
         List<OrderEntity> orderEntities = (List<OrderEntity>) session.createCriteria(OrderEntity.class).list();
 
+        System.out.println("DAO ENT SIZE : " + orderEntities.size());
         Order order = null;
         List<Order> orders = new ArrayList<>();
         for (OrderEntity orderEntity : orderEntities) {
@@ -101,6 +102,7 @@ public class OrderDAOImpl implements OrdersDAO {
                               orderEntity.getProductIDList());
             orders.add(order);
         }
+        System.out.println("\tDAO SIZE : " + orders.size());
         return orders;
     }
 

@@ -37,7 +37,44 @@
                         <f:convertNumber/>
                     </h:outputText>
                 </p:column>
+
+                <p:column>
+                    <p:commandButton update=":orderInfoForm" oncomplete="PF('orderInfo').show()" icon="ui-icon-search" title="View" action="#{orderBean.setUser()}">
+                        <f:setPropertyActionListener value="#{order.customerID}" target="#{orderBean.customerID}"/>
+                        <f:setPropertyActionListener value="#{order}" target="#{orderBean.order}"/>
+                    </p:commandButton>
+                </p:column>
             </p:dataTable>
         </h:form>
+
+        <p:dialog widgetVar="orderInfo" header="Order information" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+            <h:form id="orderInfoForm">
+                <p:panelGrid columns="2">
+                    <h:outputText value="Customer name"/>
+                    <h:outputText value="#{orderBean.user.firstName} #{orderBean.user.lastName}"/>
+
+                    <h:outputText value="Address"/>
+                    <h:outputText value="#{orderBean.user.postCode} #{orderBean.user.address}"/>
+                </p:panelGrid>
+
+                <p:dataTable var="product" value="#{orderBean.products}" rows="10" scrollable="true" scrollHeight="150">
+                    <p:column headerText="ID">
+                        <h:outputText value="#{product.id}"/>
+                    </p:column>
+
+                    <p:column headerText="Price">
+                        <h:outputText value="#{product.price}"/>
+                    </p:column>
+
+                    <p:column headerText="Name">
+                        <h:outputText value="#{product.name}"/>
+                    </p:column>
+
+                    <p:column headerText="Descripton">
+                        <h:outputText value="#{product.description}"/>
+                    </p:column>
+                 </p:dataTable>
+            </h:form>
+        </p:dialog>
     </h:body>
 </html>

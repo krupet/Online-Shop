@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.krupet.BaseDaoTest;
 import ua.com.krupet.Order;
 import ua.com.krupet.OrderStatus;
@@ -151,5 +152,23 @@ public class EntityDaoImplTest extends BaseDaoTest{
         System.out.println(dbOrder1.getProductIDList());
 
         session2.close();
+    }
+
+    @Test
+    @Transactional
+    public void AddProductsIaAOrderTest() {
+        Session session = sessionFactory.getCurrentSession();
+
+        OrderEntity orderEntity = (OrderEntity) session.get(OrderEntity.class, 1L);
+
+        List<Long> productIDList = orderEntity.getProductIDList();
+        productIDList.add(1L);
+        productIDList.add(1L);
+        productIDList.add(1L);
+        orderEntity.setProductIDList(productIDList);
+
+        session.update(orderEntity);
+        session.flush();
+
     }
 }
