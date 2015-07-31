@@ -35,7 +35,8 @@ public class OrderEntity implements Serializable{
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "order_products", joinColumns = @JoinColumn(name = "order_id"))
-    @Column(name = "product_id")
+//    @Column(name = "product_id")
+    @OrderColumn
     private List<Long> productIDList = new ArrayList<>();
 
     public OrderEntity() {

@@ -156,6 +156,29 @@ public class EntityDaoImplTest extends BaseDaoTest{
 
     @Test
     @Transactional
+    public void addOrderToUserTest() {
+        Session session = sessionFactory.getCurrentSession();
+
+        UserEntity userEntity = (UserEntity) session.get(UserEntity.class, 2L);
+        List<OrderEntity> orderEntities = userEntity.getOrders();
+        OrderEntity orderEntity1 = new OrderEntity(new Date().getTime(), OrderStatus.PREPARING, userEntity);
+        OrderEntity orderEntity2 = new OrderEntity(new Date().getTime(), OrderStatus.PREPARING, userEntity);
+        OrderEntity orderEntity3 = new OrderEntity(new Date().getTime(), OrderStatus.PREPARING, userEntity);
+
+        orderEntities.add(orderEntity1);
+        orderEntities.add(orderEntity2);
+        orderEntities.add(orderEntity3);
+        userEntity.setOrders(orderEntities);
+
+        session.update(userEntity);
+        session.save(orderEntity1);
+        session.save(orderEntity2);
+        session.save(orderEntity3);
+        session.flush();
+    }
+
+    @Test
+    @Transactional
     public void AddProductsIaAOrderTest() {
         Session session = sessionFactory.getCurrentSession();
 
@@ -163,8 +186,8 @@ public class EntityDaoImplTest extends BaseDaoTest{
 
         List<Long> productIDList = orderEntity.getProductIDList();
         productIDList.add(1L);
-        productIDList.add(1L);
-        productIDList.add(1L);
+        productIDList.add(2L);
+        productIDList.add(3L);
         orderEntity.setProductIDList(productIDList);
 
         session.update(orderEntity);
