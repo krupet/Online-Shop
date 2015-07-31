@@ -33,11 +33,10 @@ public class OrderEntity implements Serializable{
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity customer;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "order_products", joinColumns = @JoinColumn(name = "order_id"))
-//    @Column(name = "product_id")
-    @OrderColumn
-    private List<Long> productIDList = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "order_products", joinColumns = @JoinColumn(name = "order_id"),
+                                        inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<ProductEntity> productIDList = new ArrayList<>();
 
     public OrderEntity() {
     }
@@ -53,7 +52,7 @@ public class OrderEntity implements Serializable{
         this.customer = customer;
     }
 
-    public OrderEntity(Long creationDate, OrderStatus status, UserEntity customer, List<Long> productIDList) {
+    public OrderEntity(Long creationDate, OrderStatus status, UserEntity customer, List<ProductEntity> productIDList) {
         this.creationDate = creationDate;
         this.status = status;
         this.customer = customer;
@@ -92,11 +91,11 @@ public class OrderEntity implements Serializable{
         this.customer = customer;
     }
 
-    public List<Long> getProductIDList() {
+    public List<ProductEntity> getProductIDList() {
         return productIDList;
     }
 
-    public void setProductIDList(List<Long> productIDList) {
+    public void setProductIDList(List<ProductEntity> productIDList) {
         this.productIDList = productIDList;
     }
 }

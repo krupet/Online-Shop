@@ -39,11 +39,9 @@ public class OrderBean implements Serializable{
     private User user;
     private Order order = new Order();
     private List<Product> products = new ArrayList<>();
-    private List<Order> orders;
 
     @PostConstruct
     public void init() {
-        orders = ordersService.getOrdersList();
         lazyDataModel = new LazyOrderDataModel(ordersService);
     }
 
@@ -83,14 +81,8 @@ public class OrderBean implements Serializable{
 
     public List<Product> getProducts() {
 
-        List<Long> prodList = order.getProductIDList();
-        if (prodList != null) {
-            System.out.println("\t LIST NUMBER" + prodList.size());
-            for (Long productID : prodList) {
-                products.add(productService.getProductByID(productID));
-            }
-//            products.addAll(prodList.stream().map(productService::getProductByID).collect(Collectors.toList()));
-            return products;
+        if (order != null) {
+            return products = order.getProductIDList();
         } else return new ArrayList<>();
     }
 

@@ -7,12 +7,16 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import ua.com.krupet.Order;
 import ua.com.krupet.OrderStatus;
+import ua.com.krupet.Product;
 import ua.com.krupet.dao.OrdersDAO;
 import ua.com.krupet.entity.OrderEntity;
+import ua.com.krupet.entity.ProductEntity;
 import ua.com.krupet.entity.UserEntity;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by krupet on 7/27/15.
@@ -31,9 +35,16 @@ public class OrderDAOImpl implements OrdersDAO {
 
         if (userEntity == null) throw new RuntimeException("bad request - no user with id (" + userID + ") in database");
 
+        List<Product> products = order.getProductIDList();
+        List<ProductEntity> productEntities = new ArrayList<>();
+
+        productEntities.addAll(products.stream().map(product -> new ProductEntity(product.getName(), product.getBrand(),
+                product.getDescription(), new BigDecimal(product.getPrice()), product.getPictureLink(),
+                Long.parseLong(product.getCreationDate()))).collect(Collectors.toList()));
+
         List<OrderEntity> orderEntities = userEntity.getOrders();
         OrderEntity orderEntity = new OrderEntity(Long.parseLong(order.getCreationDate()),
-                OrderStatus.valueOf(order.getOrderStatus()), userEntity, order.getProductIDList());
+                OrderStatus.valueOf(order.getOrderStatus()), userEntity, productEntities);
         orderEntities.add(orderEntity);
 
         userEntity.setOrders(orderEntities);
@@ -59,8 +70,17 @@ public class OrderDAOImpl implements OrdersDAO {
         if (orderEntity == null) throw new RuntimeException("bad request - there is no order with id ("
                                                                 + orderID + ") in database");
 
+        List<ProductEntity> productEntityList = orderEntity.getProductIDList();
+        List<Product> productList = new ArrayList<>();
+
+        productList.addAll(productEntityList.stream().map(productEntity -> new Product(productEntity.getId().toString(),
+                productEntity.getName(), productEntity.getBrand(), productEntity.getDescription(),
+                productEntity.getPrice().toPlainString(), productEntity.getPictureLink(),
+                productEntity.getCreationDate().toString())).collect(Collectors.toList()));
+
+
         return new Order(orderEntity.getId().toString(), orderEntity.getCreationDate().toString(),
-                orderEntity.getStatus().toString(), orderEntity.getCustomer().getId().toString(), orderEntity.getProductIDList());
+                orderEntity.getStatus().toString(), orderEntity.getCustomer().getId().toString(), productList);
     }
 
     @Override
@@ -78,7 +98,15 @@ public class OrderDAOImpl implements OrdersDAO {
             in order only status and product list is allowed to change
          */
         orderEntity.setStatus(OrderStatus.valueOf(order.getOrderStatus()));
-        orderEntity.setProductIDList(order.getProductIDList());
+
+        List<Product> products = order.getProductIDList();
+        List<ProductEntity> productEntities = new ArrayList<>();
+
+        productEntities.addAll(products.stream().map(product -> new ProductEntity(product.getName(), product.getBrand(),
+                product.getDescription(), new BigDecimal(product.getPrice()), product.getPictureLink(),
+                Long.parseLong(product.getCreationDate()))).collect(Collectors.toList()));
+
+        orderEntity.setProductIDList(productEntities);
 
         session.update(orderEntity);
         session.flush();
@@ -94,13 +122,24 @@ public class OrderDAOImpl implements OrdersDAO {
         List<OrderEntity> orderEntities = (List<OrderEntity>) session.createCriteria(OrderEntity.class).list();
 
         System.out.println("DAO ENT SIZE : " + orderEntities.size());
-        Order order = null;
         List<Order> orders = new ArrayList<>();
+
+        List<Product> productList = null;
+        List<ProductEntity> productEntityList = null;
+
         for (OrderEntity orderEntity : orderEntities) {
-            order = new Order(orderEntity.getId().toString(), orderEntity.getCreationDate().toString(),
-                              orderEntity.getStatus().toString(), orderEntity.getCustomer().getId().toString(),
-                              orderEntity.getProductIDList());
-            orders.add(order);
+
+            productEntityList = orderEntity.getProductIDList();
+            productList = new ArrayList<>();
+
+            productList.addAll(productEntityList.stream().map(productEntity -> new Product(productEntity.getId().toString(),
+                    productEntity.getName(), productEntity.getBrand(), productEntity.getDescription(),
+                    productEntity.getPrice().toPlainString(), productEntity.getPictureLink(),
+                    productEntity.getCreationDate().toString())).collect(Collectors.toList()));
+
+            orders.add(new Order(orderEntity.getId().toString(), orderEntity.getCreationDate().toString(),
+                    orderEntity.getStatus().toString(), orderEntity.getCustomer().getId().toString(),
+                    productList));
         }
         System.out.println("\tDAO SIZE : " + orders.size());
         return orders;
@@ -123,11 +162,23 @@ public class OrderDAOImpl implements OrdersDAO {
 
         Order order = null;
         List<Order> orders = new ArrayList<>();
+
+        List<Product> productList = null;
+        List<ProductEntity> productEntityList = null;
+
         for (OrderEntity orderEntity : orderEntities) {
-            order = new Order(orderEntity.getId().toString(), orderEntity.getCreationDate().toString(),
-                              orderEntity.getStatus().toString(), orderEntity.getCustomer().getId().toString(),
-                              orderEntity.getProductIDList());
-            orders.add(order);
+
+            productEntityList = orderEntity.getProductIDList();
+            productList = new ArrayList<>();
+
+            productList.addAll(productEntityList.stream().map(productEntity -> new Product(productEntity.getId().toString(),
+                    productEntity.getName(), productEntity.getBrand(), productEntity.getDescription(),
+                    productEntity.getPrice().toPlainString(), productEntity.getPictureLink(),
+                    productEntity.getCreationDate().toString())).collect(Collectors.toList()));
+
+            orders.add(new Order(orderEntity.getId().toString(), orderEntity.getCreationDate().toString(),
+                    orderEntity.getStatus().toString(), orderEntity.getCustomer().getId().toString(),
+                    productList));
         }
 
         return orders;
