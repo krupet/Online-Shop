@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import ua.com.krupet.jsfbeans.OrderBean;
 import ua.com.krupet.jsfbeans.ProductBean;
 import ua.com.krupet.jsfbeans.UserBean;
+import ua.com.krupet.jsfbeans.UserInfoBean;
 
 /**
  * Created by krupet on 7/22/15.
@@ -28,5 +29,10 @@ public class JSFBeansConfig {
     @Bean
     public OrderBean orderBean() {
         return new OrderBean();
+    }
+
+    @Bean
+    public UserInfoBean userInfoBean() {
+        return new UserInfoBean();
     }
 }

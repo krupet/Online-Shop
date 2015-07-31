@@ -15,6 +15,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -23,7 +24,7 @@ import java.util.Date;
 
 @ManagedBean
 @SessionScoped
-public class UserBean {
+public class UserBean implements Serializable{
 
     @Autowired
     private UserService userService;

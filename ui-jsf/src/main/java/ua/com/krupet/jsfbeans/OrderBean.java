@@ -9,13 +9,14 @@ import ua.com.krupet.service.OrdersService;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import java.io.Serializable;
 
 /**
  * Created by krupet on 7/30/15.
  */
 @ManagedBean
 @SessionScoped
-public class OrderBean {
+public class OrderBean implements Serializable{
 
     @Autowired
     private OrdersService ordersService;
