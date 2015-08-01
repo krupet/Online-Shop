@@ -37,4 +37,9 @@ public class JSFBeansConfig {
     public ShopBean shopBean() {
         return new ShopBean();
     }
+
+    @Bean
+    public IndexBean indexBean() {
+        return new IndexBean();
+    }
 }

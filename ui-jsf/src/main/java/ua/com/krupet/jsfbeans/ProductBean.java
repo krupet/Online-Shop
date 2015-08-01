@@ -32,12 +32,10 @@ public class ProductBean implements Serializable{
 
     public Product product;
     public Product newProduct = new Product();
-    public List<Product> productList;
     public LazyDataModel<Product> lazyDataModel;
 
     @PostConstruct
     private void init() {
-        productList = productService.getProductsList();
         lazyDataModel = new LazyProductDataModel(productService);
     }
 
@@ -107,9 +105,6 @@ public class ProductBean implements Serializable{
         this.newProduct = newProduct;
     }
 
-    public List<Product> getProductList() {
-        return productList;
-    }
 
     public LazyDataModel<Product> getLazyDataModel() {
         return lazyDataModel;
