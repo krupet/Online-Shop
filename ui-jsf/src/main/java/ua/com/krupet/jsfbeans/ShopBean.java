@@ -2,6 +2,8 @@ package ua.com.krupet.jsfbeans;
 
 import org.primefaces.model.LazyDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import ua.com.krupet.Product;
 import ua.com.krupet.jsfbeans.util.LazyProductDataModel;
 import ua.com.krupet.service.ProductService;
@@ -31,5 +33,11 @@ public class ShopBean implements Serializable {
 
     public LazyDataModel<Product> getLazyDataModel() {
         return lazyDataModel;
+    }
+
+    public String getUserName() {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth.getName(); //get logged in username
     }
 }

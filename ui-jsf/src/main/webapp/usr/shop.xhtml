@@ -12,6 +12,13 @@
     </h:head>
 
     <h:body>
+        <h:form id="userIdentityForm">
+            <h1>
+                Welcome,
+                <h:outputText value="#{shopBean.getUserName()}"/>
+                 at our store!
+            </h1>
+        </h:form>
         <h:form id="shopForm">
             <p:dataTable id="products_list" var="product" value="#{shopBean.lazyDataModel}" lazy="true" rows="10">
                 <f:facet name="header">Products</f:facet>
