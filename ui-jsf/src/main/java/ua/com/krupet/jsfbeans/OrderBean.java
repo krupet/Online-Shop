@@ -1,5 +1,6 @@
 package ua.com.krupet.jsfbeans;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.model.LazyDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import ua.com.krupet.Order;
@@ -11,8 +12,11 @@ import ua.com.krupet.service.ProductService;
 import ua.com.krupet.service.UserService;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +43,8 @@ public class OrderBean implements Serializable{
     private User user;
     private Order order = new Order();
     private List<Product> products = new ArrayList<>();
+    private Order selectedOrder;
+    private String orderStatus = "";
 
     @PostConstruct
     public void init() {
@@ -88,5 +94,41 @@ public class OrderBean implements Serializable{
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    public Order getSelectedOrder() {
+        return selectedOrder;
+    }
+
+    public void setSelectedOrder(Order selectedOrder) {
+        this.selectedOrder = selectedOrder;
+    }
+
+    public void editOrderStatus(ActionEvent event) {
+        RequestContext context = RequestContext.getCurrentInstance();
+        FacesMessage message = null;
+        boolean success = false;
+
+        Long orderID = Long.parseLong(selectedOrder.getId());
+
+        selectedOrder.setOrderStatus(orderStatus);
+
+        if (ordersService.updateOrder(selectedOrder) != null) {
+            success = true;
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Updated!", "order with ID("+ orderID + ") updated successfully!");
+        } else message = new FacesMessage(FacesMessage.SEVERITY_WARN,
+                    "Error", "error during updating order with ID(" + orderID + ")!");
+
+        FacesContext.getCurrentInstance().addMessage(null, message);
+        context.addCallbackParam("success", success);
+    }
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
     }
 }

@@ -44,6 +44,11 @@
                         <f:setPropertyActionListener value="#{order}" target="#{orderBean.order}"/>
                     </p:commandButton>
                 </p:column>
+                <p:column>
+                    <p:commandButton update=":orderUpdForm" oncomplete="PF('orderUpd').show()" title="Edit" value="Edit">
+                        <f:setPropertyActionListener value="#{order}" target="#{orderBean.selectedOrder}"/>
+                    </p:commandButton>
+                </p:column>
             </p:dataTable>
         </h:form>
 
@@ -57,7 +62,7 @@
                     <h:outputText value="#{orderBean.user.postCode} #{orderBean.user.address}"/>
                 </p:panelGrid>
 
-                <p:dataTable var="product" value="#{orderBean.products}" rows="10" scrollable="true" scrollHeight="150">
+                <p:dataTable var="product" value="#{orderBean.products}" rows="10" scrollable="true" scrollHeight="250">
                     <p:column headerText="ID">
                         <h:outputText value="#{product.id}"/>
                     </p:column>
@@ -76,5 +81,54 @@
                  </p:dataTable>
             </h:form>
         </p:dialog>
+
+        <p:dialog widgetVar="orderUpd" header="Update Order Status" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+            <h:form id="orderUpdForm">
+                <p:panelGrid columns="2">
+                    <h:outputLabel for="order_id" value="ID:" />
+                    <h:outputText id="order_id" value="#{orderBean.selectedOrder.id}"/>
+
+                    <h:outputLabel for="order_customer" value="Customer ID:" />
+                    <h:outputText id="order_customer" value="#{orderBean.selectedOrder.id}"/>
+
+                    <h:outputLabel for="order_date" value="Date:" />
+                    <h:outputText id="order_date" value="#{orderBean.selectedOrder.creationDate}"/>
+
+                    <h:outputLabel for="order_status" value="Order status:" />
+                    <p:inplace id="order_status" effect="none" label="#{orderBean.selectedOrder.orderStatus}">
+                        <p:selectOneMenu id="role_menu_edit" value="#{orderBean.orderStatus}" style="width: 500px">
+                            <f:selectItem itemLabel="Preparng" itemValue="PREPARING"/>
+                            <f:selectItem itemLabel="Sending" itemValue="READY_TO_SEND"/>
+                            <f:selectItem itemLabel="Sent" itemValue="SENT"/>
+                            <f:selectItem itemLabel="Delivered" itemValue="DELIVERED"/>
+                            <f:selectItem itemLabel="Canceled" itemValue="CANCELED"/>
+                        </p:selectOneMenu>
+                    </p:inplace>
+
+                    <h:outputLabel for="order_prodNum" value="Number of products:" />
+                    <h:outputText id="order_prodNum" value="#{orderBean.selectedOrder.productIDList.size()}">
+                        <f:convertNumber/>
+                    </h:outputText>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Update Status" update="ordersForm, growl" actionListener="#{orderBean.editOrderStatus}"
+                                         oncomplete="handleEditRequest(xhr, status, args)" />
+                    </f:facet>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+
+        <p:growl id="growl" sticky="true" showDetail="true" life="300" />
+
+        <script type="text/javascript">
+            function handleEditRequest(xhr, status, args) {
+                if(args.validationFailed || !args.success) {
+                    PF('orderUpd').jq.effect("shake", {times:5}, 100);
+                }
+                else {
+                    PF('orderUpd').hide();
+                }
+            }
+        </script>
     </h:body>
 </html>

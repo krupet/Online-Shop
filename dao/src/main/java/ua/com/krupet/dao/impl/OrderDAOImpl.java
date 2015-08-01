@@ -95,23 +95,32 @@ public class OrderDAOImpl implements OrdersDAO {
                                                                 + orderID + ") in database");
 
         /*
-            in order only status and product list is allowed to change
+            In order only status and product list is allowed to change.
+            If needed to change only product status, then in order must be set prodList to null
+            otherwise prod list would be changed too.
          */
         orderEntity.setStatus(OrderStatus.valueOf(order.getOrderStatus()));
 
-        List<Product> products = order.getProductIDList();
-        List<ProductEntity> productEntities = new ArrayList<>();
+        if (order.getProductIDList() != null) {
+            List<Product> products = order.getProductIDList();
+            List<ProductEntity> productEntities = new ArrayList<>();
 
-        productEntities.addAll(products.stream().map(product -> new ProductEntity(product.getName(), product.getBrand(),
-                product.getDescription(), new BigDecimal(product.getPrice()), product.getPictureLink(),
-                Long.parseLong(product.getCreationDate()))).collect(Collectors.toList()));
+            productEntities.addAll(products.stream().map(product -> new ProductEntity(product.getName(), product.getBrand(),
+                    product.getDescription(), new BigDecimal(product.getPrice()), product.getPictureLink(),
+                    Long.parseLong(product.getCreationDate()))).collect(Collectors.toList()));
 
-        orderEntity.setProductIDList(productEntities);
+            orderEntity.setProductIDList(productEntities);
+        }
 
         session.update(orderEntity);
         session.flush();
 
-        return order;
+        /*
+            TODO: create some better update check
+         */
+        OrderEntity updatedOrder = (OrderEntity) session.get(OrderEntity.class, orderID);
+        if (updatedOrder == null) throw new RuntimeException("internal error during updating order with id (" + orderID + ")!");
+        else return new Order(updatedOrder.getId().toString());
     }
 
     @Override
@@ -121,7 +130,6 @@ public class OrderDAOImpl implements OrdersDAO {
         Session session = sessionFactory.getCurrentSession();
         List<OrderEntity> orderEntities = (List<OrderEntity>) session.createCriteria(OrderEntity.class).list();
 
-        System.out.println("DAO ENT SIZE : " + orderEntities.size());
         List<Order> orders = new ArrayList<>();
 
         List<Product> productList = null;
@@ -141,7 +149,6 @@ public class OrderDAOImpl implements OrdersDAO {
                     orderEntity.getStatus().toString(), orderEntity.getCustomer().getId().toString(),
                     productList));
         }
-        System.out.println("\tDAO SIZE : " + orders.size());
         return orders;
     }
 
