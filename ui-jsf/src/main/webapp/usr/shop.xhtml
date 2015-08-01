@@ -25,6 +25,9 @@
                     <f:convertNumber/>
                 </h:outputText>
             </h3>
+            <div id="catrInfoDiv">
+                <p:commandButton oncomplete="PF('cartInfo').show()" update=":cartInfoForm" value="Cart Info" title="Cart Info"/>
+            </div>
         </h:form>
         <h:form id="shopForm">
             <p:dataTable id="products_list" var="product" value="#{shopBean.lazyDataModel}" lazy="true" rows="10">
@@ -56,5 +59,47 @@
                 </p:column>
             </p:dataTable>
         </h:form>
+
+        <p:dialog widgetVar="cartInfo" modal="true" header="Order Info" showEffect="fade" hideEffect="fade" resizable="false">
+            <h:form id="cartInfoForm">
+                <p:dataTable var="product" value="#{shopBean.customersOrder.productIDList}" sortBy="#{product.description}">
+                    <p:column headerText="ProductID" sortBy="#{product.id}">
+                        <h:outputText value="#{product.id}"/>
+                    </p:column>
+
+                    <p:column headerText="Name" sortBy="#{product.name}">
+                        <h:outputText value="#{product.name}"/>
+                    </p:column>
+
+                    <p:column headerText="Brand" sortBy="#{product.brand}">
+                        <h:outputText value="#{product.brand}"/>
+                    </p:column>
+
+                    <p:column headerText="Price" sortBy="#{product.price}">
+                        <h:outputText value="#{product.price}"/>
+                    </p:column>
+
+                    <f:facet name="footer">
+                        <h:outputLabel for="total_price" value="TotaL: ">
+                            <h:outputText id="total_price" value="#{shopBean.getTotal()}"/>
+                        </h:outputLabel>
+                        <p:commandButton action="#{shopBean.createOrder()}" value="Make Order" title="Make Order"
+                                         oncomplete="handleOrderRequest(xhr, status, args)"/>
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
+
+
+        <script type="text/javascript">
+            function handleOrderRequest(xhr, status, args) {
+                if(args.validationFailed || !args.success) {
+                    PF('cartInfo').jq.effect("shake", {times:5}, 100);
+                }
+                else {
+                    PF('cartInfo').hide();
+                }
+            }
+        </script>
     </h:body>
 </html>

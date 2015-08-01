@@ -112,7 +112,7 @@ public class UsersDAOImpl implements UsersDAO {
 
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(UserEntity.class);
-        UserEntity userEntity = (UserEntity) criteria.add(Restrictions.eq("login", userName));
+        UserEntity userEntity = (UserEntity) criteria.add(Restrictions.eq("login", userName)).uniqueResult();
 
         if (userEntity == null) throw new RuntimeException("bad request - there is no user with username ("
                 + userName + ") in database");

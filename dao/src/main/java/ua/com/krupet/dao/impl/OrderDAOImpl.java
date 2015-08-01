@@ -61,6 +61,52 @@ public class OrderDAOImpl implements OrdersDAO {
     }
 
     @Override
+    public Order createOrderByUsersName(String userName, Order order) {
+
+        Session session = sessionFactory.getCurrentSession();
+
+        UserEntity userEntity = (UserEntity) session.createCriteria(UserEntity.class)
+                                                    .add(Restrictions.eq("login", userName))
+                                                    .uniqueResult();
+
+        if (userEntity == null)
+            throw new RuntimeException("bad request - no user with username (" + userName + ") in database");
+
+        List<Product> products = order.getProductIDList();
+        if (products == null)
+            throw new RuntimeException("error - you can't create order without products (products == null)");
+        List<ProductEntity> productEntities = new ArrayList<>();
+        Long productID = null;
+
+        /*
+            maybe improve some checks when getting entities
+            and also it will gain a lot of redundant queries
+            or maybe hibernate just saves the day with its first lvl cache)
+        */
+        for (Product product : products) {
+            productID = Long.parseLong(product.getId());
+            productEntities.add((ProductEntity) session.get(ProductEntity.class, productID));
+        }
+
+        List<OrderEntity> orderEntities = userEntity.getOrders();
+        OrderEntity orderEntity = new OrderEntity(Long.parseLong(order.getCreationDate()),
+                OrderStatus.ACCEPTED, userEntity, productEntities);
+        orderEntities.add(orderEntity);
+
+        userEntity.setOrders(orderEntities);
+
+        session.update(userEntity);
+        Long orderID = (Long) session.save(orderEntity);
+
+        session.flush();
+
+        OrderEntity dbOrderEntity = (OrderEntity) session.get(OrderEntity.class, orderID);
+
+        if (dbOrderEntity != null) return new Order(dbOrderEntity.getId().toString());
+        else return null;
+    }
+
+    @Override
     public Order getOrderByID(Long orderID) {
 
         Session session = sessionFactory.getCurrentSession();

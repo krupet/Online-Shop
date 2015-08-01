@@ -10,6 +10,7 @@ import java.util.List;
 public interface OrdersService {
 
     Order createOrder(Long userID, Order order);
+    Order createOrderByUsersName(String userName, Order order);
     Order getOrderByID(Long orderID);
     Order updateOrderStatus(Order order);
     List<Order> getOrdersList();

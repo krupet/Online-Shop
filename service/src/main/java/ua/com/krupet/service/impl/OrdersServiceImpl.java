@@ -24,6 +24,12 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     @Transactional
+    public Order createOrderByUsersName(String userName, Order order) {
+        return ordersDAO.createOrderByUsersName(userName, order);
+    }
+
+    @Override
+    @Transactional
     public Order getOrderByID(Long orderID) {
         return ordersDAO.getOrderByID(orderID);
     }
