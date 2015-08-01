@@ -11,7 +11,7 @@ public interface OrdersDAO {
 
     Order createOrder(Long userID, Order order);
     Order getOrderByID(Long orderID);
-    Order updateOrder(Order order);
+    Order updateOrderStatus(Order order);
     List<Order> getOrdersList();
     List<Order> getOrdersListByUserID(Long userID);
     Order deleteOrder(Order order);

@@ -1,7 +1,9 @@
 package ua.com.krupet.dao.impl;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import ua.com.krupet.Order;
 import ua.com.krupet.Role;
@@ -94,6 +96,26 @@ public class UsersDAOImpl implements UsersDAO {
         UserEntity userEntity = (UserEntity) session.get(UserEntity.class, userID);
         if (userEntity == null) throw new RuntimeException("bad request - there is no user with id("
                                                                 + userID + ") in database");
+        RoleEntity roleEnt = userEntity.getRole();
+        Role role = new Role(roleEnt.getId().toString(), roleEnt.getUsername(), roleEnt.getRoleType().toString());
+
+        /*
+            setting orders as null to avoid redundant queries
+         */
+        return new User(userEntity.getId().toString(), userEntity.getFirstName(), userEntity.getLastName(),
+                userEntity.getEmail(), userEntity.getAge(), userEntity.getPostCode(), userEntity.getAddress(),
+                userEntity.getCreationDate().toString(), userEntity.getLogin(), userEntity.getPassword(), role, null);
+    }
+
+    @Override
+    public User getUserByUserName(String userName) {
+
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(UserEntity.class);
+        UserEntity userEntity = (UserEntity) criteria.add(Restrictions.eq("login", userName));
+
+        if (userEntity == null) throw new RuntimeException("bad request - there is no user with username ("
+                + userName + ") in database");
         RoleEntity roleEnt = userEntity.getRole();
         Role role = new Role(roleEnt.getId().toString(), roleEnt.getUsername(), roleEnt.getRoleType().toString());
 

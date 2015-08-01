@@ -12,5 +12,6 @@ public interface UsersDAO {
     User createUser(User user);
     User updateUser(User user);
     User getUserByID(Long userID);
+    User getUserByUserName(String userName);
     List<User> getUsersList();
 }

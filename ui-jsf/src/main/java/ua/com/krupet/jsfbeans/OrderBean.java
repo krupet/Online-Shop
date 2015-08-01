@@ -113,7 +113,7 @@ public class OrderBean implements Serializable{
 
         selectedOrder.setOrderStatus(orderStatus);
 
-        if (ordersService.updateOrder(selectedOrder) != null) {
+        if (ordersService.updateOrderStatus(selectedOrder) != null) {
             success = true;
             message = new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Updated!", "order with ID("+ orderID + ") updated successfully!");

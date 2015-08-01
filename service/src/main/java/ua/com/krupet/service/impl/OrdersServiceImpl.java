@@ -30,8 +30,8 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     @Transactional
-    public Order updateOrder(Order order) {
-        return ordersDAO.updateOrder(order);
+    public Order updateOrderStatus(Order order) {
+        return ordersDAO.updateOrderStatus(order);
     }
 
     @Override

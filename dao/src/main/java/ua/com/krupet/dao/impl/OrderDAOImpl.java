@@ -84,7 +84,7 @@ public class OrderDAOImpl implements OrdersDAO {
     }
 
     @Override
-    public Order updateOrder(Order order) {
+    public Order updateOrderStatus(Order order) {
 
         Long orderID = Long.parseLong(order.getId());
         Session session = sessionFactory.getCurrentSession();
@@ -94,23 +94,7 @@ public class OrderDAOImpl implements OrdersDAO {
         if (orderEntity == null) throw new RuntimeException("bad request - there is no order with id ("
                                                                 + orderID + ") in database");
 
-        /*
-            In order only status and product list is allowed to change.
-            If needed to change only product status, then in order must be set prodList to null
-            otherwise prod list would be changed too.
-         */
         orderEntity.setStatus(OrderStatus.valueOf(order.getOrderStatus()));
-
-        if (order.getProductIDList() != null) {
-            List<Product> products = order.getProductIDList();
-            List<ProductEntity> productEntities = new ArrayList<>();
-
-            productEntities.addAll(products.stream().map(product -> new ProductEntity(product.getName(), product.getBrand(),
-                    product.getDescription(), new BigDecimal(product.getPrice()), product.getPictureLink(),
-                    Long.parseLong(product.getCreationDate()))).collect(Collectors.toList()));
-
-            orderEntity.setProductIDList(productEntities);
-        }
 
         session.update(orderEntity);
         session.flush();

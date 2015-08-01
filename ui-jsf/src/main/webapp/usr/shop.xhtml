@@ -18,6 +18,13 @@
                 <h:outputText value="#{shopBean.getUserName()}"/>
                  at our store!
             </h1>
+
+            <h3>
+                Products in a catr:
+                <h:outputText value="#{shopBean.customersOrder.productIDList.size()}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h3>
         </h:form>
         <h:form id="shopForm">
             <p:dataTable id="products_list" var="product" value="#{shopBean.lazyDataModel}" lazy="true" rows="10">
@@ -42,6 +49,10 @@
                 </p:column>
                 <p:column headerText="Date" sortBy="#{product.creationDate}">
                     <h:outputText value="#{product.creationDate}"/>
+                </p:column>
+
+                <p:column>
+                    <p:commandButton update="userIdentityForm" action="#{shopBean.addProductToCart(product)}" title="Add to cart" value="Add to cart"/>
                 </p:column>
             </p:dataTable>
         </h:form>
