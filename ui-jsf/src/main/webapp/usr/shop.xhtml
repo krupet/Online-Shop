@@ -78,6 +78,10 @@
                     <p:column headerText="Price" sortBy="#{product.price}">
                         <h:outputText value="#{product.price}"/>
                     </p:column>
+                    <p:column>
+                        <p:commandButton action="#{shopBean.removeProductFromCart(product)}"
+                                         update="cartInfoForm" value="Remove" title="Remove"/>
+                    </p:column>
 
                     <f:facet name="footer">
                         <h:outputLabel for="total_price" value="TotaL: ">

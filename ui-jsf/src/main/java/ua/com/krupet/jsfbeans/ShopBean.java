@@ -64,6 +64,10 @@ public class ShopBean implements Serializable {
         customersOrder.getProductIDList().add(product);
     }
 
+    public void removeProductFromCart(Product product) {
+        customersOrder.getProductIDList().remove(product);
+    }
+
     public Order getCustomersOrder() {
         return customersOrder;
     }
