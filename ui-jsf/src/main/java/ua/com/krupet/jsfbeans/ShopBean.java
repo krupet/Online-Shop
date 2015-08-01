@@ -95,6 +95,7 @@ public class ShopBean implements Serializable {
 
         if (ordersService.createOrderByUsersName(userName, customersOrder) != null) {
             success = true;
+            customersOrder.getProductIDList().clear();
             message = new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Accepted!", "Your order accepted successfully!");
         } else message = new FacesMessage(FacesMessage.SEVERITY_WARN,
