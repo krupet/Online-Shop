@@ -20,7 +20,7 @@
             </h1>
 
             <h3>
-                Products in a catr:
+                Products in a cart:
                 <h:outputText value="#{shopBean.customersOrder.productIDList.size()}">
                     <f:convertNumber/>
                 </h:outputText>
@@ -94,6 +94,7 @@
             </h:form>
         </p:dialog>
 
+        <p:growl id="growl" sticky="true" showDetail="true" life="300" />
 
         <script type="text/javascript">
             function handleOrderRequest(xhr, status, args) {

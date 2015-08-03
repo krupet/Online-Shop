@@ -1,9 +1,12 @@
 package ua.com.krupet.jsfbeans;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import ua.com.krupet.Order;
 import ua.com.krupet.User;
 import ua.com.krupet.service.OrdersService;
+import ua.com.krupet.service.UserService;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -21,10 +24,15 @@ public class UserInfoBean implements Serializable {
     @Autowired
     private OrdersService ordersService;
 
+    @Autowired
+    private UserService userService;
+
     private User user = new User();
     private List<Order> ordersList;
+    private String userName = "";
 
     public User getUser() {
+        if (!"".equals(userName)) user = userService.getUserByUserName(userName);
         return user;
     }
 
@@ -42,5 +50,15 @@ public class UserInfoBean implements Serializable {
 
     public void setOrdersList(List<Order> ordersList) {
         this.ordersList = ordersList;
+    }
+
+    public String getUserName() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        userName = auth.getName();
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

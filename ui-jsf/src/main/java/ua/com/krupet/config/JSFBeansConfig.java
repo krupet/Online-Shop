@@ -42,4 +42,9 @@ public class JSFBeansConfig {
     public IndexBean indexBean() {
         return new IndexBean();
     }
+
+    @Bean
+    public UsrInfBean usrInfBean() {
+        return new UsrInfBean();
+    }
 }

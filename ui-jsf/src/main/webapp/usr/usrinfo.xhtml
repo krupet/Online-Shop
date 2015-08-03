@@ -12,6 +12,68 @@
     </h:head>
 
     <h:body>
-        <h1>Welcome!</h1>
+        <h1>
+            Welcome,
+            <h:outputText value="#{userInfoBean.getUserName()}"/>
+        </h1>
+
+        <h:form id="usersInfoForm">
+            <p:panelGrid columns="2">
+
+                <h:outputText value="ID:"/>
+                <h:outputText value="#{userInfoBean.user.id}"/>
+
+                <h:outputText value="User name (login):"/>
+                <h:outputText value="#{userInfoBean.user.login}"/>
+
+                <h:outputText value="Role:"/>
+                <h:outputText value="#{userInfoBean.user.role.roleType}"/>
+
+                <h:outputText value="Email:"/>
+                <h:outputText value="#{userInfoBean.user.email}"/>
+
+                <h:outputText value="First name:"/>
+                <h:outputText value="#{userInfoBean.user.firstName}"/>
+
+                <h:outputText value="Last name:"/>
+                <h:outputText value="#{userInfoBean.user.lastName}"/>
+
+                <h:outputText value="Age:"/>
+                <h:outputText value="#{userInfoBean.user.age}"/>
+
+                <h:outputText value="Postal code:"/>
+                <h:outputText value="#{userInfoBean.user.postCode}"/>
+
+                <h:outputText value="Address (street):"/>
+                <h:outputText value="#{userInfoBean.user.address}"/>
+
+                <h:outputText value="Creation date:"/>
+                <h:outputText value="#{userInfoBean.user.creationDate}"/>
+            </p:panelGrid>
+
+            <p:dataTable var="order" value="#{userInfoBean.ordersList}">
+                <p:column headerText="ID">
+                    <h:outputText value="#{order.id}"/>
+                </p:column>
+
+                <p:column headerText="Customer ID">
+                    <h:outputText value="#{order.customerID}"/>
+                </p:column>
+
+                <p:column headerText="Status">
+                    <h:outputText value="#{order.orderStatus}"/>
+                </p:column>
+
+                <p:column headerText="Number of products">
+                    <h:outputText value="#{order.productIDList.size()}">
+                        <f:convertNumber/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Creation date">
+                    <h:outputText value="#{order.creationDate}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
     </h:body>
 </html>
