@@ -10,39 +10,50 @@ import java.util.List;
  * Created by krupet on 11.07.2015.
  */
 @Entity
-@Table(name = "users")
+@Table(name = "USERS")
+//@Table(name = "users")
 public class UserEntity implements Serializable{
 
     @Id
-    @Column(name = "user_id", unique = true, nullable = false)
+    @Column(name = "USER_ID", unique = true, nullable = false)
+//    @Column(name = "user_id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_first_name")
+    @Column(name = "USER_FIRST_NAME")
+//    @Column(name = "user_first_name")
     private String firstName;
 
-    @Column(name = "user_last_name")
+    @Column(name = "USER_LAST_NAME")
+//    @Column(name = "user_last_name")
     private String lastName;
 
-    @Column(name = "user_email", unique = true)
+    @Column(name = "USER_EMAIL", unique = true)
+//    @Column(name = "user_email", unique = true)
     private String email; // TODO: md5 hashing!
 
-    @Column(name = "user_age", nullable = true)
+    @Column(name = "USER_AGE", nullable = true)
+//    @Column(name = "user_age", nullable = true)
     private String age;
 
-    @Column(name = "user_post_code", nullable = false)
+    @Column(name = "USER_POST_CODE", nullable = false)
+//    @Column(name = "user_post_code", nullable = false)
     private String postCode;
 
-    @Column(name = "user_address", nullable = false)
+    @Column(name = "USER_ADDRESS", nullable = false)
+//    @Column(name = "user_address", nullable = false)
     private String address;
 
-    @Column(name = "user_creation_date", nullable = false)
+    @Column(name = "USER_CREATION_DATE", nullable = false)
+//    @Column(name = "user_creation_date", nullable = false)
     private Long creationDate;
 
-    @Column(name = "user_login", nullable = false, unique = true)
+    @Column(name = "USER_LOGIN", nullable = false, unique = true)
+//    @Column(name = "user_login", nullable = false, unique = true)
     private String login;
 
-    @Column(name = "user_password", nullable = false)
+    @Column(name = "USER_PASSWORD", nullable = false)
+//    @Column(name = "user_password", nullable = false)
     private String password; // TODO: md5 hashing!
 
     @OneToOne(mappedBy="user")

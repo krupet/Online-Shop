@@ -14,28 +14,35 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "orders")
+@Table(name = "ORDERS")
+//@Table(name = "orders")
 public class OrderEntity implements Serializable{
 
     @Id
-    @Column(name = "order_id")
+    @Column(name = "ORDER_ID")
+//    @Column(name = "order_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "order_creation_date")
+    @Column(name = "ORDER_CREATION_DATE")
+//    @Column(name = "order_creation_date")
     private Long creationDate;
 
-    @Column(name = "order_status")
+    @Column(name = "ORDER_STATUS")
+//    @Column(name = "order_status")
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "USER_ID", nullable = false)
+//    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity customer;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "order_products", joinColumns = @JoinColumn(name = "order_id"),
-                                        inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @JoinTable(name = "ORDER_PRODUCTS", joinColumns = @JoinColumn(name = "ORDER_ID"),
+                                        inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
+//    @JoinTable(name = "order_products", joinColumns = @JoinColumn(name = "order_id"),
+//                                        inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<ProductEntity> productIDList = new ArrayList<>();
 
     public OrderEntity() {

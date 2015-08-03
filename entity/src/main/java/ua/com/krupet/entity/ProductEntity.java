@@ -8,30 +8,38 @@ import java.math.BigDecimal;
  */
 
 @Entity
-@Table(name = "products")
+@Table(name = "PRODUCTS")
+//@Table(name = "products")
 public class ProductEntity {
 
     @Id
-    @Column(name = "product_id", unique = true, nullable = false)
+    @Column(name = "PRODUCT_ID", unique = true, nullable = false)
+//    @Column(name = "product_id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "product_name", nullable = false)
+    @Column(name = "PRODUCT_NAME", nullable = false)
+//    @Column(name = "product_name", nullable = false)
     private String name;
 
-    @Column(name = "product_brand", nullable = false)
+    @Column(name = "PRODUCT_BRAND", nullable = false)
+//    @Column(name = "product_brand", nullable = false)
     private String brand;
 
-    @Column(name = "product_description", nullable = false)
+    @Column(name = "PRODUCT_DESCRIPTION", nullable = false)
+//    @Column(name = "product_description", nullable = false)
     private String description;
 
-    @Column(name = "product_price", nullable = false)
+    @Column(name = "PRODUCT_PRICE", nullable = false)
+//    @Column(name = "product_price", nullable = false)
     private BigDecimal price;
 
-    @Column(name = "product_pic", nullable = true)
+    @Column(name = "PRODUCT_PIC", nullable = true)
+//    @Column(name = "product_pic", nullable = true)
     private String pictureLink;
 
-    @Column(name = "product_creation_time", nullable = false)
+    @Column(name = "PRODUCT_CREATION_TIME", nullable = false)
+//    @Column(name = "product_creation_time", nullable = false)
     private Long creationDate;
 
     public ProductEntity() {

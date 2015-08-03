@@ -13,19 +13,23 @@ import java.io.Serializable;
  * Created by krupet on 11.07.2015.
  */
 @Entity
-@Table(name = "user_roles")
+@Table(name = "USER_ROLES")
+//@Table(name = "user_roles")
 public class RoleEntity implements Serializable{
 
     @Id
-    @Column(name = "role_id", unique = true, nullable = false)
+    @Column(name = "ROLE_ID", unique = true, nullable = false)
+//    @Column(name = "role_id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @GenericGenerator(name="gen", strategy="foreign", parameters={@org.hibernate.annotations.Parameter(name="property", value="user")})
     private Long id;
 
-    @Column(name = "user_name")
+    @Column(name = "USER_NAME")
+//    @Column(name = "user_name")
     private String username;
 
-    @Column(name = "user_role")
+    @Column(name = "USER_ROLE")
+//    @Column(name = "user_role")
     @Enumerated(EnumType.STRING)
     private RoleTypes roleType;
 
