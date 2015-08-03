@@ -59,3 +59,24 @@ VALUES
   (2, 'rifle', 'colt', 'long range rifle', 40, 'pic2', 1864),
   (3, 'shotgun', 'colt', 'short range rifle', 30.5, 'pic3', 1865),
   (4, 'hat', 'unknown', 'protects from sun-hit', 2.5, 'pic4', 1866);
+
+INSERT INTO users
+(user_id, user_login, user_password, user_email, user_first_name, user_last_name, user_post_code, user_address,
+user_age, user_creation_date)
+VALUES
+  (1, 'admin', 'admin', 'admin@gmail.com', 'adm', 'in', '123', '123', '123', 1234567),
+  (2, 'manager', 'manager', 'manager@gmail.com', 'mana', 'ger', '123', '123', '123', 1234567),
+  (3, 'user', 'user', 'user@gmail.com', 'us', 'er', '123', '123', '123', 1234567),
+  (4, 'user1', 'user1', 'user1@gmail.com', 'us', 'er', '123', '123', '123', 1234567),
+  (5, 'user12', 'user12', 'user12@gmail.com', 'us', 'er', '123', '123', '123', 1234567),
+  (6, 'user123', 'user123', 'user123@gmail.com', 'us', 'er', '123', '123', '123', 1234567);
+
+INSERT INTO user_roles
+(role_id, user_name, user_role)
+VALUES
+  (1, 'admin', 'ROLE_ADMIN'),
+  (2, 'manager', 'ROLE_MANAGER'),
+  (3, 'user', 'ROLE_USER'),
+  (4, 'user1', 'ROLE_USER'),
+  (5, 'user12', 'ROLE_USER'),
+  (6, 'user123', 'ROLE_USER');

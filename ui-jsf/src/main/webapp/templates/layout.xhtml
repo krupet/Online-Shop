@@ -15,7 +15,16 @@
     <h:body>
         <p:layout fullPage="true">
             <p:layoutUnit position="north" size="75">
-                <h:outputText value="header"/>
+
+                <h:form>
+                    <c:if test="#{request.getUserPrincipal() == null}">
+                        <p:commandButton value="Login" action="/login.xhtml?faces-redirect=true"/>
+                    </c:if>
+                    <c:if test="#{request.getUserPrincipal() != null}">
+                        <a href="#{request.contextPath}/logout">logout</a>
+                    </c:if>
+                </h:form>
+
             </p:layoutUnit>
 
             <p:layoutUnit position="west" size="200" resizable="false" closable="false" collapsible="false" >
@@ -30,12 +39,7 @@
                         <c:if test="#{request.isUserInRole('ROLE_USER')}">
                             <p:menuitem value="User"/>
                         </c:if>
-                        <c:if test="#{request.getUserPrincipal() != null}">
-                            <p:menuitem value="Logout"/>
-                        </c:if>
-                        <c:if test="#{request.getUserPrincipal() == null}">
-                            <p:menuitem value="Login"/>
-                        </c:if>
+
                     </p:menu>
                 </h:form>
             </p:layoutUnit>

@@ -32,8 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .invalidateHttpSession(true)
-                .logoutSuccessUrl(
-                        "/index.xhtml");
+                .logoutSuccessUrl("/index.xhtml");
 
         http.authorizeRequests()
                 // Some filters enabling url regex:
