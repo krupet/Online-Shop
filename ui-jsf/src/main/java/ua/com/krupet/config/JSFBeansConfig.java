@@ -44,7 +44,7 @@ public class JSFBeansConfig {
     }
 
     @Bean
-    public UsrInfBean usrInfBean() {
-        return new UsrInfBean();
+    public LoginBean loginBean() {
+        return new LoginBean();
     }
 }

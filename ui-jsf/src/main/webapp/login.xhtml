@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <title>Login</title>
@@ -26,5 +27,58 @@
                 </button>
             </p>
         </form>
+
+        <h:form id="sign_up_button_form">
+            <p:commandButton id="sign_up" value="Sign up" title="Sign up" oncomplete="PF('signUp').show()"/>
+        </h:form>
+
+        <p:dialog id="sign_up_new_usr" widgetVar="signUp" modal="true" header="New User" showEffect="fade" hideEffect="fade" resizable="false">
+            <h:form id="sign_up_new_user_form">
+                <p:panelGrid columns="2">
+                    <h:outputText value="User name (login):"/>
+                    <p:inputText value="#{loginBean.user.login}" required="true" requiredMessage="Please enter users login!"/>
+
+                    <h:outputText value="Password:"/>
+                    <p:inputText value="#{loginBean.user.password}" required="true" requiredMessage="Please enter users password!"/>
+
+                    <h:outputText value="Email:"/>
+                    <p:inputText value="#{loginBean.user.email}" required="true" requiredMessage="Please enter your email!"/>
+
+                    <h:outputText value="First name:"/>
+                    <p:inputText value="#{loginBean.user.firstName}" required="true" requiredMessage="Please enter your first name!"/>
+
+                    <h:outputText value="Last name:"/>
+                    <p:inputText value="#{loginBean.user.lastName}" required="true" requiredMessage="Please enter yur last name!"/>
+
+                    <h:outputText value="Postal code:"/>
+                    <p:inputText value="#{loginBean.user.postCode}" required="true" requiredMessage="Please enter your postal code!"/>
+
+                    <h:outputText value="Address (street):"/>
+                    <p:inputText value="#{loginBean.user.address}" required="true" requiredMessage="Please enter your address!"/>
+
+                    <h:outputText value="Age:"/>
+                    <p:inputText value="#{loginBean.user.age}"/>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Sign Up!" update="growl" actionListener="#{loginBean.addNewUser}"
+                                         oncomplete="handlePostRequest(xhr, status, args)">
+                        </p:commandButton>
+                    </f:facet>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+
+        <p:growl id="growl" sticky="true" showDetail="true" life="300" />
+
+        <script type="text/javascript">
+            function handlePostRequest(xhr, status, args) {
+                if(args.validationFailed || !args.success) {
+                    PF('signUp').jq.effect("shake", {times:5}, 100);
+                }
+                else {
+                    PF('signUp').hide();
+                }
+            }
+        </script>
     </h:body>
 </html>
