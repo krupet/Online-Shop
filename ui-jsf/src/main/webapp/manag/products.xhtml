@@ -1,17 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
 
+    <ui:define name="title">
+        Products
+    </ui:define>
 
-    <h:head>
-        <title>Products</title>
-    </h:head>
-    <h:body>
+    <ui:define name="content">
+
         <h1>Products</h1>
 
         <h:form id="form">
@@ -51,66 +50,66 @@
             </p:dataTable>
         </h:form>
 
-            <p:dialog header="Product Info" widgetVar="productDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                <p:outputPanel id="productDetail" style="text-align:center;">
-                    <h:form>
-                        <p:panelGrid  columns="2" rendered="#{not empty productBean.product}" columnClasses="column" cellpadding="5" style="border: none">
+        <p:dialog header="Product Info" widgetVar="productDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+            <p:outputPanel id="productDetail" style="text-align:center;">
+                <h:form>
+                    <p:panelGrid  columns="2" rendered="#{not empty productBean.product}" columnClasses="column" cellpadding="5" style="border: none">
 
-                            <h:outputLabel for="prod_id" value="ID:" />
-                            <h:outputText id="prod_id" value="#{productBean.product.id}"/>
+                        <h:outputLabel for="prod_id" value="ID:" />
+                        <h:outputText id="prod_id" value="#{productBean.product.id}"/>
 
-                            <h:outputLabel for="prod_name" value="Name:" />
-                            <p:inplace id="prod_name" editor="true">
-                                <p:inputText value="#{productBean.product.name}" required="true" label="text" />
-                            </p:inplace>
+                        <h:outputLabel for="prod_name" value="Name:" />
+                        <p:inplace id="prod_name" editor="true">
+                            <p:inputText value="#{productBean.product.name}" required="true" label="text" />
+                        </p:inplace>
 
-                            <h:outputLabel for="prod_brand" value="Brand:" />
-                            <p:inplace id="prod_brand" editor="true">
-                                <p:inputText value="#{productBean.product.brand}" required="true" label="text" />
-                            </p:inplace>
+                        <h:outputLabel for="prod_brand" value="Brand:" />
+                        <p:inplace id="prod_brand" editor="true">
+                            <p:inputText value="#{productBean.product.brand}" required="true" label="text" />
+                        </p:inplace>
 
-                            <h:outputLabel for="prod_desc" value="Description:" />
-                            <p:inplace id="prod_desc" editor="true">
-                                <p:inputText value="#{productBean.product.description}" required="true" label="text" />
-                            </p:inplace>
+                        <h:outputLabel for="prod_desc" value="Description:" />
+                        <p:inplace id="prod_desc" editor="true">
+                            <p:inputText value="#{productBean.product.description}" required="true" label="text" />
+                        </p:inplace>
 
-                            <h:outputLabel for="prod_price" value="Description:" />
-                            <p:inplace id="prod_price" editor="true">
-                                <p:inputText value="#{productBean.product.price}" required="true" label="text" />
-                            </p:inplace>
-
-                            <f:facet name="footer">
-                                <p:commandButton value="Update" update="form, growl" actionListener="#{productBean.editProduct}"
-                                                 oncomplete="handleEditRequest(xhr, status, args)" />
-                            </f:facet>
-                        </p:panelGrid>
-                    </h:form>
-                </p:outputPanel>
-            </p:dialog>
-
-            <p:dialog header="Add New Product" widgetVar="newProduct" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                <h:form id="newProductForm">
-                    <p:panelGrid columns="2">
-                        <h:outputText value="Name:"/>
-                        <p:inputText value="#{productBean.newProduct.name}" required="true" requiredMessage="Please Enter Name!"/>
-
-                        <h:outputText value="Brand:"/>
-                        <p:inputText value="#{productBean.newProduct.brand}" required="true" requiredMessage="Please Enter Brand!"/>
-
-                        <h:outputText value="Description:"/>
-                        <p:inputText value="#{productBean.newProduct.description}" required="true" requiredMessage="Please Enter Description!"/>
-
-                        <h:outputText value="Price:"/>
-                        <p:inputText value="#{productBean.newProduct.price}" required="true" requiredMessage="Please Enter Price!"/>
+                        <h:outputLabel for="prod_price" value="Description:" />
+                        <p:inplace id="prod_price" editor="true">
+                            <p:inputText value="#{productBean.product.price}" required="true" label="text" />
+                        </p:inplace>
 
                         <f:facet name="footer">
-                            <p:commandButton value="Add" update="form, growl" actionListener="#{productBean.addProduct}"
-                                             oncomplete="handlePostRequest(xhr, status, args)">
-                            </p:commandButton>
+                            <p:commandButton value="Update" update="form, growl" actionListener="#{productBean.editProduct}"
+                                             oncomplete="handleEditRequest(xhr, status, args)" />
                         </f:facet>
                     </p:panelGrid>
                 </h:form>
-            </p:dialog>
+            </p:outputPanel>
+        </p:dialog>
+
+        <p:dialog header="Add New Product" widgetVar="newProduct" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+            <h:form id="newProductForm">
+                <p:panelGrid columns="2">
+                    <h:outputText value="Name:"/>
+                    <p:inputText value="#{productBean.newProduct.name}" required="true" requiredMessage="Please Enter Name!"/>
+
+                    <h:outputText value="Brand:"/>
+                    <p:inputText value="#{productBean.newProduct.brand}" required="true" requiredMessage="Please Enter Brand!"/>
+
+                    <h:outputText value="Description:"/>
+                    <p:inputText value="#{productBean.newProduct.description}" required="true" requiredMessage="Please Enter Description!"/>
+
+                    <h:outputText value="Price:"/>
+                    <p:inputText value="#{productBean.newProduct.price}" required="true" requiredMessage="Please Enter Price!"/>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Add" update="form, growl" actionListener="#{productBean.addProduct}"
+                                         oncomplete="handlePostRequest(xhr, status, args)">
+                        </p:commandButton>
+                    </f:facet>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
 
 
         <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
@@ -136,5 +135,7 @@
                 }
             }
         </script>
-    </h:body>
-</html>
+
+    </ui:define>
+
+</ui:composition>

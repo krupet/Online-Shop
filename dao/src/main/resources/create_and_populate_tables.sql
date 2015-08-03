@@ -61,8 +61,7 @@ VALUES
   (4, 'hat', 'unknown', 'protects from sun-hit', 2.5, 'pic4', 1866);
 
 INSERT INTO users
-(user_id, user_login, user_password, user_email, user_first_name, user_last_name, user_post_code, user_address,
-user_age, user_creation_date)
+(user_id, user_login, user_password, user_email, user_first_name, user_last_name, user_post_code, user_address, user_age, user_creation_date)
 VALUES
   (1, 'admin', 'admin', 'admin@gmail.com', 'adm', 'in', '123', '123', '123', 1234567),
   (2, 'manager', 'manager', 'manager@gmail.com', 'mana', 'ger', '123', '123', '123', 1234567),
@@ -80,3 +79,41 @@ VALUES
   (4, 'user1', 'ROLE_USER'),
   (5, 'user12', 'ROLE_USER'),
   (6, 'user123', 'ROLE_USER');
+
+INSERT INTO orders (order_id, user_id, order_status, order_creation_date)
+VALUES
+  (1, 3, 'ACCEPTED', 1234567),
+  (2, 3, 'ACCEPTED', 1234567),
+  (3, 3, 'ACCEPTED', 1234567),
+  (4, 4, 'ACCEPTED', 1234567),
+  (5, 5, 'ACCEPTED', 1234567),
+  (6, 5, 'ACCEPTED', 1234567),
+  (7, 5, 'ACCEPTED', 1234567);
+
+INSERT INTO order_products (order_id, product_id)
+VALUES
+  (1, 1),
+  (1, 2),
+  (1, 2),
+  (1, 3),
+  (1, 4),
+  (2, 1),
+  (2, 1),
+  (2, 1),
+  (2, 1),
+  (3, 1),
+  (3, 1),
+  (3, 1),
+  (3, 1),
+  (3, 1),
+  (3, 2),
+  (3, 2),
+  (3, 2),
+  (3, 2),
+  (4, 1),
+  (4, 1),
+  (4, 1),
+  (5, 1),
+  (6, 1),
+  (7, 1),
+  (7, 1);
