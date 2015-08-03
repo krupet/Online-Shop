@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <h:head>
+        <title>
+            Template
+        </title>
+    </h:head>
+
+    <h:body>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" size="75">
+                <h:outputText value="header"/>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="west" size="200" resizable="false" closable="false" collapsible="false" >
+                <h:form>
+                    <p:menu >
+                        <c:if test="#{request.isUserInRole('ROLE_ADMIN')}">
+                            <p:menuitem value="Admin"/>
+                        </c:if>
+                        <c:if test="#{request.isUserInRole('ROLE_MANAGER')}">
+                            <p:menuitem value="Manager"/>
+                        </c:if>
+                        <c:if test="#{request.isUserInRole('ROLE_USER')}">
+                            <p:menuitem value="User"/>
+                        </c:if>
+                        <c:if test="#{request.getUserPrincipal() != null}">
+                            <p:menuitem value="Logout"/>
+                        </c:if>
+                        <c:if test="#{request.getUserPrincipal() == null}">
+                            <p:menuitem value="Login"/>
+                        </c:if>
+                    </p:menu>
+                </h:form>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center">
+                <ui:insert name="content">default content.</ui:insert>
+            </p:layoutUnit>
+
+            <!-- added this just for simetry -->
+            <p:layoutUnit position="east" size="200">
+            </p:layoutUnit>
+
+            <p:layoutUnit position="south" size="100">
+                <div id="footer">
+                    <span>Made by <a href="https://github.com/krupet">krupet</a>.</span>
+                </div>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>
