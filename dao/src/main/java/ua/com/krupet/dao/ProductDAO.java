@@ -13,5 +13,4 @@ public interface ProductDAO {
     Product editProduct(Product product);
     Product getProductByID(Long id);
     List<Product> getProductsList();
-    Product removeProduct(Product product);
 }

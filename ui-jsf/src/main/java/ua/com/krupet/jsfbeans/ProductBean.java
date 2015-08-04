@@ -75,20 +75,6 @@ public class ProductBean implements Serializable{
         context.addCallbackParam("success", success);
     }
 
-    public void deleteProduct(Product product) {
-        FacesMessage message = null;
-
-        String prodID = product.getId();
-        Product deletedProduct = productService.removeProduct(product);
-        if (deletedProduct.getId() == null) {
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Deleted!", "product with ID (" + prodID + ") deleted successfully!");
-        } else message = new FacesMessage(FacesMessage.SEVERITY_WARN,
-                        "Error", "error during removing product with ID (" + prodID + ")");
-
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-
     public Product getProduct() {
         return product;
     }

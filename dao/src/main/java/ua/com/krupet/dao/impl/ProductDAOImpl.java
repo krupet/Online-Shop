@@ -115,27 +115,4 @@ public class ProductDAOImpl implements ProductDAO{
                                        prodEnt.getPictureLink(),
                                        prodEnt.getCreationDate().toString())).collect(Collectors.toList());
     }
-
-    @Override
-    public Product removeProduct(Product product) {
-
-        Long productID = Long.parseLong(product.getId());
-
-        Session session = sessionFactory.getCurrentSession();
-
-        /*
-            trying to check whether this entity exists in DB
-         */
-        ProductEntity dbProduct = (ProductEntity) session.get(ProductEntity.class, productID);
-        if (dbProduct == null) throw new RuntimeException("error: there is no such product in db!");
-        session.delete(dbProduct);
-        session.flush();
-
-        /*
-            check: does product actually removed
-         */
-        ProductEntity deletedProduct = (ProductEntity) session.get(ProductEntity.class, productID);
-        if (deletedProduct != null) throw new RuntimeException("internal server error: delete product with id: " + productID);
-        return new Product();
-    }
 }

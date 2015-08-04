@@ -12,7 +12,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 /**
  * Created by krupet on 8/4/15.
@@ -103,27 +102,6 @@ public class ProductsDAOImplTest extends BaseDaoTest{
         List<Product> products = productDAO.getProductsList();
         assertNotNull(products);
         assertEquals(true, products.size() > 3);
-    }
-
-    @Test
-    @Transactional
-    public void testDeleteProductAndExpectedIsOk() {
-
-        Product product = productDAO.postProduct(getNewProduct());
-
-        Product deletedProduct = productDAO.removeProduct(product);
-        assertNull(deletedProduct.getId());
-    }
-
-    @Test(expected = Exception.class)
-    @Transactional
-    public void testDeleteProductWithNonExistingIDAndExpectedIsException() {
-
-        Product product = getNewProduct();
-        product.setId("1234567");
-
-        Product deletedProduct = productDAO.removeProduct(product);
-        assertNull(deletedProduct);
     }
 
     private Product getNewProduct() {

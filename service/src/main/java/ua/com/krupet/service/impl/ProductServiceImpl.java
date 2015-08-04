@@ -39,10 +39,4 @@ public class ProductServiceImpl implements ProductService{
     public List<Product> getProductsList() {
         return productDAO.getProductsList();
     }
-
-    @Override
-    @Transactional
-    public Product removeProduct(Product product) {
-        return productDAO.removeProduct(product);
-    }
 }

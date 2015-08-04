@@ -41,8 +41,6 @@
                     <p:commandButton update=":productDetail" oncomplete="PF('productDialog').show()" icon="ui-icon-search" title="Edit" value="Edit">
                         <f:setPropertyActionListener value="#{product}" target="#{productBean.product}" />
                     </p:commandButton>
-                    <p:commandButton value="Delete" update="form growl" actionListener="#{productBean.deleteProduct(product)}">
-                    </p:commandButton>
                 </p:column>
                 <f:facet name="footer">
                     <p:commandButton value="New Product" oncomplete="PF('newProduct').show()" icon="ui-icon-star" title="Creates new product"/>
