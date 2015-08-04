@@ -13,5 +13,5 @@ import ua.com.krupet.config.TestHibernateOrmConfig;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestHibernateOrmConfig.class)
 //@TransactionConfiguration(defaultRollback = false)
-public class BaseDaoTest {
+public abstract class BaseDaoTest {
 }

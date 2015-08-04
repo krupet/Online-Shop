@@ -1,16 +1,13 @@
 package ua.com.krupet.dao.impl;
 
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import ua.com.krupet.Order;
 import ua.com.krupet.Role;
 import ua.com.krupet.RoleTypes;
 import ua.com.krupet.User;
 import ua.com.krupet.dao.UsersDAO;
-import ua.com.krupet.entity.OrderEntity;
 import ua.com.krupet.entity.RoleEntity;
 import ua.com.krupet.entity.UserEntity;
 
@@ -18,9 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Maybe, to avoid redundant queries against db I should return users without their orders first
- * and return orders by user ID when it is really needed?
- * Created by krupet on 11.07.2015.
+ * Basic implementation for UsersDAO interface, for more information see ua.com.krupet.dao.UsersDAO
+ *
+ * To avoid redundant queries against db I will return users without their orders
+ * I am returning orders by user ID when it is really needed in OrdersDAO
+ *
+ * Such complexity is explained by using DTO objects to avoid lazy loading/initialization problems
  */
 public class UsersDAOImpl implements UsersDAO {
 

@@ -13,7 +13,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Basic implementation of ProductDao interface
+ * Basic implementation of ProductDao interface, for more info see ua.com.krupet.dao.ProductDAO
+ *
+ * Such complexity is explained by using DTO objects to avoid lazy loading/initialization problems
  */
 public class ProductDAOImpl implements ProductDAO{
 
