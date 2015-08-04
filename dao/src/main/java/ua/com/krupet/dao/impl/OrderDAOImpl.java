@@ -15,11 +15,14 @@ import ua.com.krupet.entity.UserEntity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by krupet on 7/27/15.
+ * Basic implementation of OrdersDAO interface, for more info see ua.com.krupet.dao.OrdersDAO
+ *
+ * Such complexity is explained by using DTO objects to avoid lazy loading/initialization problems
  */
 public class OrderDAOImpl implements OrdersDAO {
 
@@ -33,18 +36,27 @@ public class OrderDAOImpl implements OrdersDAO {
 
         UserEntity userEntity = (UserEntity) session.get(UserEntity.class, userID);
 
-        if (userEntity == null) throw new RuntimeException("bad request - no user with id (" + userID + ") in database");
+        if (userEntity == null)
+            throw new RuntimeException("bad request - no user with id (" + userID + ") in database");
 
         List<Product> products = order.getProductIDList();
+        if (products == null)
+            throw new RuntimeException("error - you can't create order without products (products == null)");
         List<ProductEntity> productEntities = new ArrayList<>();
+        Long productID = null;
 
-        productEntities.addAll(products.stream().map(product -> new ProductEntity(product.getName(), product.getBrand(),
-                product.getDescription(), new BigDecimal(product.getPrice()), product.getPictureLink(),
-                Long.parseLong(product.getCreationDate()))).collect(Collectors.toList()));
+        for (Product product : products) {
+            productID = Long.parseLong(product.getId());
+            productEntities.add((ProductEntity) session.get(ProductEntity.class, productID));
+        }
 
         List<OrderEntity> orderEntities = userEntity.getOrders();
-        OrderEntity orderEntity = new OrderEntity(Long.parseLong(order.getCreationDate()),
-                OrderStatus.valueOf(order.getOrderStatus()), userEntity, productEntities);
+        /*
+            hot fix
+         */
+        if (orderEntities == null) orderEntities = new ArrayList<>();
+        Long creationDate = new Date().getTime();
+        OrderEntity orderEntity = new OrderEntity(creationDate, OrderStatus.ACCEPTED, userEntity, productEntities);
         orderEntities.add(orderEntity);
 
         userEntity.setOrders(orderEntities);
@@ -78,19 +90,18 @@ public class OrderDAOImpl implements OrdersDAO {
         List<ProductEntity> productEntities = new ArrayList<>();
         Long productID = null;
 
-        /*
-            maybe improve some checks when getting entities
-            and also it will gain a lot of redundant queries
-            or maybe hibernate just saves the day with its first lvl cache)
-        */
         for (Product product : products) {
             productID = Long.parseLong(product.getId());
             productEntities.add((ProductEntity) session.get(ProductEntity.class, productID));
         }
 
         List<OrderEntity> orderEntities = userEntity.getOrders();
-        OrderEntity orderEntity = new OrderEntity(Long.parseLong(order.getCreationDate()),
-                OrderStatus.ACCEPTED, userEntity, productEntities);
+        /*
+            hot fix
+         */
+        if (orderEntities == null) orderEntities = new ArrayList<>();
+        Long creationDate = new Date().getTime();
+        OrderEntity orderEntity = new OrderEntity(creationDate, OrderStatus.ACCEPTED, userEntity, productEntities);
         orderEntities.add(orderEntity);
 
         userEntity.setOrders(orderEntities);

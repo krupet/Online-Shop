@@ -10,8 +10,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import ua.com.krupet.dao.OrdersDAO;
 import ua.com.krupet.dao.ProductDAO;
 import ua.com.krupet.dao.UsersDAO;
+import ua.com.krupet.dao.impl.OrderDAOImpl;
 import ua.com.krupet.dao.impl.ProductDAOImpl;
 import ua.com.krupet.dao.impl.UsersDAOImpl;
 
@@ -80,5 +82,10 @@ public class TestHibernateOrmConfig {
     @Bean
     public ProductDAO productDAO() {
         return new ProductDAOImpl();
+    }
+
+    @Bean
+    public OrdersDAO ordersDAO() {
+        return new OrderDAOImpl();
     }
 }
