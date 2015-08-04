@@ -8,7 +8,12 @@ import java.math.BigDecimal;
  */
 
 @Entity
-@Table(name = "PRODUCTS")
+/*
+    column names MUST! to be quoted because of ...setProperty("hibernate.globally_quoted_identifiers", "true");...
+    for more info look here: http://stackoverflow.com/questions/25183017/org-hibernate-annotationexception-unable-to-create-unique-key-constraint
+ */
+@Table(name = "PRODUCTS", uniqueConstraints = @UniqueConstraint(columnNames = {"`PRODUCT_NAME`", "`PRODUCT_BRAND`"}))
+//@Table(name = "PRODUCTS")
 //@Table(name = "products")
 public class ProductEntity {
 

@@ -10,7 +10,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import ua.com.krupet.dao.ProductDAO;
 import ua.com.krupet.dao.UsersDAO;
+import ua.com.krupet.dao.impl.ProductDAOImpl;
 import ua.com.krupet.dao.impl.UsersDAOImpl;
 
 import javax.sql.DataSource;
@@ -20,8 +22,8 @@ import java.util.Properties;
  * Created by krupet on 04.07.2015.
  */
 @Configuration
-@ComponentScan("ua.com.krupet")
-@PropertySource({"classpath:persistence.properties"})
+@ComponentScan("ua.com.krupet.entity")
+@PropertySource({"classpath:test.properties"})
 public class TestHibernateOrmConfig {
 
     @Autowired
@@ -73,5 +75,10 @@ public class TestHibernateOrmConfig {
     @Bean
     public UsersDAO usersDAO() {
         return new UsersDAOImpl();
+    }
+
+    @Bean
+    public ProductDAO productDAO() {
+        return new ProductDAOImpl();
     }
 }

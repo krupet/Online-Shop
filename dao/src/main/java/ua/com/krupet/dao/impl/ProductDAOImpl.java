@@ -13,9 +13,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by krupet on 7/22/15.
+ * Basic implementation of ProductDao interface
  */
 public class ProductDAOImpl implements ProductDAO{
+
+    /*
+        TODO: constraint violation handling
+     */
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -57,7 +61,8 @@ public class ProductDAOImpl implements ProductDAO{
         productEntity.setId(productID);
 
 
-        session.update(productEntity);
+//        session.update(productEntity);
+        session.merge(productEntity);
         session.flush();
 
         /*
