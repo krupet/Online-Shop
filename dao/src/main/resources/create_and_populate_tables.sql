@@ -33,7 +33,8 @@ CREATE TABLE `products` (
   `product_name` varchar(255) NOT NULL,
   `product_pic` varchar(255) DEFAULT NULL,
   `product_price` decimal(19,2) NOT NULL,
-  PRIMARY KEY (`product_id`)
+  PRIMARY KEY (`product_id`),
+  UNIQUE KEY `uk_product_name_and_brand` (`product_name`,`product_brand`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `orders` (

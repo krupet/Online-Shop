@@ -52,7 +52,7 @@
             </p:dataTable>
         </h:form>
 
-        <p:dialog widgetVar="orderInfo" header="Order information" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:dialog widgetVar="orderInfo" header="Order information" showEffect="fade" hideEffect="fade" resizable="false" width="950">
             <h:form id="orderInfoForm">
                 <p:panelGrid columns="2">
                     <h:outputText value="Customer name"/>
@@ -82,7 +82,7 @@
             </h:form>
         </p:dialog>
 
-        <p:dialog widgetVar="orderUpd" header="Update Order Status" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:dialog widgetVar="orderUpd" header="Update Order Status" showEffect="fade" hideEffect="fade" resizable="false">
             <h:form id="orderUpdForm">
                 <p:panelGrid columns="2">
                     <h:outputLabel for="order_id" value="ID:" />

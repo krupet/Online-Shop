@@ -50,7 +50,7 @@
             </p:dataTable>
         </h:form>
 
-        <p:dialog header="Product Info" widgetVar="productDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:dialog header="Product Info" widgetVar="productDialog" showEffect="fade" hideEffect="fade" resizable="false">
             <p:outputPanel id="productDetail" style="text-align:center;">
                 <h:form>
                     <p:panelGrid  columns="2" rendered="#{not empty productBean.product}" columnClasses="column" cellpadding="5" style="border: none">
@@ -87,7 +87,7 @@
             </p:outputPanel>
         </p:dialog>
 
-        <p:dialog header="Add New Product" widgetVar="newProduct" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:dialog header="Add New Product" widgetVar="newProduct" showEffect="fade" hideEffect="fade" resizable="false">
             <h:form id="newProductForm">
                 <p:panelGrid columns="2">
                     <h:outputText value="Name:"/>

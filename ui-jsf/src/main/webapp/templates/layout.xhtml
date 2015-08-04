@@ -31,13 +31,21 @@
                 <h:form>
                     <p:menu >
                         <c:if test="#{request.isUserInRole('ROLE_ADMIN')}">
-                            <p:menuitem value="Admin"/>
+                            <p:menuitem value="Users List" action="/admin/users.xhtml?faces-redirect=true"/>
+                            <p:menuitem value="Orders List" action="/manag/orders.xhtml?faces-redirect=true"/>
+                            <p:menuitem value="Products List" action="/manag/products.xhtml?faces-redirect=true"/>
+                            <p:menuitem value="My statistics" action="/usr/usrinfo.xhtml?faces-redirect=true"/>
+                            <p:menuitem value="Shop" action="/usr/shop.xhtml?faces-redirect=true"/>
                         </c:if>
                         <c:if test="#{request.isUserInRole('ROLE_MANAGER')}">
-                            <p:menuitem value="Manager"/>
+                            <p:menuitem value="Orders List" action="/manag/orders.xhtml?faces-redirect=true"/>
+                            <p:menuitem value="Products List" action="/manag/products.xhtml?faces-redirect=true"/>
+                            <p:menuitem value="My statistics" action="/usr/usrinfo.xhtml?faces-redirect=true"/>
+                            <p:menuitem value="Shop" action="/usr/shop.xhtml?faces-redirect=true"/>
                         </c:if>
                         <c:if test="#{request.isUserInRole('ROLE_USER')}">
-                            <p:menuitem value="User"/>
+                            <p:menuitem value="My statistics" action="/usr/usrinfo.xhtml?faces-redirect=true"/>
+                            <p:menuitem value="Shop" action="/usr/shop.xhtml?faces-redirect=true"/>
                         </c:if>
 
                     </p:menu>

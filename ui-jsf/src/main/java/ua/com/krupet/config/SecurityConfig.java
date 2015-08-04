@@ -57,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login.xhtml")
                 .loginProcessingUrl("/login")
 //                .loginProcessingUrl("/login.xhtml")
-                .defaultSuccessUrl("/index.xhtml")
+                .defaultSuccessUrl("/usr/shop.xhtml")
                 .and().exceptionHandling().accessDeniedPage("/denied.xhtml");
     }
 
