@@ -13,9 +13,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Basic implementation of ProductDao interface, for more info see ua.com.krupet.dao.ProductDAO
+ * Basic implementation of ProductDao interface.
  *
  * Such complexity is explained by using DTO objects to avoid lazy loading/initialization problems
+ *
+ * @author krupet
+ * @see ua.com.krupet.Product
+ * @see ua.com.krupet.dao.ProductDAO
  */
 public class ProductDAOImpl implements ProductDAO{
 
@@ -27,6 +31,12 @@ public class ProductDAOImpl implements ProductDAO{
     private SessionFactory sessionFactory;
 
 
+    /**
+     * Creates new product in DB
+     *
+     * @param product - DTO object representing new product
+     * @return DTO representing persisted product or null if operation failed
+     */
     @Override
     public Product postProduct(Product product) {
         ProductEntity productEntity = new ProductEntity(
@@ -46,6 +56,12 @@ public class ProductDAOImpl implements ProductDAO{
         } else return null;
     }
 
+    /**
+     * Edits persisted product information
+     *
+     * @param product - DTO object representing persisted product
+     * @return DTO representing persisted product or null if operation failed
+     */
     @Override
     public Product editProduct(Product product) {
 
@@ -82,6 +98,11 @@ public class ProductDAOImpl implements ProductDAO{
                            dbProduct.getCreationDate().toString());
     }
 
+    /**
+     * Retrieves product by its ID
+     * @param id - product`s id to retrieve
+     * @return DTO representing persisted product
+     */
     @Override
     public Product getProductByID(Long id) {
 
@@ -98,6 +119,11 @@ public class ProductDAOImpl implements ProductDAO{
                            dbProduct.getCreationDate().toString());
     }
 
+    /**
+     * Retrieve list of all products in DB
+     *
+     * @return list with products
+     */
     @SuppressWarnings("unchecked")
     @Override
     public List<Product> getProductsList() {

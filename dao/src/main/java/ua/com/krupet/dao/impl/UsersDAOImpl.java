@@ -15,18 +15,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Basic implementation for UsersDAO interface, for more information see ua.com.krupet.dao.UsersDAO
+ * Basic implementation for UsersDAO interface
  *
  * To avoid redundant queries against db I will return users without their orders
  * I am returning orders by user ID when it is really needed in OrdersDAO
  *
  * Such complexity is explained by using DTO objects to avoid lazy loading/initialization problems
+ *
+ * @author krupet
+ * @see ua.com.krupet.dao.UsersDAO
+ * @see ua.com.krupet.User
+ * @see ua.com.krupet.Role
+ * @see ua.com.krupet.RoleTypes
  */
 public class UsersDAOImpl implements UsersDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
 
+    /**
+     * Creates new user in DB
+     *
+     * @param user - DTO representing new user to persist
+     * @return DTO representing persisted user
+     */
     @Override
     public User createUser(User user) {
 
@@ -48,6 +60,12 @@ public class UsersDAOImpl implements UsersDAO {
         else return null;
     }
 
+    /**
+     * Updates users information
+     *
+     * @param user - DTO representing persisted user to update
+     * @return DTO representing updated user
+     */
     @Override
     public User updateUser(User user) {
 
@@ -89,6 +107,12 @@ public class UsersDAOImpl implements UsersDAO {
         } else return null;
     }
 
+    /**
+     * Retrieves user from DB by its ID
+     *
+     * @param userID - ID of required user
+     * @return DTO representing required user
+     */
     @Override
     public User getUserByID(Long userID) {
 
@@ -107,6 +131,11 @@ public class UsersDAOImpl implements UsersDAO {
                 userEntity.getCreationDate().toString(), userEntity.getLogin(), userEntity.getPassword(), role, null);
     }
 
+    /**
+     * Retrieves user by its username (login)
+     * @param userName - username of required user
+     * @return DTO representing required user
+     */
     @Override
     public User getUserByUserName(String userName) {
 
@@ -128,6 +157,10 @@ public class UsersDAOImpl implements UsersDAO {
                 userEntity.getCreationDate().toString(), userEntity.getLogin(), userEntity.getPassword(), role, null);
     }
 
+    /**
+     * Retrieves list of all users in DB
+     * @return list of users
+     */
     @Override
     @SuppressWarnings("unchecked")
     public List<User> getUsersList() {

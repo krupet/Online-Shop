@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import static org.junit.Assert.*;
 
@@ -314,12 +315,20 @@ public class OrdersDAOImplTests  extends BaseDaoTest {
     }
 
     private ProductEntity getNewProductEntity() {
-        return new ProductEntity(String.format("test_name%d", new Date().getTime()),
-                String.format("test_brand%d", new Date().getTime()),
-                String.format("test_description%d", new Date().getTime()),
-                new BigDecimal(20.5),
-                "test_pic_link",
-                new Date().getTime());
+
+        /*
+            using Random is redundant but it is necessary because of
+            constant ConstraintViolationException throwing in some test
+            during  test class running
+         */
+        Random random = new Random();
+        Long time = new Date().getTime() + random.nextInt(100);
+        return new ProductEntity(String.format("test_name%d", time),
+                                 String.format("test_brand%d", time),
+                                 String.format("test_description%d", time),
+                                 new BigDecimal(20.5),
+                                 "test_pic_link",
+                                 time);
     }
 
     private OrderEntity getNewOrderEntity() {

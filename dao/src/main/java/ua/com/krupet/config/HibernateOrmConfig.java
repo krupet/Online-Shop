@@ -22,7 +22,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
- * Created by krupet on 04.07.2015.
+ * Spring configuration for online-shop DAO module
  */
 @Configuration
 @EnableTransactionManagement

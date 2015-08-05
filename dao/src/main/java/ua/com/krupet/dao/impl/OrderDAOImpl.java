@@ -13,22 +13,32 @@ import ua.com.krupet.entity.OrderEntity;
 import ua.com.krupet.entity.ProductEntity;
 import ua.com.krupet.entity.UserEntity;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Basic implementation of OrdersDAO interface, for more info see ua.com.krupet.dao.OrdersDAO
+ * Basic implementation of OrdersDAO interface.
  *
  * Such complexity is explained by using DTO objects to avoid lazy loading/initialization problems
+ *
+ * @author krupet
+ * @see ua.com.krupet.Order
+ * @see ua.com.krupet.dao.OrdersDAO
  */
 public class OrderDAOImpl implements OrdersDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
 
+    /**
+     * Creates order in DB
+     *
+     * @param userID - user`s ID which belongs this order
+     * @param order - DTO representing itself order
+     * @return Order - DTO representing persisted order
+     */
     @Override
     public Order createOrder(Long userID, Order order) {
 
@@ -72,6 +82,13 @@ public class OrderDAOImpl implements OrdersDAO {
         else return null;
     }
 
+    /**
+     * Creates order in DB
+     *
+     * @param userName - user`s name (login) which belongs this order
+     * @param order - DTO representing itself order
+     * @return Order - DTO representing persisted order
+     */
     @Override
     public Order createOrderByUsersName(String userName, Order order) {
 
@@ -117,6 +134,12 @@ public class OrderDAOImpl implements OrdersDAO {
         else return null;
     }
 
+    /**
+     * Retrieves order from DB by its ID
+     *
+     * @param orderID - order`s ID
+     * @return Order - DTO representing persisted order
+     */
     @Override
     public Order getOrderByID(Long orderID) {
 
@@ -147,6 +170,12 @@ public class OrderDAOImpl implements OrdersDAO {
                 orderEntity.getStatus().toString(), orderEntity.getCustomer().getId().toString(), productList);
     }
 
+    /**
+     * Updates order status
+     *
+     * @param order - DTO representing persisted order which need to update
+     * @return Order - DTO representing persisted order
+     */
     @Override
     public Order updateOrderStatus(Order order) {
 
@@ -171,6 +200,11 @@ public class OrderDAOImpl implements OrdersDAO {
         else return new Order(updatedOrder.getId().toString());
     }
 
+    /**
+     * Retrieves list of al orders in DB
+     *
+     * @return list of orders
+     */
     @Override
     @SuppressWarnings("unchecked")
     public List<Order> getOrdersList() {
@@ -205,6 +239,12 @@ public class OrderDAOImpl implements OrdersDAO {
         return orders;
     }
 
+    /**
+     * Retrieves list of orders of some user by its ID
+     *
+     * @param userID - user`s ID, which list of orders we need to get
+     * @return list of orders with "belongs" to specified user
+     */
     @Override
     @SuppressWarnings("unchecked")
     public List<Order> getOrdersListByUserID(Long userID) {
@@ -246,6 +286,12 @@ public class OrderDAOImpl implements OrdersDAO {
         return orders;
     }
 
+    /**
+     * Removes order from DB
+     *
+     * @param order - DTO representing persisted order which need to be removed
+     * @return "empty" DTO if removed successfully or null otherwise
+     */
     @Override
     public Order deleteOrder(Order order) {
 
