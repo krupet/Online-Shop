@@ -13,9 +13,7 @@
 
         <h:form id="userIdentityForm">
             <h1>
-                Welcome,
-                <h:outputText value="#{shopBean.getUserName()}"/>
-                at our store!
+                Welcome to our store!
             </h1>
 
             <h3>
@@ -87,24 +85,13 @@
                             <h:outputText id="total_price" value="#{shopBean.getTotal()}"/>
                         </h:outputLabel>
                         <p:commandButton action="#{shopBean.createOrder()}" value="Make Order" title="Make Order"
-                                         oncomplete="handleOrderRequest(xhr, status, args)" update="userIdentityForm"/>
+                                         oncomplete="closeWidget(xhr, status, args)" update="userIdentityForm growl">
+                            <f:setPropertyActionListener value="cartInfo" target="#{shopBean.widgetVar}"/>
+                        </p:commandButton>
                     </f:facet>
                 </p:dataTable>
             </h:form>
         </p:dialog>
-
-        <p:growl id="growl" sticky="true" showDetail="true" life="300" />
-
-        <script type="text/javascript">
-            function handleOrderRequest(xhr, status, args) {
-                if(args.validationFailed || !args.success) {
-                    PF('cartInfo').jq.effect("shake", {times:5}, 100);
-                }
-                else {
-                    PF('cartInfo').hide();
-                }
-            }
-        </script>
 
     </ui:define>
 

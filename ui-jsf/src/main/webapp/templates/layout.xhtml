@@ -21,6 +21,10 @@
                         <p:commandButton value="Login" action="/login.xhtml?faces-redirect=true"/>
                     </c:if>
                     <c:if test="#{request.getUserPrincipal() != null}">
+                        <span>
+                            Welcome,
+                            <h:outputText value="#{userInfoBean.getUserName()}"/>
+                        </span>
                         <a href="#{request.contextPath}/logout">logout</a>
                     </c:if>
                 </h:form>
@@ -66,5 +70,18 @@
                 </div>
             </p:layoutUnit>
         </p:layout>
+
+        <p:growl id="growl" sticky="false" showDetail="true" life="5000" />
+
+        <script type="text/javascript">
+            function closeWidget(xhr, status, args) {
+                if(args.validationFailed || !args.success) {
+                    PF(args.widget).jq.effect("shake", {times:5}, 100);
+                }
+                else {
+                    PF(args.widget).hide();
+                }
+            }
+        </script>
     </h:body>
 </html>

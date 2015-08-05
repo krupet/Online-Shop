@@ -41,6 +41,7 @@ public class ShopBean implements Serializable {
     private LazyDataModel<Product> lazyDataModel;
     private Order customersOrder = new Order();
     private String userName;
+    private String widgetVar;
 
     @PostConstruct
     private void init() {
@@ -93,7 +94,7 @@ public class ShopBean implements Serializable {
 
         customersOrder.setOrderStatus(OrderStatus.PREPARING.toString());
 
-        if (ordersService.createOrderByUsersName(userName, customersOrder) != null) {
+        if (ordersService.createOrderByUsersName(getUserName(), customersOrder) != null) {
             success = true;
             customersOrder.getProductIDList().clear();
             message = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -103,5 +104,14 @@ public class ShopBean implements Serializable {
 
         FacesContext.getCurrentInstance().addMessage(null, message);
         context.addCallbackParam("success", success);
+        context.addCallbackParam("widget", widgetVar);
+    }
+
+    public String getWidgetVar() {
+        return widgetVar;
+    }
+
+    public void setWidgetVar(String widgetVar) {
+        this.widgetVar = widgetVar;
     }
 }
