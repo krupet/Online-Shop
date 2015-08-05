@@ -130,10 +130,17 @@ public class OrderDAOImpl implements OrdersDAO {
         List<ProductEntity> productEntityList = orderEntity.getProductIDList();
         List<Product> productList = new ArrayList<>();
 
-        productList.addAll(productEntityList.stream().map(productEntity -> new Product(productEntity.getId().toString(),
-                productEntity.getName(), productEntity.getBrand(), productEntity.getDescription(),
-                productEntity.getPrice().toPlainString(), productEntity.getPictureLink(),
-                productEntity.getCreationDate().toString())).collect(Collectors.toList()));
+        /*
+            hotfix NPE
+         */
+        if (productEntityList != null) {
+            productList.addAll(productEntityList.stream()
+                    .map(productEntity -> new Product(
+                            productEntity.getId().toString(), productEntity.getName(), productEntity.getBrand(),
+                            productEntity.getDescription(), productEntity.getPrice().toPlainString(),
+                            productEntity.getPictureLink(), productEntity.getCreationDate().toString()))
+                    .collect(Collectors.toList()));
+        }
 
 
         return new Order(orderEntity.getId().toString(), orderEntity.getCreationDate().toString(),
@@ -181,10 +188,15 @@ public class OrderDAOImpl implements OrdersDAO {
             productEntityList = orderEntity.getProductIDList();
             productList = new ArrayList<>();
 
-            productList.addAll(productEntityList.stream().map(productEntity -> new Product(productEntity.getId().toString(),
-                    productEntity.getName(), productEntity.getBrand(), productEntity.getDescription(),
-                    productEntity.getPrice().toPlainString(), productEntity.getPictureLink(),
-                    productEntity.getCreationDate().toString())).collect(Collectors.toList()));
+            /*
+                NPE fix
+             */
+            if (productEntityList != null) {
+                productList.addAll(productEntityList.stream().map(productEntity -> new Product(productEntity.getId().toString(),
+                        productEntity.getName(), productEntity.getBrand(), productEntity.getDescription(),
+                        productEntity.getPrice().toPlainString(), productEntity.getPictureLink(),
+                        productEntity.getCreationDate().toString())).collect(Collectors.toList()));
+            }
 
             orders.add(new Order(orderEntity.getId().toString(), orderEntity.getCreationDate().toString(),
                     orderEntity.getStatus().toString(), orderEntity.getCustomer().getId().toString(),
@@ -219,10 +231,12 @@ public class OrderDAOImpl implements OrdersDAO {
             productEntityList = orderEntity.getProductIDList();
             productList = new ArrayList<>();
 
-            productList.addAll(productEntityList.stream().map(productEntity -> new Product(productEntity.getId().toString(),
-                    productEntity.getName(), productEntity.getBrand(), productEntity.getDescription(),
-                    productEntity.getPrice().toPlainString(), productEntity.getPictureLink(),
-                    productEntity.getCreationDate().toString())).collect(Collectors.toList()));
+            if (productEntityList != null) {
+                productList.addAll(productEntityList.stream().map(productEntity -> new Product(productEntity.getId().toString(),
+                        productEntity.getName(), productEntity.getBrand(), productEntity.getDescription(),
+                        productEntity.getPrice().toPlainString(), productEntity.getPictureLink(),
+                        productEntity.getCreationDate().toString())).collect(Collectors.toList()));
+            }
 
             orders.add(new Order(orderEntity.getId().toString(), orderEntity.getCreationDate().toString(),
                     orderEntity.getStatus().toString(), orderEntity.getCustomer().getId().toString(),

@@ -5,7 +5,11 @@ import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.krupet.*;
+import ua.com.krupet.BaseDaoTest;
+import ua.com.krupet.Order;
+import ua.com.krupet.OrderStatus;
+import ua.com.krupet.Product;
+import ua.com.krupet.RoleTypes;
 import ua.com.krupet.entity.OrderEntity;
 import ua.com.krupet.entity.ProductEntity;
 import ua.com.krupet.entity.RoleEntity;
@@ -16,9 +20,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
+/**
+ * tests for ua.com.krupet.dao.impl.OrdersDAOImpl
+ */
 public class OrdersDAOImplTests  extends BaseDaoTest {
 
     @Autowired
@@ -141,6 +147,122 @@ public class OrdersDAOImplTests  extends BaseDaoTest {
         assertNull(persistedOrder);
     }
 
+    @Test
+    @Transactional
+    public void testGetOrderByOrderIDAndExpectedIsOk() {
+
+        Long orderID = getPersistedOrderEntity().getId();
+
+        Order order = ordersDAO.getOrderByID(orderID);
+        assertNotNull(order);
+        assertNotNull(order.getId());
+        assertNotNull(order.getCreationDate());
+        assertNotNull(order.getOrderStatus());
+    }
+
+    @Test(expected = RuntimeException.class)
+    @Transactional
+    public void testGetOrderByNonExistingOrderIDAndExpectedIsException() {
+
+        Long orderID = 1234567L;
+
+        Order order = ordersDAO.getOrderByID(orderID);
+        assertNotNull(order);
+        assertNotNull(order.getId());
+        assertNotNull(order.getCreationDate());
+        assertNotNull(order.getOrderStatus());
+    }
+
+    @Test
+    @Transactional
+    public void testUpdateOrderStatusAndExpectedIsOk() {
+
+        Long orderID = getPersistedOrderEntity().getId();
+
+        Order order = new Order();
+        order.setId(orderID.toString());
+        order.setOrderStatus(OrderStatus.DELIVERED.toString());
+
+        Order updatedOrder = ordersDAO.updateOrderStatus(order);
+        assertNotNull(updatedOrder);
+        assertNotNull(updatedOrder.getId());
+    }
+
+    @Test(expected = RuntimeException.class)
+    @Transactional
+    public void testUpdateOrderStatusWithNotExistingIDAndExpectedIsException() {
+
+        Long orderID = 1234567L;
+
+        Order order = new Order();
+        order.setId(orderID.toString());
+        order.setOrderStatus(OrderStatus.DELIVERED.toString());
+
+        Order updatedOrder = ordersDAO.updateOrderStatus(order);
+        assertNull(updatedOrder);
+    }
+
+    @Test
+    @Transactional
+    public void testGetOrdersListAndExpectedIsOk() {
+
+        getPersistedOrderEntity();
+        getPersistedOrderEntity();
+        getPersistedOrderEntity();
+
+        List<Order> orders = ordersDAO.getOrdersList();
+        assertNotNull(orders);
+        assertTrue(orders.size() > 2);
+    }
+
+    @Test
+    @Transactional
+    public void testGetOrderListByUserIDAndExpectedIsOk() {
+
+        Long userID = getPersistedOrderEntity().getCustomer().getId();
+
+        List<Order> orders = ordersDAO.getOrdersListByUserID(userID);
+        assertNotNull(orders);
+        assertTrue(orders.size() == 1);
+    }
+
+    @Test(expected = RuntimeException.class)
+    @Transactional
+    public void testGetOrderListByNonExistingUserIDAndExpectedIsException() {
+
+        Long userID = 1234567L;
+
+        List<Order> orders = ordersDAO.getOrdersListByUserID(userID);
+        assertNull(orders);
+    }
+
+    @Test
+    @Transactional
+    public void testDeleteOrderAndExpectedIsOk() {
+
+        Long orderID = getPersistedOrderEntity().getId();
+        Order order = new Order(orderID.toString());
+
+        Order deletedOrder = ordersDAO.deleteOrder(order);
+        assertNotNull(deletedOrder);
+        assertNull(deletedOrder.getId());
+    }
+
+    @Test(expected = RuntimeException.class)
+    @Transactional
+    public void testDeleteOrderWithNonExistingIDAndExpectedIsException() {
+
+        Long orderID = 1234567L;
+        Order order = new Order(orderID.toString());
+
+        Order deletedOrder = ordersDAO.deleteOrder(order);
+        assertNotNull(deletedOrder);
+        assertNull(deletedOrder.getId());
+    }
+
+    /*
+        methods needed only for test setups
+     */
     @Transactional
     private UserEntity getPersistedUserEntity() {
         /*
@@ -163,6 +285,16 @@ public class OrdersDAOImplTests  extends BaseDaoTest {
         Long productID = (Long) session.save(productEntity);
         productEntity.setId(productID);
         return productEntity;
+    }
+
+    @Transactional
+    private OrderEntity getPersistedOrderEntity() {
+
+        Session session = sessionFactory.getCurrentSession();
+        OrderEntity orderEntity = getNewOrderEntity();
+        Long orderID = (Long) session.save(orderEntity);
+        orderEntity.setId(orderID);
+        return orderEntity;
     }
 
     public UserEntity getNewUSerEntity() {
@@ -192,9 +324,7 @@ public class OrdersDAOImplTests  extends BaseDaoTest {
 
     private OrderEntity getNewOrderEntity() {
 
-        Long userID = getPersistedUserEntity().getId();
-        OrderEntity orderEntity = new OrderEntity(new Date().getTime(), OrderStatus.ACCEPTED);
-
-        return null;
+        UserEntity userEntity = getPersistedUserEntity();
+        return new OrderEntity(new Date().getTime(), OrderStatus.ACCEPTED, userEntity, null);
     }
 }
