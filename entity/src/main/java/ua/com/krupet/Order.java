@@ -5,7 +5,9 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by krupet on 11.07.2015.
+ * DTO representing order.
+ *
+ * @author krupet
  */
 @ManagedBean
 public class Order implements Serializable {
@@ -15,6 +17,7 @@ public class Order implements Serializable {
     private String orderStatus;
 
     private String customerID;
+    //List of products witch belongs to this order
     private List<Product> productIDList;
 
     public Order() {
@@ -70,5 +73,39 @@ public class Order implements Serializable {
 
     public void setProductIDList(List<Product> productList) {
         this.productIDList = productList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Order order = (Order) o;
+
+        if (id != null ? !id.equals(order.id) : order.id != null) return false;
+        if (creationDate != null ? !creationDate.equals(order.creationDate) : order.creationDate != null) return false;
+        if (orderStatus != null ? !orderStatus.equals(order.orderStatus) : order.orderStatus != null) return false;
+        return !(customerID != null ? !customerID.equals(order.customerID) : order.customerID != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
+        result = 31 * result + (orderStatus != null ? orderStatus.hashCode() : 0);
+        result = 31 * result + (customerID != null ? customerID.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id='" + id + '\'' +
+                ", creationDate='" + creationDate + '\'' +
+                ", orderStatus='" + orderStatus + '\'' +
+                ", customerID='" + customerID + '\'' +
+                ", productIDList=" + productIDList +
+                '}';
     }
 }

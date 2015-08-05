@@ -1,10 +1,18 @@
 package ua.com.krupet.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import java.math.BigDecimal;
 
 /**
- * Created by krupet on 11.07.2015.
+ * EntityClass representing some product
+ *
+ * @author krupet
  */
 
 @Entity
@@ -13,38 +21,29 @@ import java.math.BigDecimal;
     for more info look here: http://stackoverflow.com/questions/25183017/org-hibernate-annotationexception-unable-to-create-unique-key-constraint
  */
 @Table(name = "PRODUCTS", uniqueConstraints = @UniqueConstraint(columnNames = {"`PRODUCT_NAME`", "`PRODUCT_BRAND`"}))
-//@Table(name = "PRODUCTS")
-//@Table(name = "products")
 public class ProductEntity {
 
     @Id
     @Column(name = "PRODUCT_ID", unique = true, nullable = false)
-//    @Column(name = "product_id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "PRODUCT_NAME", nullable = false)
-//    @Column(name = "product_name", nullable = false)
     private String name;
 
     @Column(name = "PRODUCT_BRAND", nullable = false)
-//    @Column(name = "product_brand", nullable = false)
     private String brand;
 
     @Column(name = "PRODUCT_DESCRIPTION", nullable = false)
-//    @Column(name = "product_description", nullable = false)
     private String description;
 
     @Column(name = "PRODUCT_PRICE", nullable = false)
-//    @Column(name = "product_price", nullable = false)
     private BigDecimal price;
 
     @Column(name = "PRODUCT_PIC", nullable = true)
-//    @Column(name = "product_pic", nullable = true)
     private String pictureLink;
 
     @Column(name = "PRODUCT_CREATION_TIME", nullable = false)
-//    @Column(name = "product_creation_time", nullable = false)
     private Long creationDate;
 
     public ProductEntity() {

@@ -4,7 +4,9 @@ import javax.faces.bean.ManagedBean;
 import java.io.Serializable;
 
 /**
- * Created by krupet on 11.07.2015.
+ * DTO representing some product
+ *
+ * @author krupet
  */
 
 @ManagedBean
@@ -15,6 +17,7 @@ public class Product implements Serializable{
     private String brand;
     private String description;
     private String price;
+    // will be used for picture of a product
     private String pictureLink;
     private String creationDate;
 
@@ -87,5 +90,47 @@ public class Product implements Serializable{
 
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        if (id != null ? !id.equals(product.id) : product.id != null) return false;
+        if (name != null ? !name.equals(product.name) : product.name != null) return false;
+        if (brand != null ? !brand.equals(product.brand) : product.brand != null) return false;
+        if (description != null ? !description.equals(product.description) : product.description != null) return false;
+        if (price != null ? !price.equals(product.price) : product.price != null) return false;
+        if (pictureLink != null ? !pictureLink.equals(product.pictureLink) : product.pictureLink != null) return false;
+        return !(creationDate != null ? !creationDate.equals(product.creationDate) : product.creationDate != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (brand != null ? brand.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (pictureLink != null ? pictureLink.hashCode() : 0);
+        result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", brand='" + brand + '\'' +
+                ", description='" + description + '\'' +
+                ", price='" + price + '\'' +
+                ", pictureLink='" + pictureLink + '\'' +
+                ", creationDate='" + creationDate + '\'' +
+                '}';
     }
 }

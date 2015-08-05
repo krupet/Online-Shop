@@ -1,35 +1,41 @@
 package ua.com.krupet.entity;
 
-import org.hibernate.annotations.*;
-import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.GenericGenerator;
 import ua.com.krupet.RoleTypes;
 
-import javax.persistence.*;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
- * Created by krupet on 11.07.2015.
+ * EntityClass representing some role, used for Spring Security
+ *
+ * @author krupet
+ * @see ua.com.krupet.entity.UserEntity
  */
 @Entity
 @Table(name = "USER_ROLES")
-//@Table(name = "user_roles")
 public class RoleEntity implements Serializable{
 
     @Id
     @Column(name = "ROLE_ID", unique = true, nullable = false)
-//    @Column(name = "role_id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @GenericGenerator(name="gen", strategy="foreign", parameters={@org.hibernate.annotations.Parameter(name="property", value="user")})
+    @GenericGenerator(name="gen", strategy="foreign",
+            parameters={@org.hibernate.annotations.Parameter(name="property", value="user")})
     private Long id;
 
     @Column(name = "USER_NAME")
-//    @Column(name = "user_name")
     private String username;
 
     @Column(name = "USER_ROLE")
-//    @Column(name = "user_role")
     @Enumerated(EnumType.STRING)
     private RoleTypes roleType;
 

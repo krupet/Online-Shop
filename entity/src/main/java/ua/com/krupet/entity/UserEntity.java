@@ -2,59 +2,58 @@ package ua.com.krupet.entity;
 
 import org.hibernate.annotations.Cascade;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by krupet on 11.07.2015.
+ * EntityClass representing some user of shop
+ *
+ * @author krupet
+ * @see ua.com.krupet.entity.RoleEntity
  */
 @Entity
 @Table(name = "USERS")
-//@Table(name = "users")
 public class UserEntity implements Serializable{
 
     @Id
     @Column(name = "USER_ID", unique = true, nullable = false)
-//    @Column(name = "user_id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "USER_FIRST_NAME")
-//    @Column(name = "user_first_name")
     private String firstName;
 
     @Column(name = "USER_LAST_NAME")
-//    @Column(name = "user_last_name")
     private String lastName;
 
     @Column(name = "USER_EMAIL", unique = true)
-//    @Column(name = "user_email", unique = true)
-    private String email; // TODO: md5 hashing!
+    private String email;
 
     @Column(name = "USER_AGE", nullable = true)
-//    @Column(name = "user_age", nullable = true)
     private String age;
 
     @Column(name = "USER_POST_CODE", nullable = false)
-//    @Column(name = "user_post_code", nullable = false)
     private String postCode;
 
     @Column(name = "USER_ADDRESS", nullable = false)
-//    @Column(name = "user_address", nullable = false)
     private String address;
 
     @Column(name = "USER_CREATION_DATE", nullable = false)
-//    @Column(name = "user_creation_date", nullable = false)
     private Long creationDate;
 
     @Column(name = "USER_LOGIN", nullable = false, unique = true)
-//    @Column(name = "user_login", nullable = false, unique = true)
     private String login;
 
     @Column(name = "USER_PASSWORD", nullable = false)
-//    @Column(name = "user_password", nullable = false)
-    private String password; // TODO: md5 hashing!
+    private String password;
 
     @OneToOne(mappedBy="user")
     @Cascade(value=org.hibernate.annotations.CascadeType.SAVE_UPDATE)
