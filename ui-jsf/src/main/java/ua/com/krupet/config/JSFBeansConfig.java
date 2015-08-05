@@ -3,10 +3,19 @@ package ua.com.krupet.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import ua.com.krupet.jsfbeans.*;
+
+import ua.com.krupet.jsfbeans.IndexBean;
+import ua.com.krupet.jsfbeans.LoginBean;
+import ua.com.krupet.jsfbeans.OrderBean;
+import ua.com.krupet.jsfbeans.ProductBean;
+import ua.com.krupet.jsfbeans.ShopBean;
+import ua.com.krupet.jsfbeans.UserBean;
+import ua.com.krupet.jsfbeans.UserInfoBean;
 
 /**
- * Created by krupet on 7/22/15.
+ * Spring config class for JSF beans
+ *
+ * @author krupet
  */
 
 @Configuration

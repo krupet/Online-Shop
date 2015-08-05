@@ -10,10 +10,12 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
-import java.util.PrimitiveIterator;
 
 /**
- * Created by krupet on 8/1/15.
+ * ManagedBean Class for index.xhtml page
+ * Is using for retrieving products list on public page
+ *
+ * @author krupet
  */
 @ManagedBean
 @SessionScoped
@@ -29,6 +31,11 @@ public class IndexBean implements Serializable {
         lazyDataModel = new LazyProductDataModel(productService);
     }
 
+    /**
+     * Returns list of products wrapped in LazyDataModel for primfaces datatable
+     *
+     * @return list of products
+     */
     public LazyDataModel<Product> getLazyDataModel() {
         return lazyDataModel;
     }

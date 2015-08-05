@@ -11,7 +11,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by krupet on 7/26/15.
+ * Lazy loading for users list. There is a lot of code duplication but can`t solve it yet
+ *
+ * @author krupet
  */
 public class LazyUserDataModel extends LazyDataModel<User> implements Serializable {
 

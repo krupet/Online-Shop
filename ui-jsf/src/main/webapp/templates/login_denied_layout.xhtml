@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>
+            <ui:insert name="title">Template title</ui:insert>
+        </title>
+    </h:head>
+
+    <h:body>
+        <p:layout fullPage="true">
+
+            <p:layoutUnit position="center">
+                <ui:insert name="content">Default content</ui:insert>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="south" size="100">
+                <div id="footer">
+                    <span>Made by <a href="https://github.com/krupet">krupet</a>.</span>
+                </div>
+            </p:layoutUnit>
+        </p:layout>
+
+    </h:body>
+</html>

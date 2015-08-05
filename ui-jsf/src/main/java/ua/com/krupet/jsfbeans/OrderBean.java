@@ -35,9 +35,6 @@ public class OrderBean implements Serializable{
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private ProductService productService;
-
     private LazyDataModel<Order> lazyDataModel;
     private String customerID;
     private User user;
@@ -63,7 +60,32 @@ public class OrderBean implements Serializable{
         } else user = new User();
     }
 
+    public void editOrderStatus(ActionEvent event) {
+        RequestContext context = RequestContext.getCurrentInstance();
+        FacesMessage message = null;
+        boolean success = false;
 
+        Long orderID = Long.parseLong(selectedOrder.getId());
+
+        selectedOrder.setOrderStatus(orderStatus);
+
+        if (ordersService.updateOrderStatus(selectedOrder) != null) {
+            success = true;
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Updated!", "order with ID("+ orderID + ") updated successfully!");
+        } else message = new FacesMessage(FacesMessage.SEVERITY_WARN,
+                "Error", "error during updating order with ID(" + orderID + ")!");
+
+        FacesContext.getCurrentInstance().addMessage(null, message);
+        context.addCallbackParam("success", success);
+    }
+
+    public List<Product> getProducts() {
+
+        if (order != null) {
+            return products = order.getProductIDList();
+        } else return new ArrayList<>();
+    }
 
     public User getUser() {
         return user;
@@ -85,13 +107,6 @@ public class OrderBean implements Serializable{
         this.order = order;
     }
 
-    public List<Product> getProducts() {
-
-        if (order != null) {
-            return products = order.getProductIDList();
-        } else return new ArrayList<>();
-    }
-
     public void setProducts(List<Product> products) {
         this.products = products;
     }
@@ -102,26 +117,6 @@ public class OrderBean implements Serializable{
 
     public void setSelectedOrder(Order selectedOrder) {
         this.selectedOrder = selectedOrder;
-    }
-
-    public void editOrderStatus(ActionEvent event) {
-        RequestContext context = RequestContext.getCurrentInstance();
-        FacesMessage message = null;
-        boolean success = false;
-
-        Long orderID = Long.parseLong(selectedOrder.getId());
-
-        selectedOrder.setOrderStatus(orderStatus);
-
-        if (ordersService.updateOrderStatus(selectedOrder) != null) {
-            success = true;
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Updated!", "order with ID("+ orderID + ") updated successfully!");
-        } else message = new FacesMessage(FacesMessage.SEVERITY_WARN,
-                    "Error", "error during updating order with ID(" + orderID + ")!");
-
-        FacesContext.getCurrentInstance().addMessage(null, message);
-        context.addCallbackParam("success", success);
     }
 
     public String getOrderStatus() {

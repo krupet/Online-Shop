@@ -6,6 +6,7 @@ import java.lang.reflect.Field;
 import java.util.Comparator;
 
 /**
+ * Utility class for "generic" sorting by some parameter
  * took from: http://www.primefaces.org/showcase/ui/data/datatable/lazy.xhtml
  */
 public class LazySorter<T>  implements Comparator<T>{

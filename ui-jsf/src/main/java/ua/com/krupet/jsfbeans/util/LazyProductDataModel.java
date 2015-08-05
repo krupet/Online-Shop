@@ -12,7 +12,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by krupet on 7/25/15.
+ * Lazy loading for products list. There is a lot of code duplication but can`t solve it yet
+ *
+ * @author krupet
  */
 public class LazyProductDataModel extends LazyDataModel<Product> implements Serializable {
 

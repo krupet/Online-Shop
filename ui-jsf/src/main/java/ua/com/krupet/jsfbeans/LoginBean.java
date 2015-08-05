@@ -16,7 +16,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Created by krupet on 8/3/15.
+ * ManagedBean Class for login.xhtml page
+ * Provides ability to register a new user with ROLE_USER restrictions
+ *
+ * @author krupet
  */
 @ManagedBean
 @RequestScoped
@@ -35,6 +38,11 @@ public class LoginBean  implements Serializable {
         this.user = user;
     }
 
+    /**
+     * Add new user in the "system" with ROLE_USER authorities
+     *
+     * @param event - primfaces stuff
+     */
     public void addNewUser(ActionEvent event) {
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage message = null;
