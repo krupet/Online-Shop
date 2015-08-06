@@ -56,10 +56,10 @@ CREATE TABLE `order_products` (
 INSERT INTO products
 (product_id, product_name, product_brand, product_description, product_price, product_pic, product_creation_time)
 VALUES
-  (1, 'revolver', 'colt', 'good gun for gunslinger', 20.5, 'pic1', 1438857361895),
-  (2, 'rifle', 'colt', 'long range rifle', 40, 'pic2', 1438857361895),
-  (3, 'shotgun', 'colt', 'short range rifle', 30.5, 'pic3', 1438857361895),
-  (4, 'hat', 'unknown', 'protects from sun-hit', 2.5, 'pic4', 1438857361895);
+  (1, 'revolver', 'colt', 'good gun for gunslinger', 20.5, 'product.png', 1438857361895),
+  (2, 'rifle', 'colt', 'long range rifle', 40, 'product.png', 1438857361895),
+  (3, 'shotgun', 'colt', 'short range rifle', 30.5, 'product.png', 1438857361895),
+  (4, 'hat', 'unknown', 'protects from sun-hit', 2.5, 'product.png', 1438857361895);
 
 INSERT INTO users
 (user_id, user_login, user_password, user_email, user_first_name, user_last_name, user_post_code, user_address, user_age, user_creation_date)

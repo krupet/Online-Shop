@@ -17,6 +17,9 @@
         <h:form id="indexForm">
             <p:dataTable id="products_list" var="product" value="#{indexBean.lazyDataModel}" rows="10" lazy="true">
                 <f:facet name="header">Products</f:facet>
+                <p:column headerText="Image">
+                    <h:graphicImage library="default" name="images/#{product.pictureLink}" style="width: 64px; height: 64px"/>
+                </p:column>
                 <p:column headerText="ID" sortBy="#{product.id}">
                     <h:outputText value="#{product.id}"/>
                 </p:column>
@@ -31,9 +34,6 @@
                 </p:column>
                 <p:column headerText="Price" sortBy="#{product.price}">
                     <h:outputText value="#{product.price}"/>
-                </p:column>
-                <p:column headerText="Pic">
-                    <h:outputText value="#{product.pictureLink}"/>
                 </p:column>
                 <p:column headerText="Date" sortBy="#{product.creationDate}">
                     <h:outputText value="#{product.creationDate}">

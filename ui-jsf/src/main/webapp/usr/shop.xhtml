@@ -29,6 +29,9 @@
         <h:form id="shopForm">
             <p:dataTable id="products_list" var="product" value="#{shopBean.lazyDataModel}" lazy="true" rows="10">
                 <f:facet name="header">Products</f:facet>
+                <p:column headerText="Image">
+                    <h:graphicImage library="default" name="images/#{product.pictureLink}" style="width: 64px; height: 64px"/>
+                </p:column>
                 <p:column headerText="ID" sortBy="#{product.id}">
                     <h:outputText value="#{product.id}"/>
                 </p:column>
