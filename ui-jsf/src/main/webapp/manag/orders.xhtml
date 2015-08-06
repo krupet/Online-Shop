@@ -13,7 +13,8 @@
     <ui:define name="content">
 
         <h:form id="ordersForm">
-            <p:dataTable id="orders_list" var="order" value="#{orderBean.lazyDataModel}" lazy="true" rows="10">
+            <p:dataTable id="orders_list" var="order" value="#{orderBean.lazyDataModel}" lazy="true" rows="10"
+                         paginator="true">
                 <f:facet name="header">Orders</f:facet>
 
                 <p:column headerText="ID" sortBy="#{order.id}">

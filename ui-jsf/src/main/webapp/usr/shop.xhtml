@@ -12,10 +12,6 @@
     <ui:define name="content">
 
         <h:form id="userIdentityForm">
-            <h1>
-                Welcome to our store!
-            </h1>
-
             <h3>
                 Products in a cart:
                 <h:outputText value="#{shopBean.customersOrder.productIDList.size()}">
@@ -24,10 +20,11 @@
             </h3>
             <div id="catrInfoDiv">
                 <p:commandButton oncomplete="PF('cartInfo').show()" update=":cartInfoForm" value="Cart Info" title="Cart Info"/>
-            </div>
+            </div><br/>
         </h:form>
         <h:form id="shopForm">
-            <p:dataTable id="products_list" var="product" value="#{shopBean.lazyDataModel}" lazy="true" rows="10">
+            <p:dataTable id="products_list" var="product" value="#{shopBean.lazyDataModel}" lazy="true" rows="10"
+                    paginator="true">
                 <f:facet name="header">Products</f:facet>
                 <p:column headerText="Image">
                     <h:graphicImage library="default" name="images/#{product.pictureLink}" style="width: 32px; height: 32px"/>
@@ -61,7 +58,8 @@
 
         <p:dialog widgetVar="cartInfo" header="Order Info" resizable="false" width="950">
             <h:form id="cartInfoForm">
-                <p:dataTable var="product" value="#{shopBean.customersOrder.productIDList}" sortBy="#{product.description}">
+                <p:dataTable var="product" value="#{shopBean.customersOrder.productIDList}" sortBy="#{product.description}"
+                        scrollable="true" scrollHeight="200">
                     <p:column headerText="ProductID" sortBy="#{product.id}">
                         <h:outputText value="#{product.id}"/>
                     </p:column>
@@ -83,13 +81,13 @@
                     </p:column>
 
                     <f:facet name="footer">
-                        <h:outputLabel for="total_price" value="TotaL: ">
-                            <h:outputText id="total_price" value="#{shopBean.getTotal()}"/>
-                        </h:outputLabel>
                         <p:commandButton action="#{shopBean.createOrder()}" value="Make Order" title="Make Order"
                                          oncomplete="closeWidget(xhr, status, args)" update="userIdentityForm growl">
                             <f:setPropertyActionListener value="cartInfo" target="#{shopBean.widgetVar}"/>
                         </p:commandButton>
+                        <h:outputLabel for="total_price" value="TotaL: ">
+                            <h:outputText id="total_price" value="#{shopBean.getTotal()}"/>
+                        </h:outputLabel>
                     </f:facet>
                 </p:dataTable>
             </h:form>

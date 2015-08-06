@@ -23,10 +23,11 @@
                         <p:commandButton value="Login" action="/login.xhtml?faces-redirect=true"/>
                     </c:if>
                     <c:if test="#{request.getUserPrincipal() != null}">
-                        <h:graphicImage library="default" name="images/user.png" style="width: 32px; height: 32px"/>
+                        <h:graphicImage library="default" name="images/user.png" style="width: 32px; height: 32px; vertical-align:middle;" id="user_img"/>
                         <span>
                             <h:outputText value="#{userInfoBean.getUserName()}"/>
                         </span>
+
                         <a href="#{request.contextPath}/logout">logout</a>
                     </c:if>
                 </h:form>

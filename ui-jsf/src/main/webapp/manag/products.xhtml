@@ -14,7 +14,8 @@
         <h1>Products</h1>
 
         <h:form id="form">
-            <p:dataTable id="products_list" var="product" value="#{productBean.lazyDataModel}" lazy="true" rows="10">
+            <p:dataTable id="products_list" var="product" value="#{productBean.lazyDataModel}" lazy="true" rows="10"
+                    paginator="true">
                 <f:facet name="header">Products</f:facet>
                 <p:column headerText="Image">
                     <h:graphicImage library="default" name="images/#{product.pictureLink}" style="width: 32px; height: 32px;text-align: center"/>

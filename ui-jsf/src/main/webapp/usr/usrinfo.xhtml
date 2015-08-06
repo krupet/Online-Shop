@@ -11,7 +11,7 @@
 
     <ui:define name="content">
         <h:form id="usersInfoForm">
-            <p:panelGrid columns="2">
+            <p:panelGrid columns="2" style="margin: 0 auto">
 
                 <h:outputText value="ID:"/>
                 <h:outputText value="#{userInfoBean.user.id}"/>
@@ -44,9 +44,12 @@
                 <h:outputText value="#{userInfoBean.user.creationDate}">
                     <f:converter converterId="ua.com.krupet.jsfbeans.util.CreationDateConverter"/>
                 </h:outputText>
-            </p:panelGrid>
+            </p:panelGrid><br/>
 
-            <p:dataTable var="order" value="#{userInfoBean.ordersList}">
+            <p:dataTable var="order" value="#{userInfoBean.ordersList}" scrollable="true" scrollHeight="300">
+                <f:facet name="header">
+                    <h:outputText value="My orders"/>
+                </f:facet>
                 <p:column headerText="ID">
                     <h:outputText value="#{order.id}"/>
                 </p:column>

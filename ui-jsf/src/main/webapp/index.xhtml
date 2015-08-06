@@ -15,10 +15,11 @@
         <h1>Welcome!</h1><br></br>
 
         <h:form id="indexForm">
-            <p:dataTable id="products_list" var="product" value="#{indexBean.lazyDataModel}" rows="10" lazy="true">
+            <p:dataTable id="products_list" var="product" value="#{indexBean.lazyDataModel}" rows="10" lazy="true"
+                         paginator="true">
                 <f:facet name="header">Products</f:facet>
                 <p:column headerText="Image">
-                    <h:graphicImage library="default" name="images/#{product.pictureLink}" style="width: 64px; height: 64px"/>
+                    <h:graphicImage library="default" name="images/#{product.pictureLink}" style="width: 32px; height: 32px"/>
                 </p:column>
                 <p:column headerText="ID" sortBy="#{product.id}">
                     <h:outputText value="#{product.id}"/>
