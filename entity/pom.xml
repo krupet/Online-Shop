@@ -15,21 +15,20 @@
         <jsf.version>2.2.11</jsf.version>
     </properties>
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>javax.persistence</groupId>-->
-            <!--<artifactId>persistence-api</artifactId>-->
-            <!--<version>1.0.2</version>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>javax.persistence</artifactId>
             <version>2.1.0</version>
         </dependency>
 
+        <!--
+        dependencies needed for hibernate and jsf integration
+        -->
+
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
-            <version>3.5.6-Final</version>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.3.10.Final</version>
         </dependency>
 
         <dependency>

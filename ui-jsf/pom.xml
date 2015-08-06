@@ -37,6 +37,7 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -78,6 +79,18 @@
             <artifactId>spring-security-config</artifactId>
             <version>${spring.securoty.versoin}</version>
         </dependency>
+
+        <!--
+        required for tomcat plugin
+        see here for more info:
+        http://www.mkyong.com/jsf2/jsf-2-0-tomcat-it-appears-the-jsp-version-of-the-container-is-older-than-2-1/
+        -->
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>el-impl</artifactId>
+            <version>2.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>
