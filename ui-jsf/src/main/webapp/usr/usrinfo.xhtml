@@ -41,7 +41,9 @@
                 <h:outputText value="#{userInfoBean.user.address}"/>
 
                 <h:outputText value="Creation date:"/>
-                <h:outputText value="#{userInfoBean.user.creationDate}"/>
+                <h:outputText value="#{userInfoBean.user.creationDate}">
+                    <f:converter converterId="ua.com.krupet.jsfbeans.util.CreationDateConverter"/>
+                </h:outputText>
             </p:panelGrid>
 
             <p:dataTable var="order" value="#{userInfoBean.ordersList}">
@@ -64,7 +66,9 @@
                 </p:column>
 
                 <p:column headerText="Creation date">
-                    <h:outputText value="#{order.creationDate}"/>
+                    <h:outputText value="#{order.creationDate}">
+                        <f:converter converterId="ua.com.krupet.jsfbeans.util.CreationDateConverter"/>
+                    </h:outputText>
                 </p:column>
             </p:dataTable>
         </h:form>

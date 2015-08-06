@@ -56,20 +56,20 @@ CREATE TABLE `order_products` (
 INSERT INTO products
 (product_id, product_name, product_brand, product_description, product_price, product_pic, product_creation_time)
 VALUES
-  (1, 'revolver', 'colt', 'good gun for gunslinger', 20.5, 'pic1', 1863),
-  (2, 'rifle', 'colt', 'long range rifle', 40, 'pic2', 1864),
-  (3, 'shotgun', 'colt', 'short range rifle', 30.5, 'pic3', 1865),
-  (4, 'hat', 'unknown', 'protects from sun-hit', 2.5, 'pic4', 1866);
+  (1, 'revolver', 'colt', 'good gun for gunslinger', 20.5, 'pic1', 1438857361895),
+  (2, 'rifle', 'colt', 'long range rifle', 40, 'pic2', 1438857361895),
+  (3, 'shotgun', 'colt', 'short range rifle', 30.5, 'pic3', 1438857361895),
+  (4, 'hat', 'unknown', 'protects from sun-hit', 2.5, 'pic4', 1438857361895);
 
 INSERT INTO users
 (user_id, user_login, user_password, user_email, user_first_name, user_last_name, user_post_code, user_address, user_age, user_creation_date)
 VALUES
-  (1, 'admin', 'admin', 'admin@gmail.com', 'adm', 'in', '123', '123', '123', 1234567),
-  (2, 'manager', 'manager', 'manager@gmail.com', 'mana', 'ger', '123', '123', '123', 1234567),
-  (3, 'user', 'user', 'user@gmail.com', 'us', 'er', '123', '123', '123', 1234567),
-  (4, 'user1', 'user1', 'user1@gmail.com', 'us', 'er', '123', '123', '123', 1234567),
-  (5, 'user12', 'user12', 'user12@gmail.com', 'us', 'er', '123', '123', '123', 1234567),
-  (6, 'user123', 'user123', 'user123@gmail.com', 'us', 'er', '123', '123', '123', 1234567);
+  (1, 'admin', 'admin', 'admin@gmail.com', 'adm', 'in', '123', '123', '123', 1438857361895),
+  (2, 'manager', 'manager', 'manager@gmail.com', 'mana', 'ger', '123', '123', '123', 1438857361895),
+  (3, 'user', 'user', 'user@gmail.com', 'us', 'er', '123', '123', '123', 1438857361895),
+  (4, 'user1', 'user1', 'user1@gmail.com', 'us', 'er', '123', '123', '123', 1438857361895),
+  (5, 'user12', 'user12', 'user12@gmail.com', 'us', 'er', '123', '123', '123', 1438857361895),
+  (6, 'user123', 'user123', 'user123@gmail.com', 'us', 'er', '123', '123', '123', 1438857361895);
 
 INSERT INTO user_roles
 (role_id, user_name, user_role)
@@ -83,13 +83,13 @@ VALUES
 
 INSERT INTO orders (order_id, user_id, order_status, order_creation_date)
 VALUES
-  (1, 3, 'ACCEPTED', 1234567),
-  (2, 3, 'ACCEPTED', 1234567),
-  (3, 3, 'ACCEPTED', 1234567),
-  (4, 4, 'ACCEPTED', 1234567),
-  (5, 5, 'ACCEPTED', 1234567),
-  (6, 5, 'ACCEPTED', 1234567),
-  (7, 5, 'ACCEPTED', 1234567);
+  (1, 3, 'ACCEPTED', 1438857361895),
+  (2, 3, 'ACCEPTED', 1438857361895),
+  (3, 3, 'ACCEPTED', 1438857361895),
+  (4, 4, 'ACCEPTED', 1438857361895),
+  (5, 5, 'ACCEPTED', 1438857361895),
+  (6, 5, 'ACCEPTED', 1438857361895),
+  (7, 5, 'ACCEPTED', 1438857361895);
 
 INSERT INTO order_products (order_id, product_id)
 VALUES

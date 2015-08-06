@@ -36,7 +36,9 @@
                     <h:outputText value="#{product.pictureLink}"/>
                 </p:column>
                 <p:column headerText="Date" sortBy="#{product.creationDate}">
-                    <h:outputText value="#{product.creationDate}"/>
+                    <h:outputText value="#{product.creationDate}">
+                        <f:converter converterId="ua.com.krupet.jsfbeans.util.CreationDateConverter"/>
+                    </h:outputText>
                 </p:column>
             </p:dataTable>
         </h:form>

@@ -21,7 +21,9 @@
                 </p:column>
 
                 <p:column headerText="Date" sortBy="#{order.creationDate}">
-                    <h:outputText value="#{order.creationDate}"/>
+                    <h:outputText value="#{order.creationDate}">
+                        <f:converter converterId="ua.com.krupet.jsfbeans.util.CreationDateConverter"/>
+                    </h:outputText>
                 </p:column>
 
                 <p:column headerText="Status" sortBy="#{order.orderStatus}">
@@ -92,7 +94,9 @@
                     <h:outputText id="order_customer" value="#{orderBean.selectedOrder.id}"/>
 
                     <h:outputLabel for="order_date" value="Date:" />
-                    <h:outputText id="order_date" value="#{orderBean.selectedOrder.creationDate}"/>
+                    <h:outputText id="order_date" value="#{orderBean.selectedOrder.creationDate}">
+                        <f:converter converterId="ua.com.krupet.jsfbeans.util.CreationDateConverter"/>
+                    </h:outputText>
 
                     <h:outputLabel for="order_status" value="Order status:" />
                     <p:inplace id="order_status" effect="none" label="#{orderBean.selectedOrder.orderStatus}">
