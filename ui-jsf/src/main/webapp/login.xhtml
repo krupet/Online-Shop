@@ -11,61 +11,63 @@
 
     <ui:define name="content">
 
-        <form id="login_form" action="#{request.contextPath}/login" method="post">
-            <p>
-                <label for="j_username" class="login-form-tag">User</label>
-                <input type="text" id="username" name="username" class="ui-corner-all" required="required" />
-            </p>
-            <p>
-                <label for="j_password" class="login-form-tag">Password</label>
-                <input type="password" id="password" name="password" class="ui-corner-all" required="required" />
-            </p>
-            <p>
-                <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
-                    <span class="ui-button-text">Login</span>
-                </button>
-            </p>
-        </form>
+        <div id="login_id">
+            <form id="login_form" action="#{request.contextPath}/login" method="post">
+                <p>
+                    <label for="j_username" class="login-form-tag">User</label>
+                    <input type="text" id="username" name="username" class="ui-corner-all" required="required" />
+                </p>
+                <p>
+                    <label for="j_password" class="login-form-tag">Password</label>
+                    <input type="password" id="password" name="password" class="ui-corner-all" required="required" />
+                </p>
+                <p>
+                    <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                        <span class="ui-button-text">Login</span>
+                    </button>
+                </p>
+            </form>
 
-        <h:form id="sign_up_button_form">
-            <p:commandButton id="sign_up" value="Sign up" title="Sign up" oncomplete="PF('signUp').show()"/>
-        </h:form>
-
-        <p:dialog id="sign_up_new_usr" widgetVar="signUp" modal="true" header="New User" showEffect="fade" hideEffect="fade" resizable="false">
-            <h:form id="sign_up_new_user_form">
-                <p:panelGrid columns="2">
-                    <h:outputText value="User name (login):"/>
-                    <p:inputText value="#{loginBean.user.login}" required="true" requiredMessage="Please enter users login!"/>
-
-                    <h:outputText value="Password:"/>
-                    <p:inputText value="#{loginBean.user.password}" required="true" requiredMessage="Please enter users password!"/>
-
-                    <h:outputText value="Email:"/>
-                    <p:inputText value="#{loginBean.user.email}" required="true" requiredMessage="Please enter your email!"/>
-
-                    <h:outputText value="First name:"/>
-                    <p:inputText value="#{loginBean.user.firstName}" required="true" requiredMessage="Please enter your first name!"/>
-
-                    <h:outputText value="Last name:"/>
-                    <p:inputText value="#{loginBean.user.lastName}" required="true" requiredMessage="Please enter yur last name!"/>
-
-                    <h:outputText value="Postal code:"/>
-                    <p:inputText value="#{loginBean.user.postCode}" required="true" requiredMessage="Please enter your postal code!"/>
-
-                    <h:outputText value="Address (street):"/>
-                    <p:inputText value="#{loginBean.user.address}" required="true" requiredMessage="Please enter your address!"/>
-
-                    <h:outputText value="Age:"/>
-                    <p:inputText value="#{loginBean.user.age}"/>
-
-                    <f:facet name="footer">
-                        <p:commandButton value="Sign Up!" update="growl" actionListener="#{loginBean.addNewUser}"
-                                         oncomplete="handlePostRequest(xhr, status, args)">
-                        </p:commandButton>
-                    </f:facet>
-                </p:panelGrid>
+            <h:form id="sign_up_button_form">
+                <p:commandButton id="sign_up" value="Sign up" title="Sign up" oncomplete="PF('signUp').show()"/>
             </h:form>
-        </p:dialog>
+
+            <p:dialog id="sign_up_new_usr" widgetVar="signUp" modal="true" header="New User" showEffect="fade" hideEffect="fade" resizable="false">
+                <h:form id="sign_up_new_user_form">
+                    <p:panelGrid columns="2">
+                        <h:outputText value="User name (login):"/>
+                        <p:inputText value="#{loginBean.user.login}" required="true" requiredMessage="Please enter users login!"/>
+
+                        <h:outputText value="Password:"/>
+                        <p:inputText value="#{loginBean.user.password}" required="true" requiredMessage="Please enter users password!"/>
+
+                        <h:outputText value="Email:"/>
+                        <p:inputText value="#{loginBean.user.email}" required="true" requiredMessage="Please enter your email!"/>
+
+                        <h:outputText value="First name:"/>
+                        <p:inputText value="#{loginBean.user.firstName}" required="true" requiredMessage="Please enter your first name!"/>
+
+                        <h:outputText value="Last name:"/>
+                        <p:inputText value="#{loginBean.user.lastName}" required="true" requiredMessage="Please enter yur last name!"/>
+
+                        <h:outputText value="Postal code:"/>
+                        <p:inputText value="#{loginBean.user.postCode}" required="true" requiredMessage="Please enter your postal code!"/>
+
+                        <h:outputText value="Address (street):"/>
+                        <p:inputText value="#{loginBean.user.address}" required="true" requiredMessage="Please enter your address!"/>
+
+                        <h:outputText value="Age:"/>
+                        <p:inputText value="#{loginBean.user.age}"/>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Sign Up!" update="growl" actionListener="#{loginBean.addNewUser}"
+                                             oncomplete="handlePostRequest(xhr, status, args)">
+                            </p:commandButton>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+            </p:dialog>
+        </div>
 
         <p:growl id="growl" sticky="true" showDetail="true" life="300" />
 

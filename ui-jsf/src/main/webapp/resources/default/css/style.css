@@ -1,0 +1,15 @@
+#login_id {
+    display: table;
+    margin: 0 auto;
+    text-align: center;
+    overflow: auto;
+    padding-top: 10%;
+}
+
+#footer {
+    display: table;
+    margin: 0 auto;
+    text-align: center;
+    overflow: auto;
+    padding-top: 20px;
+}
